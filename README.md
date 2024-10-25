@@ -6,6 +6,7 @@
   * Team formation and role assignment
   * Requirements analysis
   * Technology stack selection
+  * Proposal Presentaion
   * Development environment setup
   * Initial project documentation
 
