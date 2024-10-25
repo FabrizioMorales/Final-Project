@@ -1,6 +1,6 @@
 # Detailed Project Timeline
 
-## Phase 1: Project Planning & Setup (Nov 4 - Nov 22, 2024)
+## Phase 1: Project Planning & Setup (Oct 28 - Nov 15, 2024)
 - Duration: 3 weeks
 - Key Activities:
   * Team formation and role assignment
@@ -9,8 +9,8 @@
   * Development environment setup
   * Initial project documentation
 
-## Phase 2: Sprint 1 - Infrastructure (Nov 25 - Dec 20, 2024)
-- Duration: 4 weeks
+## Phase 2: Sprint 1 - Infrastructure (Nov 18 - Dec 20, 2024)
+- Duration: 5 weeks
 - Key Deliverables:
   ### Web Developer:
   * Project repository setup
