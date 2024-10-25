@@ -116,7 +116,7 @@
   * Handover documentation
 
 ## Key Dates and Deadlines
-- Project Kickoff: November 4, 2024
+- Project Kickoff: October 28, 2024
 - Infrastructure Complete: December 20, 2024
 - Core Features Complete: February 7, 2025
 - Feature Complete: March 7, 2025
@@ -124,11 +124,11 @@
 - Project Launch: April 1, 2025
 
 ## Regular Meetings Schedule
-- Daily Standups: Every day at 9:30 AM (15 minutes)
+- Daily Standups: Every day at 11:00 AM (15 minutes) on teams
 - Sprint Planning: First Monday of each sprint (2 hours)
 - Sprint Review: Last Friday of each sprint (1 hour)
 - Sprint Retrospective: Last Friday of each sprint (1 hour)
-- Stakeholder Updates: Bi-weekly on Thursdays (30 minutes)
+- Stakeholder Updates: Bi-weekly on Wednesday (30 minutes) after 02:00PM
 
 ## Risk Management
 1. Holiday Season Impact
