@@ -1,5 +1,5 @@
-Enter the Server
 
+Enter the server
 - Open putty
 - Put Host name = ssh.gb.stackcp.com 
 - Go to SSH+ -> Auth+ -> Credentials -> Browse and use the key for SSH.ppk
