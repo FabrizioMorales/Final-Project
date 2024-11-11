@@ -1,0 +1,8 @@
+Enter the Server
+
+- Open putty
+- Put Host name = ssh.gb.stackcp.com 
+- Go to SSH+ -> Auth+ -> Credentials -> Browse and use the key for SSH.ppk
+- login = universitycyber.uk
+- passphrase for SSH = Education12!  
+- exit to exit
