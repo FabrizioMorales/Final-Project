@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Resources</title>
+{% endblock title %}
+
+{% block content %}
+<section id="resources" class="resources container mx-auto py-10">
+    <h2 class="text-2xl font-bold text-center mb-6">Cybersecurity Resources</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-lg font-bold mb-2">Cybersecurity Best Practices Guide</h3>
+            <p class="mb-4">Download our comprehensive guide to implementing cybersecurity best practices in your organization.</p>
+            <a href="https://ia600803.us.archive.org/17/items/cybersecurity-best-practices-guide/Cybersecurity_Best_Practices_Guide.pdf" class="text-blue-600 hover:underline">Download Guide</a>
+        </div>
+
+        
+
+        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-lg font-bold mb-2">Incident Response Checklist</h3>
+            <p class="mb-4">Access a step-by-step checklist to handle cybersecurity incidents effectively.</p>
+            <a href="https://archive.org/download/incident-response-checklist/Incident_Response_Checklist.pdf" class="text-blue-600 hover:underline">Download Checklist</a>
+        </div>
+
+        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-lg font-bold mb-2">Webinars and Training Sessions</h3>
+            <p class="mb-4">Join our expert-led webinars on topics like phishing prevention, secure development, and compliance.</p>
+            <a href="/webinars" class="text-blue-600 hover:underline"></a>
+        </div>
+
+        
+
+        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-lg font-bold mb-2">Cloud Security Best Practices</h3>
+            <p class="mb-4">Learn how to secure your cloud infrastructure with our detailed best practices guide.</p>
+            <a href="https://archive.org/download/cloud-security-best-practices/Cloud_Security_Best_Practices.pdf" class="text-blue-600 hover:underline">Download Guide</a>
+        </div>
+
+
+
+        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-lg font-bold mb-2">Secure Password Practices Poster</h3>
+            <p class="mb-4">Download a printable poster to promote strong password habits in your organization.</p>
+            <a href="https://i.ibb.co/F0Skp34/Secure-Password-Practices-Poster-2.png" class="text-blue-600 hover:underline">Download Poster</a>
+        </div>
+    </div>
+</section>
+{% endblock content %}

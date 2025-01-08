@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Book Appointment</title>
+{% endblock title %}
+
+{% block content %}
+
+<section id="appointment" class="appointment">
+    <h2>Book an Appointment</h2>
+    <form>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+        <textarea name="details" placeholder="Appointment Details" required></textarea>
+        <button type="submit">Book Appointment</button>
+    </form>
+</section>
+{% endblock content %}

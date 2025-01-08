@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Services</title>
+{% endblock title %}
+
+{% block content %}
+
+<header class="bg-blue-900 text-black py-6">
+  <div class="container mx-auto text-center">
+    <h1 class="text-3xl font-bold">
+      Welcome to Service Page
+    </h1>
+  </div>
+</header>
+
+<main class="container mx-auto py-10">
+
+  <section class="mb-10">
+    <h3 class="text-xl font-bold mb-4">
+      What We Offer:
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Illustration of network security" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/IhfMC" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Network Security Assessment
+        </h4>
+        <p>
+          Ensure your network is secure with comprehensive vulnerability assessments, penetration testing, and advanced monitoring solutions.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Graphic of cloud security" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/EddmS" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Cloud Security
+        </h4>
+        <p>
+          Protect your cloud infrastructure with robust security protocols, identity management, and secure configurations.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Illustration of data protection measures" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/DWEPo" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Data Protection and Recovery
+        </h4>
+        <p>
+          Safeguard sensitive data with encryption, backup solutions, and recovery strategies to ensure minimal downtime and maximum resilience.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Incident response and forensic investigation" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/oucfw" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Incident Response & Forensics
+        </h4>
+        <p>
+          24/7 incident response services, digital forensics, and post-incident recovery planning to minimize business impact.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Illustration of compliance and risk management" class="mb-4 rounded-lg" height="200" src="https://t.ly/6k5X5" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Compliance and Risk Management
+        </h4>
+        <p>
+          Stay compliant with regulations like GDPR and HIPAA while effectively managing cybersecurity risks.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Training and awareness for employees" class="mb-4 rounded-lg" height="200" src="https://t.ly/Sw5X4" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Cybersecurity Training & Awareness
+        </h4>
+        <p>
+          Equip your team with the knowledge to identify and mitigate risks through interactive workshops and hands-on training sessions.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Protection against ransomware attacks" class="mb-4 rounded-lg" height="200" src="https://t.ly/JYA8L" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Ransomware Protection and Response
+        </h4>
+        <p>
+          Proactive strategies to prevent ransomware attacks and quick response measures to recover from incidents effectively.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Physical security integration illustration" class="mb-4 rounded-lg" height="200" src="https://t.ly/vebrJ" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Physical Security Integration
+        </h4>
+        <p>
+          Secure physical access to critical systems with advanced surveillance, biometric authentication, and access controls.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <img alt="Strategic cybersecurity consulting" class="mb-4 rounded-lg" height="200" src="https://t.ly/RjwNX" width="300"/>
+        <h4 class="text-lg font-bold mb-2">
+          Cyber Security Consulting
+        </h4>
+        <p>
+          Develop tailored cybersecurity strategies with expert advice to align with your business goals and regulatory requirements.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <a class="bg-blue-900 text-blue py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300" href="/appointment">
+    Schedule a Consultation Today
+  </a>
+</main>
+
+{% endblock content %}
