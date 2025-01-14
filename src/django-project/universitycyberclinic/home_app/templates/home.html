@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
 <title>University Cybersecurity Clinic - Home</title>
 {% endblock title %}
@@ -17,7 +18,7 @@
 
 <main class="container mx-auto py-10">
   <section class="text-center mb-10">
-    <img alt="A visual representation of cybersecurity" class="mx-auto mb-6 rounded-lg shadow-lg" height="400" src="https://shorturl.at/cPBKd" width="600"/>
+    <img alt="A visual representation of cybersecurity" class="mx-auto mb-6 rounded-lg shadow-lg" height="400" src="{% static 'images/homebg2.png'%}" width="1200"/>
     <h2 class="text-2xl font-bold mb-4">
       Protecting Communities Through Advanced Cybersecurity Solutions  
     </h2>
@@ -36,7 +37,7 @@
     </h3>
     <div class="flex flex-wrap justify-center gap-6">
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of network security" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/IhfMC" width="300"/>
+        <img alt="Illustration of network security" class="mb-4 rounded-lg" height="200" src="{% static 'images/Networking.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Network Security Assessment
         </h4>
@@ -46,7 +47,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Graphic of cloud security" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/EddmS" width="300"/>
+        <img alt="Graphic of cloud security" class="mb-4 rounded-lg" height="200" src="{% static 'images/cloudesecurity.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Cloud Security
         </h4>
@@ -56,7 +57,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of data protection measures" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/DWEPo" width="300"/>
+        <img alt="Illustration of data protection measures" class="mb-4 rounded-lg" height="200" src="{% static 'images/storage.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Data Protection and Recovery
         </h4>
@@ -66,7 +67,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Incident response and forensic investigation" class="mb-4 rounded-lg" height="200" src="https://shorturl.at/oucfw" width="300"/>
+        <img alt="Incident response and forensic investigation" class="mb-4 rounded-lg" height="200" src="{% static 'images/Incidentrespons.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Incident Response & Forensics
         </h4>
@@ -76,7 +77,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of compliance and risk management" class="mb-4 rounded-lg" height="200" src="https://t.ly/6k5X5" width="300"/>
+        <img alt="Illustration of compliance and risk management" class="mb-4 rounded-lg" height="200" src="{% static 'images/complience.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Compliance and Risk Management
         </h4>
@@ -86,7 +87,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Training and awareness for employees" class="mb-4 rounded-lg" height="200" src="https://t.ly/Sw5X4" width="300"/>
+        <img alt="Training and awareness for employees" class="mb-4 rounded-lg" height="200" src="{% static 'images/trainning.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Cybersecurity Training & Awareness
         </h4>
@@ -96,7 +97,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Protection against ransomware attacks" class="mb-4 rounded-lg" height="200" src="https://t.ly/JYA8L" width="300"/>
+        <img alt="Protection against ransomware attacks" class="mb-4 rounded-lg" height="200" src="{% static 'images/ransomware.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Ransomware Protection and Response
         </h4>
@@ -106,7 +107,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Physical security integration illustration" class="mb-4 rounded-lg" height="200" src="https://t.ly/vebrJ" width="300"/>
+        <img alt="Physical security integration illustration" class="mb-4 rounded-lg" height="200" src="{% static 'images/physicalsecurity.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Physical Security Integration
         </h4>
@@ -116,7 +117,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Strategic cybersecurity consulting" class="mb-4 rounded-lg" height="200" src="https://t.ly/RjwNX" width="300"/>
+        <img alt="Strategic cybersecurity consulting" class="mb-4 rounded-lg" height="200" src="{% static 'images/consulting.png'%}" width="300"/>
         <h4 class="text-lg font-bold mb-2">
           Cyber Security Consulting
         </h4>

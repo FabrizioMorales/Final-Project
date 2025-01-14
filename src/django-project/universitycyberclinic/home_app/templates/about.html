@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
 <title>About Us</title>
 {% endblock title %}
@@ -9,25 +10,25 @@
     <p>We are students of the University of Roehampton London, B.Sc. Computer Science. Our team is working on this project "University Cyber and Technology Clinic" to support SMEs and the local community with technology solutions.</p>
     <div class="team" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
         <div class="team-member" style="flex: 1 1 200px; max-width: 250px; text-align: center;">
-            <img src="https://media.istockphoto.com/id/1265176370/photo/portrait-of-a-confident-young-businessman.jpg?s=612x612&w=0&k=20&c=Hr5Rn3WlBied-o4Qu2LiRc6wP_eHI8UMG9rl1v-_a9s=" alt="Mohebul Hasan Emon" style="width: 100%; height: 250px; object-fit: cover;">
+            <img src="{% static 'images/MohebulHasanEmon.png'%}" alt="Mohebul Hasan Emon" style="width: 100%; height: 250px; object-fit: cover;">
             <h3>Mohebul Hasan Emon</h3>
             <p><strong>Role:</strong> Network Security Specialist</p>
             <p>Designing and implementing secure network architectures and conducting vulnerability assessments.</p>
         </div>
         <div class="team-member" style="flex: 1 1 200px; max-width: 250px; text-align: center;">
-            <img src="https://as2.ftcdn.net/v2/jpg/05/55/64/17/1000_F_555641792_DBCWF2amMuHRrdcVtclkztbJ6X3yn5ky.jpg" alt="Fabrizio Morales" style="width: 100%; height: 250px; object-fit: cover;">
+            <img src="{% static 'images/fabrizo.png'%}" alt="Fabrizio Morales" style="width: 100%; height: 250px; object-fit: cover;">
             <h3>Fabrizio Morales</h3>
             <p><strong>Role:</strong> Cloud Security Specialist</p>
             <p>Securing cloud environments and ensuring compliance with industry standards and best practices.</p>
         </div>
         <div class="team-member" style="flex: 1 1 200px; max-width: 250px; text-align: center;">
-            <img src="https://t4.ftcdn.net/jpg/03/69/19/81/360_F_369198116_K0sFy2gRTo1lmIf5jVGeQmaIEibjC3NN.jpg" alt="Rajababu Kushwaha" style="width: 100%; height: 250px; object-fit: cover;">
+            <img src="{% static 'images/raja.png'%}" alt="Rajababu Kushwaha" style="width: 100%; height: 250px; object-fit: cover;">
             <h3>Rajababu Kushwaha</h3>
             <p><strong>Role:</strong> Data Protection and Recovery Expert</p>
             <p>Implementing robust data backup, encryption, and recovery strategies to safeguard sensitive information.</p>
         </div>
         <div class="team-member" style="flex: 1 1 200px; max-width: 250px; text-align: center;">
-            <img src="https://www.shutterstock.com/image-photo/side-back-view-smiling-young-260nw-2169841789.jpg" alt="Paul Hayward" style="width: 100%; height: 250px; object-fit: cover;">
+            <img src="{% static 'images/paul.png'%}" alt="Paul Hayward" style="width: 100%; height: 250px; object-fit: cover;">
             <h3>Paul Hayward</h3>
             <p><strong>Role:</strong> Incident Response & Forensics Specialist</p>
             <p>Leading incident response efforts and conducting forensic investigations to mitigate and resolve breaches.</p>
