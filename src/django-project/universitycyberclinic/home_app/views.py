@@ -1,5 +1,8 @@
+from django.shortcuts import render, redirect
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Appointment
+from .forms import AppointmentForm
 
 # Create your views here.
 
@@ -27,3 +30,19 @@ def appointment(request):
 def services(request):  
     context ={'welcome_msg':"Welcome to our Services"}
     return render(request, 'services.html', context)
+
+def appointment_view(request):
+    print("appointment_view is called")
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            # Save the appointment and redirect to the receipt page
+            appointment = form.save()
+            return redirect('receipt', appointment_id=appointment.id)
+    else:
+        form = AppointmentForm()
+    return render(request, 'home_app/appointment_form.html', {'form': form})
+
+def receipt_view(request, appointment_id):
+    appointment = Appointment.objects.get(id=appointment_id)
+    return render(request, 'home_app/receipt.html', {'appointment': appointment})
