@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
+import qrcode
+import base64
 from .models import Appointment
 from .forms import AppointmentForm
 
@@ -41,8 +45,43 @@ def appointment_view(request):
             return redirect('receipt', appointment_id=appointment.id)
     else:
         form = AppointmentForm()
-    return render(request, 'home_app/appointment_form.html', {'form': form})
+    return render(request, 'appointment_form.html', {'form': form})
+
+def generate_qr_code(data):
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(data)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    image_string = base64.b64encode(buffer.getvalue()).decode()
+    return image_string
 
 def receipt_view(request, appointment_id):
-    appointment = Appointment.objects.get(id=appointment_id)
-    return render(request, 'home_app/receipt.html', {'appointment': appointment})
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    qr_data = f"Appointment ID: {appointment.id}\nName: {appointment.name}\nDate: {appointment.appointment_date}\nTime: {appointment.appointment_time}"
+    qr_code = generate_qr_code(qr_data)
+    return render(request, 'receipt.html', {
+        'appointment': appointment,
+        'qr_code': qr_code
+    })
+
+def download_receipt_pdf(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    qr_data = f"Appointment ID: {appointment.id}\nName: {appointment.name}\nDate: {appointment.appointment_date}\nTime: {appointment.appointment_time}"
+    qr_code = generate_qr_code(qr_data)
+    
+    template = get_template('receipt_pdf.html')
+    context = {
+        'appointment': appointment,
+        'qr_code': qr_code
+    }
+    html = template.render(context)
+    
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="appointment_receipt_{appointment.id}.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response, encoding='UTF-8')
+    
+    if pisa_status.err:
+        return HttpResponse('PDF generation error')
+    return response
