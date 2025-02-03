@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Form</title>
-</head>
-<body>
+
+{% extends "base.html" %}
+{% block title %}
+<title>Book Appointment</title>
+{% endblock title %}
+
+{% block content %}
+
+
     <h2>Schedule Your Appointment</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit Appointment</button>
     </form>
-</body>
-</html>
+
+{% endblock content %}
+
