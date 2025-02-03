@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .registration-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        input {
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #1877f2;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #166fe5;
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        .form-row > div {
+            flex: 1;
+        }
+        .form-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .form-links a {
+            color: #1877f2;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form action="#" method="POST">
+            <div class="form-row">
+                <div>
+                    <label for="forename">Forename</label>
+                    <input type="text" id="forename" name="forename" required placeholder="Enter your forename">
+                </div>
+                <div>
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" name="surname" required placeholder="Enter your surname">
+                </div>
+            </div>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+            
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" name="contact" required placeholder="Enter your contact number">
+            
+            <label for="business">Business Name (Optional)</label>
+            <input type="text" id="business" name="business" placeholder="Enter your business name (if applicable)">
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Create a password">
+            
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password">
+            
+            <button type="submit">Register</button>
+        </form>
+        <div class="form-links">
+            <a href="/login">Already have an account? Log in here</a>
+        </div>
+    </div>
+</body>
+</html>
