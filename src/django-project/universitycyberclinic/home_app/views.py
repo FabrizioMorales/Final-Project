@@ -34,6 +34,14 @@ def appointment(request):
 def services(request):  
     context ={'welcome_msg':"Welcome to our Services"}
     return render(request, 'services.html', context)
+    
+def login(request):  
+    context ={'welcome_msg':"Welcome to our user login page"}
+    return render(request, 'login.html', context)
+
+def register(request):  
+    context ={'welcome_msg':"Welcome to our user register page"}
+    return render(request, 'register.html', context)
 
 def appointment_view(request):
     print("appointment_view is called")
