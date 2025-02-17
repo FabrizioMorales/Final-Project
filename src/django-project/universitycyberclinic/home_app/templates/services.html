@@ -6,117 +6,183 @@
 
 {% block content %}
 
-<header class="bg-blue-900 text-black py-6">
-  <div class="container mx-auto text-center">
-    <h1 class="text-3xl font-bold">
-      Welcome to Service Page
-    </h1>
+<!-- Video Background Section -->
+<section style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+  <video id="video-background" autoplay loop muted style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 1;">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Content on Top of Video -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <header style="color: white; padding: 80px 20px; text-align: center;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h1 style="font-size: 3rem; font-weight: 700;">
+          Welcome to Service Page
+        </h1>
+      </div>
+    </header>
   </div>
-</header>
+</section>
 
-<main class="container mx-auto py-10">
+<main style="max-width: 1200px; margin: 0 auto; padding: 80px 20px;">
 
-  <section class="mb-10">
-    <h3 class="text-xl font-bold mb-4">
+  <section style="margin-bottom: 50px;">
+    <h3 style="font-size: 2.5rem; font-weight: 600; margin-bottom: 20px; color: #1d4ed8;">
       What We Offer:
     </h3>
-    <div class="flex flex-wrap justify-center gap-6">
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of network security" class="mb-4 rounded-lg" height="200" src="{% static 'images/Networking.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; animation: slideUp 1.5s ease-out;">
+      <!-- Service Cards (repeat as before) -->
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of network security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Networking.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Network Security Assessment
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Ensure your network is secure with comprehensive vulnerability assessments, penetration testing, and advanced monitoring solutions.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Graphic of cloud security" class="mb-4 rounded-lg" height="200" src="{% static 'images/cloudesecurity.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Graphic of cloud security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/cloudesecurity.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cloud Security
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Protect your cloud infrastructure with robust security protocols, identity management, and secure configurations.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of data protection measures" class="mb-4 rounded-lg" height="200" src="{% static 'images/storage.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of data protection measures" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/storage.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Data Protection and Recovery
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Safeguard sensitive data with encryption, backup solutions, and recovery strategies to ensure minimal downtime and maximum resilience.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Incident response and forensic investigation" class="mb-4 rounded-lg" height="200" src="{% static 'images/Incidentrespons.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Incident response and forensic investigation" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Incidentrespons.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Incident Response & Forensics
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           24/7 incident response services, digital forensics, and post-incident recovery planning to minimize business impact.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of compliance and risk management" class="mb-4 rounded-lg" height="200" src="{% static 'images/complience.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of compliance and risk management" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/complience.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Compliance and Risk Management
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Stay compliant with regulations like GDPR and HIPAA while effectively managing cybersecurity risks.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Training and awareness for employees" class="mb-4 rounded-lg" height="200" src="{% static 'images/trainning.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Training and awareness for employees" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/trainning.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cybersecurity Training & Awareness
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Equip your team with the knowledge to identify and mitigate risks through interactive workshops and hands-on training sessions.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Protection against ransomware attacks" class="mb-4 rounded-lg" height="200" src="{% static 'images/ransomware.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Protection against ransomware attacks" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/ransomware.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Ransomware Protection and Response
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Proactive strategies to prevent ransomware attacks and quick response measures to recover from incidents effectively.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Physical security integration illustration" class="mb-4 rounded-lg" height="200" src="{% static 'images/physicalsecurity.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Physical security integration illustration" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/physicalsecurity.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Physical Security Integration
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Secure physical access to critical systems with advanced surveillance, biometric authentication, and access controls.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Strategic cybersecurity consulting" class="mb-4 rounded-lg" height="200" src="{% static 'images/consulting.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Strategic cybersecurity consulting" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/consulting.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cyber Security Consulting
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Develop tailored cybersecurity strategies with expert advice to align with your business goals and regulatory requirements.
         </p>
       </div>
+
     </div>
   </section>
 
 
-  <a class="bg-blue-900 text-blue py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300" href="/appointment">
-    Schedule a Consultation Today
-  </a>
+  <!-- CTA Button -->
+  <div style="text-align: center;">
+    <a href="/appointment" style="background-color: #1d4ed8; color: white; padding: 15px 30px; border-radius: 30px; font-weight: bold; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">
+      Schedule a Consultation Today
+    </a>
+  </div>
+
 </main>
+
+<!-- Keyframe Animations -->
+<style>
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+<!-- GSAP ScrollTrigger Animation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/ScrollTrigger.min.js"></script>
+
+<script>
+  // Wait until the page is fully loaded
+  window.addEventListener('load', () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // GSAP ScrollTrigger for fading out the video
+    gsap.to("#video-background", {
+      opacity: 0, // Fade out the video when scrolling down
+      scrollTrigger: {
+        trigger: "#video-background",
+        start: "top top", // When the top of the video hits the top of the viewport
+        end: "bottom top", // When the bottom of the video reaches the top of the viewport
+        scrub: true, // Smooth scroll animation
+        markers: false // Set to true if you want to see the scroll triggers for debugging
+      }
+    });
+
+    // GSAP ScrollTrigger for fading in the video when scrolling up
+    gsap.to("#video-background", {
+      opacity: 1, // Fade in the video when scrolling up
+      scrollTrigger: {
+        trigger: "#video-background",
+        start: "bottom bottom", // When the bottom of the video hits the bottom of the viewport
+        end: "top bottom", // When the top of the video reaches the bottom of the viewport
+        scrub: true, // Smooth scroll animation
+        markers: false
+      }
+    });
+  });
+</script>
 
 {% endblock content %}

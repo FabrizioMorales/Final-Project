@@ -5,137 +5,156 @@
 {% endblock title %}
 
 {% block content %}
-<header class="bg-blue-900 text-white py-6">
-  <div class="container mx-auto text-center">
-    <h1 class="text-3xl font-bold">
-      Welcome to the University Cybersecurity Clinic!
-    </h1>
-    <p class="text-lg mt-2">
-      Your trusted partner in securing a safer digital future.
-    </p>
+
+<!-- Video Background Section -->
+<section style="position: relative; width: 100%; height: 100vh;">
+  <video id="video-background" autoplay loop muted style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Content on Top of Video -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <!-- Header Section with Text -->
+    <div style="color: white; padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%;">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 10px;">
+        <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; text-align: center; word-wrap: break-word;">
+          Protecting Communities Through Advanced Cybersecurity Solutions
+        </h1>
+        <p style="font-size: 1.25rem; margin-top: 10px; line-height: 1.8; text-align: center; word-wrap: break-word;">
+          <b><i>Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats.</i></b>
+          <br>
+          <b><i>At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.</i></b>
+        </p>
+      </div>
+      
+      <section class="text-center mb-10" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h2 style="font-size: 2.5rem; font-weight: 600; color: #fff; margin-bottom: 20px; text-align: center;">
+        </h2>
+        <p style="font-size: 1.1rem; color: #fff; line-height: 1.8; margin-bottom: 30px; text-align: center; word-wrap: break-word;">
+          
+        </p>
+      </section>
+    </div>
   </div>
-</header>
+</section>
 
-<main class="container mx-auto py-10">
-  <section class="text-center mb-10">
-    <img alt="A visual representation of cybersecurity" class="mx-auto mb-6 rounded-lg shadow-lg" height="400" src="{% static 'images/homebg3.png'%}" width="1200"/>
-    <h2 class="text-2xl font-bold mb-4">
-      Protecting Communities Through Advanced Cybersecurity Solutions  
-    </h2>
-    <p class="text-lg">
-      Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats.
-      <br><br>
-      At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.
-      
-      
-    </p>
-  </section>
+<main style="max-width: 1200px; margin: 0 auto; padding: 80px 20px;">
 
-  <section class="mb-10">
-    <h3 class="text-xl font-bold mb-4">
-      Our Services:
+  <!-- Services Section with Blue-ish Gradient Background -->
+  <section class="mb-10 bg-gradient-to-r from-blue-500 via-indigo-600 to-blue-800 text-white p-10 rounded-lg shadow-lg">
+    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 20px; color:  #1d4ed8;;">
+
+    <b>   Our Services:</b>
     </h3>
-    <div class="flex flex-wrap justify-center gap-6">
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of network security" class="mb-4 rounded-lg" height="200" src="{% static 'images/Networking.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; animation: slideUp 1.5s ease-out;">
+      
+      <!-- Service Cards (repeat as before) -->
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of network security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Networking.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Network Security Assessment
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Ensure your network is secure with comprehensive vulnerability assessments, penetration testing, and advanced monitoring solutions.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Graphic of cloud security" class="mb-4 rounded-lg" height="200" src="{% static 'images/cloudesecurity.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Graphic of cloud security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/cloudesecurity.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cloud Security
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Protect your cloud infrastructure with robust security protocols, identity management, and secure configurations.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of data protection measures" class="mb-4 rounded-lg" height="200" src="{% static 'images/storage.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of data protection measures" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/storage.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Data Protection and Recovery
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Safeguard sensitive data with encryption, backup solutions, and recovery strategies to ensure minimal downtime and maximum resilience.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Incident response and forensic investigation" class="mb-4 rounded-lg" height="200" src="{% static 'images/Incidentrespons.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Incident response and forensic investigation" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Incidentrespons.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Incident Response & Forensics
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           24/7 incident response services, digital forensics, and post-incident recovery planning to minimize business impact.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Illustration of compliance and risk management" class="mb-4 rounded-lg" height="200" src="{% static 'images/complience.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Illustration of compliance and risk management" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/complience.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Compliance and Risk Management
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Stay compliant with regulations like GDPR and HIPAA while effectively managing cybersecurity risks.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Training and awareness for employees" class="mb-4 rounded-lg" height="200" src="{% static 'images/trainning.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Training and awareness for employees" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/trainning.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cybersecurity Training & Awareness
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Equip your team with the knowledge to identify and mitigate risks through interactive workshops and hands-on training sessions.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Protection against ransomware attacks" class="mb-4 rounded-lg" height="200" src="{% static 'images/ransomware.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Protection against ransomware attacks" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/ransomware.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Ransomware Protection and Response
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Proactive strategies to prevent ransomware attacks and quick response measures to recover from incidents effectively.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Physical security integration illustration" class="mb-4 rounded-lg" height="200" src="{% static 'images/physicalsecurity.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Physical security integration illustration" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/physicalsecurity.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Physical Security Integration
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Secure physical access to critical systems with advanced surveillance, biometric authentication, and access controls.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-        <img alt="Strategic cybersecurity consulting" class="mb-4 rounded-lg" height="200" src="{% static 'images/consulting.png'%}" width="300"/>
-        <h4 class="text-lg font-bold mb-2">
+      <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
+        <img alt="Strategic cybersecurity consulting" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/consulting.png' %}" width="300"/>
+        <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cyber Security Consulting
         </h4>
-        <p>
+        <p style="font-size: 1rem; color: #555;">
           Develop tailored cybersecurity strategies with expert advice to align with your business goals and regulatory requirements.
         </p>
       </div>
+
+      <!-- Repeat the above block for other services -->
+
     </div>
   </section>
 
+  <!-- Why Partner With Us Section -->
   <section class="text-center mb-10">
-    <h3 class="text-xl font-bold mb-4">
+    <br><br>
+    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: #1d4ed8;">
       Why Partner With Us?
     </h3>
-    <p class="text-lg mb-6">
+    <p style="font-size: 1.1rem; color: #555; line-height: 1.8; margin-bottom: 20px;">
       Our clinic leverages academic expertise and industry best practices to provide innovative cybersecurity solutions tailored to your needs. We foster collaborations between students, faculty, and professionals to deliver practical and effective results.
     </p>
-    <p class="text-lg mb-6">
+    <p style="font-size: 1.1rem; color: #555; line-height: 1.8; margin-bottom: 20px;">
       Together, we can build a more secure and resilient digital future for our community.
     </p>
     <a class="bg-blue-900 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300" href="appointment">
