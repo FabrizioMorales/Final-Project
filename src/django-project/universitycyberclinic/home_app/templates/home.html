@@ -19,22 +19,39 @@
     <div style="color: white; padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%;">
       <div style="max-width: 1200px; margin: 0 auto; padding: 10px;">
         <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; text-align: center; word-wrap: break-word;">
-          Protecting Communities Through Advanced Cybersecurity Solutions
+          University Cybersecurity Clinic
         </h1>
         <p style="font-size: 1.25rem; margin-top: 10px; line-height: 1.8; text-align: center; word-wrap: break-word;">
-          <b><i>Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats.</i></b>
+          <span id="typing-effect-1" style="display: inline-block;"></span>
           <br>
-          <b><i>At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.</i></b>
+          <span id="typing-effect-2" style="display: inline-block;"></span>
         </p>
+
+        <script>
+          const text1 = "Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats.";
+          const text2 = "At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.";
+
+          function typeEffect(elementId, text, speed) {
+            let i = 0;
+            const element = document.getElementById(elementId);
+            function type() {
+              if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+              }
+            }
+            type();
+          }
+
+          document.addEventListener("DOMContentLoaded", function() {
+            typeEffect("typing-effect-1", text1, 50);
+            setTimeout(() => typeEffect("typing-effect-2", text2, 50), text1.length * 50 + 500);
+          });
+        </script>
       </div>
       
-      <section class="text-center mb-10" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-        <h2 style="font-size: 2.5rem; font-weight: 600; color: #fff; margin-bottom: 20px; text-align: center;">
-        </h2>
-        <p style="font-size: 1.1rem; color: #fff; line-height: 1.8; margin-bottom: 30px; text-align: center; word-wrap: break-word;">
-          
-        </p>
-      </section>
+      
     </div>
   </div>
 </section>
@@ -157,7 +174,7 @@
     <p style="font-size: 1.1rem; color: #555; line-height: 1.8; margin-bottom: 20px;">
       Together, we can build a more secure and resilient digital future for our community.
     </p>
-    <a class="bg-blue-900 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300" href="appointment">
+    <a class="nav-link rounded-pill bg-warning text-dark d-inline-block px-3 py-2" href="appointment" style="font-size: 1rem; text-align: center; width: auto;">
       Secure Your Future Today - Schedule a Consultation
     </a>
   </section>
