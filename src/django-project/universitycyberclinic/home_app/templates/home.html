@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-<title>University Cybersecurity Clinic - Home</title>
+<title>University Cyber Clinic - Home</title>
 {% endblock title %}
 
 {% block content %}
@@ -19,34 +19,30 @@
     <div style="color: white; padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%;">
       <div style="max-width: 1200px; margin: 0 auto; padding: 10px;">
         <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; text-align: center; word-wrap: break-word;">
-          University Cybersecurity Clinic
+          University Cyber Clinic
         </h1>
         <p style="font-size: 1.25rem; margin-top: 10px; line-height: 1.8; text-align: center; word-wrap: break-word;">
           <span id="typing-effect-1" style="display: inline-block;"></span>
-          <br>
-          <span id="typing-effect-2" style="display: inline-block;"></span>
         </p>
 
         <script>
-          const text1 = "Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats.";
-          const text2 = "At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.";
+          const text1 = "Did you know that cybercrime costs the global economy over £1 trillion annually? Every year, millions of individuals and businesses fall victim to cyber attacks, resulting in significant financial losses, data breaches, and reputational damage. By partnering with us, you can take proactive steps to protect your digital assets and mitigate the risks associated with cyber threats. At the University Cybersecurity Clinic, we are committed to providing cutting-edge security solutions to safeguard your digital assets. Our mission is to empower individuals, businesses, and organizations with knowledge, tools, and strategies to stay secure in an evolving digital landscape.";
 
           function typeEffect(elementId, text, speed) {
-            let i = 0;
-            const element = document.getElementById(elementId);
-            function type() {
-              if (i < text.length) {
-          element.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(type, speed);
-              }
-            }
-            type();
+        let i = 0;
+        const element = document.getElementById(elementId);
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        type();
           }
 
           document.addEventListener("DOMContentLoaded", function() {
-            typeEffect("typing-effect-1", text1, 50);
-            setTimeout(() => typeEffect("typing-effect-2", text2, 50), text1.length * 50 + 500);
+        typeEffect("typing-effect-1", text1, 8);
           });
         </script>
       </div>
@@ -68,7 +64,7 @@
       
       <!-- Service Cards (repeat as before) -->
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Illustration of network security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Networking.png' %}" width="300"/>
+        <img alt="Illustration of network security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Networking.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Network Security Assessment
         </h4>
@@ -78,7 +74,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Graphic of cloud security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/cloudesecurity.png' %}" width="300"/>
+        <img alt="Graphic of cloud security" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/cloudesecurity.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cloud Security
         </h4>
@@ -88,7 +84,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Illustration of data protection measures" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/storage.png' %}" width="300"/>
+        <img alt="Illustration of data protection measures" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/storage.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Data Protection and Recovery
         </h4>
@@ -98,7 +94,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Incident response and forensic investigation" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Incidentrespons.png' %}" width="300"/>
+        <img alt="Incident response and forensic investigation" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/Incidentrespons.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Incident Response & Forensics
         </h4>
@@ -108,7 +104,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Illustration of compliance and risk management" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/complience.png' %}" width="300"/>
+        <img alt="Illustration of compliance and risk management" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/complience.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Compliance and Risk Management
         </h4>
@@ -118,7 +114,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Training and awareness for employees" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/trainning.png' %}" width="300"/>
+        <img alt="Training and awareness for employees" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/trainning.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cybersecurity Training & Awareness
         </h4>
@@ -128,7 +124,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Protection against ransomware attacks" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/ransomware.png' %}" width="300"/>
+        <img alt="Protection against ransomware attacks" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/ransomware.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Ransomware Protection and Response
         </h4>
@@ -138,7 +134,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Physical security integration illustration" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/physicalsecurity.png' %}" width="300"/>
+        <img alt="Physical security integration illustration" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/physicalsecurity.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Physical Security Integration
         </h4>
@@ -148,7 +144,7 @@
       </div>
 
       <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 300px; margin-bottom: 30px; transition: transform 0.3s ease-in-out;">
-        <img alt="Strategic cybersecurity consulting" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/consulting.png' %}" width="300"/>
+        <img alt="Strategic cybersecurity consulting" style="border-radius: 8px; margin-bottom: 20px;" height="200" src="{% static 'images/consulting.png' %}" width="260"/>
         <h4 style="font-size: 1.5rem; font-weight: bold; color: #1d4ed8; margin-bottom: 15px;">
           Cyber Security Consulting
         </h4>
