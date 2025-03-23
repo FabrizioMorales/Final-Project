@@ -3,46 +3,59 @@
 <title>Resources</title>
 {% endblock title %}
 
+
+
+
+
 {% block content %}
-<section id="resources" class="resources container mx-auto py-10">
-    <h2 class="text-2xl font-bold text-center mb-6">Cybersecurity Resources</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-bold mb-2">Cybersecurity Best Practices Guide</h3>
-            <p class="mb-4">Download our comprehensive guide to implementing cybersecurity best practices in your organization.</p>
-            <a href="https://ia600803.us.archive.org/17/items/cybersecurity-best-practices-guide/Cybersecurity_Best_Practices_Guide.pdf" class="text-blue-600 hover:underline">Download Guide</a>
+
+<section id="resources" class="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-12">Cybersecurity Resources</h2>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Resource Card -->
+        <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Cybersecurity Best Practices Guide</h3>
+          <p class="text-gray-700 mb-4">Download our comprehensive guide to implementing cybersecurity best practices in your organization.</p>
+          <a href="https://ia600803.us.archive.org/17/items/cybersecurity-best-practices-guide/Cybersecurity_Best_Practices_Guide.pdf" class="text-indigo-600 hover:text-indigo-800 font-medium">📥 Download Guide</a>
         </div>
-
-        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-bold mb-2">Incident Response Checklist</h3>
-            <p class="mb-4">Access a step-by-step checklist to handle cybersecurity incidents effectively.</p>
-            <a href="https://archive.org/download/incident-response-checklist/Incident_Response_Checklist.pdf" class="text-blue-600 hover:underline">Download Checklist</a>
+  
+        <!-- Resource Card -->
+        <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Incident Response Checklist</h3>
+          <p class="text-gray-700 mb-4">Access a step-by-step checklist to handle cybersecurity incidents effectively.</p>
+          <a href="https://archive.org/download/incident-response-checklist/Incident_Response_Checklist.pdf" class="text-indigo-600 hover:text-indigo-800 font-medium">📥 Download Checklist</a>
         </div>
-
-        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-bold mb-2">Webinars and Training Sessions</h3>
-            <p class="mb-4">Join our expert-led webinars on topics like Phishing Prevention, Secure Development, and Compliance.</p>
-            
-            <iframe width="853" height="480" src="https://www.youtube.com/embed/CVJiZIjdOOE" title="Security Education &amp; Awareness: Phishing Prevention" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <a href="/webinars" class="text-blue-600 hover:underline"></a>
+  
+        <!-- Resource Card with Video -->
+        <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Webinars and Training Sessions</h3>
+          <p class="text-gray-700 mb-4">Join our expert-led webinars on topics like Phishing Prevention, Secure Development, and Compliance.</p>
+          <div class="aspect-w-16 aspect-h-9 mb-4">
+            <iframe class="rounded-lg" src="https://www.youtube.com/embed/CVJiZIjdOOE" title="Security Education & Awareness: Phishing Prevention" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <a href="/webinars" class="text-indigo-600 hover:text-indigo-800 font-medium">🎥 View All Webinars</a>
         </div>
-
-        
-
-        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-bold mb-2">Cloud Security Best Practices</h3>
-            <p class="mb-4">Learn how to secure your cloud infrastructure with our detailed best practices guide.</p>
-            <a href="https://archive.org/download/cloud-security-best-practices/Cloud_Security_Best_Practices.pdf" class="text-blue-600 hover:underline">Download Guide</a>
+  
+        <!-- Resource Card -->
+        <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Cloud Security Best Practices</h3>
+          <p class="text-gray-700 mb-4">Learn how to secure your cloud infrastructure with our detailed best practices guide.</p>
+          <a href="https://archive.org/download/cloud-security-best-practices/Cloud_Security_Best_Practices.pdf" class="text-indigo-600 hover:text-indigo-800 font-medium">📥 Download Guide</a>
         </div>
-
-
-
-        <div class="resource-item bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-bold mb-2">Secure Password Practices Poster</h3>
-            <p class="mb-4">Download a printable poster to promote strong password habits in your organization.</p>
-            <a href="https://i.ibb.co/F0Skp34/Secure-Password-Practices-Poster-2.png" class="text-blue-600 hover:underline">Download Poster</a>
+  
+        <!-- Resource Card -->
+        <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Secure Password Practices Poster</h3>
+          <p class="text-gray-700 mb-4">Download a printable poster to promote strong password habits in your organization.</p>
+          <a href="https://i.ibb.co/F0Skp34/Secure-Password-Practices-Poster-2.png" class="text-indigo-600 hover:text-indigo-800 font-medium">📥 Download Poster</a>
         </div>
+      </div>
     </div>
-</section>
+  </section>
+  
+
+
 {% endblock content %}
