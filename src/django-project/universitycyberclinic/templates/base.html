@@ -24,7 +24,7 @@
         </a>
 
         <!-- Navbar Links -->
-        <div class="hidden md:flex space-x-6">
+        <div class="hidden md:flex space-x-6 mx-auto">
           <a href="/" class="text-white hover:text-yellow-400 font-semibold uppercase">Home</a>
           <a href="/services" class="text-white hover:text-yellow-400 font-semibold uppercase">Services</a>
           <a href="/resources" class="text-white hover:text-yellow-400 font-semibold uppercase">Resources</a>
@@ -32,10 +32,15 @@
           <a href="/about" class="text-white hover:text-yellow-400 font-semibold uppercase">About Us</a>
         </div>
 
+        
+
         <!-- Login/Register Button -->
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
         <a href="/login" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
           Login/Register
         </a>
+        {% endif %}
+        
 
         <!-- Mobile Menu Button -->
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
@@ -60,13 +65,39 @@
       {% block content %}
       {% endblock content %}
     </main>
-
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-6">
-      <div class="container mx-auto text-center">
-        <p>© 2025 University Cyber Clinic. All rights reserved.</p>
+    <footer class="bg-gray-900 text-gray-400 py-10">
+      <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
+      <!-- Contact Information -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">University Cyber Clinic</h3>
+        <p>Email: <a href="mailto:info@universitycyber.uk" class="text-gray-400 hover:text-yellow-400">info@universitycyber.uk</a></p>
+        <p>Phone: <a href="tel:+44234567890" class="text-gray-400 hover:text-yellow-400">0234 5678 90</a></p>
+        <p>Address: Roehampton Lane, London, SW15 5PU</p>
       </div>
-    </footer>
+
+      <!-- Opening Hours -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Opening Hours</h3>
+        <p>Monday: 9am - 5pm</p>
+        <p>Tuesday: 9am - 5pm</p>
+        <p>Wednesday: 9am - 5pm</p>
+        <p>Thursday: 9am - 5pm</p>
+        <p>Friday: 9am - 5pm</p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Useful Links</h3>
+        <p><a href="{% static 'pdfs/termsNcondition.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Terms and Conditions</a></p>
+        <p><a href="{% static 'pdfs/PrivecyPolicy.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Privacy Policy</a></p>
+      </div>
+      </div>
+
+      <div class="mt-8 text-center">
+      <p>© 2025 University Cyber Clinic. All rights reserved.</p>
+      </div>
+        </footer>
 
     <!-- Mobile Menu Toggle Script -->
     <script>

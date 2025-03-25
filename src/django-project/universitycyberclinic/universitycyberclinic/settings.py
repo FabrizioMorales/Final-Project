@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'theme',
     'blog_app',
     'home_app',
+    'widget_tweaks',
     
 ]
 TAILWIND_APP_NAME = 'theme'

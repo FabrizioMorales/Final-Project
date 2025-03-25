@@ -64,8 +64,8 @@ class RegisterForm(UserCreationForm):
 # User Login Form (Uses Email Instead of Username)
 class LoginForm(AuthenticationForm):
     username = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'})
+        widget=forms.EmailInput(attrs={'class': 'w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400', 'placeholder': 'Enter your email'})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'})
+        widget=forms.PasswordInput(attrs={'class': 'w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400', 'placeholder': 'Enter your password'})
     )
