@@ -19,7 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/',include('blog_app.urls')),
-    path('home/',include('home_app.urls')),
-    path('',include('home_app.urls'))
+
+    # Include app routes
+    path('blog/', include('blog_app.urls')),
+    path('home/', include('home_app.urls')),  # Optional if you're using /home/ explicitly
+
+    # Root routes (includes dashboard, home, appointments, etc.)
+    path('', include('home_app.urls')),
 ]

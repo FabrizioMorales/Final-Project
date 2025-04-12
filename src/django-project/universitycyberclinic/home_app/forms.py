@@ -1,4 +1,4 @@
-from django import forms
+from django import forms 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Appointment
@@ -35,7 +35,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'})
     )
     phone = forms.CharField(
-        required=True,
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your contact number'})
     )
     business = forms.CharField(
@@ -51,14 +51,23 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["email", "first_name", "last_name", "phone", "business", "password1", "password2"]
+        fields = ["first_name", "last_name", "email", "password1", "password2"]
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.username = self.cleaned_data["email"]  # Set username as email
+        user.username = self.cleaned_data["email"]  # Use email as username
         user.email = self.cleaned_data["email"]
+        user.first_name = self.cleaned_data["first_name"]
+        user.last_name = self.cleaned_data["last_name"]
+        
         if commit:
             user.save()
+
+        # Capture extra fields if needed (e.g. log, use in profile, or email)
+        phone = self.cleaned_data.get("phone")
+        business = self.cleaned_data.get("business")
+        print(f"Registered user phone: {phone}, business: {business}")
+
         return user
 
 # User Login Form (Uses Email Instead of Username)

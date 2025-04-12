@@ -1,0 +1,113 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>User Dashboard</title>
+{% endblock title %}
+
+{% block content %}
+<!-- Video Background -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
+
+<div class="relative z-10 container mx-auto py-12">
+  <!-- Mobile Toggle -->
+  <div class="lg:hidden flex justify-between items-center px-4 mb-4 text-white">
+    <h2 class="text-xl font-bold">Clinic Portal</h2>
+    <button id="menu-toggle" class="text-2xl focus:outline-none">&#9776;</button>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-6">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-full lg:w-60 bg-gray-900 bg-opacity-90 text-white rounded-xl shadow-lg p-4 hidden lg:block">
+      <nav class="space-y-3">
+        <a href="{% url 'user_dashboard' %}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-600">
+          <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="{% url 'appointment' %}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-600">
+          <i class="fas fa-calendar-plus"></i> Book Appointment
+        </a>
+        <a href="#booking-history" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-600">
+          <i class="fas fa-history"></i> Booking History
+        </a>
+        <a href="#resources" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-600">
+          <i class="fas fa-book"></i> Resources
+        </a>
+        <a href="{% url 'logout' %}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 text-red-300 hover:text-white">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Dashboard -->
+    <main class="w-full bg-gray-900 bg-opacity-80 backdrop-blur rounded-xl text-white p-8 shadow-lg">
+      <h2 class="text-3xl font-bold mb-6">
+        Welcome to Your Dashboard, {{ request.user.first_name|default:request.user.username }}!
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Upcoming Appointments -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold mb-3">Upcoming Appointments</h3>
+          {% if upcoming_appointments %}
+            {% for appt in upcoming_appointments %}
+              <div class="mb-4 p-3 bg-gray-700 rounded relative">
+                <strong>{{ appt.appointment_date|date:"F j, Y" }} at {{ appt.appointment_time }}</strong><br>
+                {{ appt.details|default:"No details provided." }}
+                <a href="{% url 'cancel_appointment' appt.id %}"
+                   onclick="return confirm('Are you sure you want to cancel this appointment?');"
+                   class="absolute top-2 right-3 text-red-400 hover:underline">
+                   Cancel
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No upcoming appointments.</p>
+          {% endif %}
+        </div>
+
+        <!-- Announcements -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold mb-3">Announcements</h3>
+          <p>New webinar on website maintenance scheduled for May 12</p>
+        </div>
+
+        <!-- Booking History -->
+        <div id="booking-history" class="bg-gray-800 p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold mb-3">Booking History</h3>
+          {% for appt in past_appointments %}
+            <div class="mb-4 p-3 bg-gray-700 rounded">
+              {{ appt.appointment_date|date:"F j, Y" }} at {{ appt.appointment_time }}<br>
+              {{ appt.details|default:"No details" }}
+            </div>
+          {% empty %}
+            <p>No past appointments.</p>
+          {% endfor %}
+          <a href="{% url 'appointment' %}" class="inline-block mt-4 bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Book Another Appointment
+          </a>
+        </div>
+
+        <!-- Resources -->
+        <div id="resources" class="bg-gray-800 p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold mb-3">Resources</h3>
+          <ul class="list-disc pl-5">
+            <li><a href="{% static 'pdfs/web_security_guide.pdf' %}" class="text-yellow-400 hover:underline" target="_blank">Web Security Guide</a></li>
+            <li><a href="{% static 'pdfs/seo_best_practices.pdf' %}" class="text-yellow-400 hover:underline" target="_blank">SEO Best Practices</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- FontAwesome + Toggle Script -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+  document.getElementById("menu-toggle").addEventListener("click", function () {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("hidden");
+  });
+</script>
+{% endblock content %}

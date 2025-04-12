@@ -1,13 +1,9 @@
-
-{% load static %}
+{% load static %} 
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     {% block title %}
@@ -32,18 +28,22 @@
           <a href="/about" class="text-white hover:text-yellow-400 font-semibold uppercase">About Us</a>
         </div>
 
-        
-
-        <!-- Login/Register Button -->
-        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
-        <a href="/login" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
-          Login/Register
-        </a>
-        {% endif %}
-        
+        <!-- Dashboard or Login/Register Button -->
+        <div class="flex items-center space-x-4">
+          {% if user.is_authenticated %}
+            <a href="{% url 'user_dashboard' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
+              Dashboard
+            </a>
+            <a href="{% url 'logout' %}" class="text-sm text-white hover:text-yellow-400">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
+              Login/Register
+            </a>
+          {% endif %}
+        </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none ml-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
@@ -57,6 +57,12 @@
         <a href="/resources" class="block text-white py-2 px-4 hover:bg-gray-700">Resources</a>
         <a href="/contact" class="block text-white py-2 px-4 hover:bg-gray-700">Contact Us</a>
         <a href="/about" class="block text-white py-2 px-4 hover:bg-gray-700">About Us</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'user_dashboard' %}" class="block text-yellow-400 py-2 px-4">Dashboard</a>
+          <a href="{% url 'logout' %}" class="block text-white py-2 px-4 hover:bg-red-600">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="block text-yellow-400 py-2 px-4">Login/Register</a>
+        {% endif %}
       </div>
     </nav>
 
@@ -65,39 +71,40 @@
       {% block content %}
       {% endblock content %}
     </main>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-10">
       <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
-      <!-- Contact Information -->
-      <div>
-        <h3 class="text-lg font-bold mb-4">University Cyber Clinic</h3>
-        <p>Email: <a href="mailto:info@universitycyber.uk" class="text-gray-400 hover:text-yellow-400">info@universitycyber.uk</a></p>
-        <p>Phone: <a href="tel:+44234567890" class="text-gray-400 hover:text-yellow-400">0234 5678 90</a></p>
-        <p>Address: Roehampton Lane, London, SW15 5PU</p>
-      </div>
+        <!-- Contact Information -->
+        <div>
+          <h3 class="text-lg font-bold mb-4">University Cyber Clinic</h3>
+          <p>Email: <a href="mailto:info@universitycyber.uk" class="text-gray-400 hover:text-yellow-400">info@universitycyber.uk</a></p>
+          <p>Phone: <a href="tel:+44234567890" class="text-gray-400 hover:text-yellow-400">0234 5678 90</a></p>
+          <p>Address: Roehampton Lane, London, SW15 5PU</p>
+        </div>
 
-      <!-- Opening Hours -->
-      <div>
-        <h3 class="text-lg font-bold mb-4">Opening Hours</h3>
-        <p>Monday: 9am - 5pm</p>
-        <p>Tuesday: 9am - 5pm</p>
-        <p>Wednesday: 9am - 5pm</p>
-        <p>Thursday: 9am - 5pm</p>
-        <p>Friday: 9am - 5pm</p>
-      </div>
+        <!-- Opening Hours -->
+        <div>
+          <h3 class="text-lg font-bold mb-4">Opening Hours</h3>
+          <p>Monday: 9am - 5pm</p>
+          <p>Tuesday: 9am - 5pm</p>
+          <p>Wednesday: 9am - 5pm</p>
+          <p>Thursday: 9am - 5pm</p>
+          <p>Friday: 9am - 5pm</p>
+        </div>
 
-      <!-- Links -->
-      <div>
-        <h3 class="text-lg font-bold mb-4">Useful Links</h3>
-        <p><a href="{% static 'pdfs/termsNcondition.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Terms and Conditions</a></p>
-        <p><a href="{% static 'pdfs/PrivecyPolicy.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Privacy Policy</a></p>
-      </div>
+        <!-- Links -->
+        <div>
+          <h3 class="text-lg font-bold mb-4">Useful Links</h3>
+          <p><a href="{% static 'pdfs/termsNcondition.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Terms and Conditions</a></p>
+          <p><a href="{% static 'pdfs/PrivecyPolicy.pdf' %}" target="_blank" class="text-gray-400 hover:text-yellow-400">Privacy Policy</a></p>
+        </div>
       </div>
 
       <div class="mt-8 text-center">
-      <p>© 2025 University Cyber Clinic. All rights reserved.</p>
+        <p>© 2025 University Cyber Clinic. All rights reserved.</p>
       </div>
-        </footer>
+    </footer>
 
     <!-- Mobile Menu Toggle Script -->
     <script>
@@ -109,6 +116,4 @@
       });
     </script>
   </body>
-
-  
 </html>

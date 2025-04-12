@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (
     home, register_view, login_view, logout_view, 
     appointment_view, receipt_view, download_receipt_pdf,
-    resources, contact, about, services
+    resources, contact, about, services,
+    user_dashboard, cancel_appointment
 )
 from django.contrib.auth.views import LogoutView
 
@@ -22,5 +23,12 @@ urlpatterns = [
     # Appointment Booking & Receipt
     path("appointment/", appointment_view, name="appointment"),
     path("receipt/<int:appointment_id>/", receipt_view, name="receipt"),
-    path("download-receipt/<int:appointment_id>/", download_receipt_pdf, name="download_receipt"),
+    
+    # ✅ Updated name to match your reverse call
+    path("download-receipt/<int:appointment_id>/", download_receipt_pdf, name="download_receipt_pdf"),
+
+    # User Dashboard
+    path("dashboard/", user_dashboard, name="user_dashboard"),
+    
+    path("cancel-appointment/<int:appointment_id>/", cancel_appointment, name="cancel_appointment"),
 ]
