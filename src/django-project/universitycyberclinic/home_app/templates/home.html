@@ -57,10 +57,13 @@
 <main class="max-w-7xl mx-auto px-6 py-16">
   <!-- Services Section -->
   <section class="mb-16">
-    <h3 class="text-3xl md:text-4xl font-semibold text-gray-600 text-center mb-12">
+    <h3 class="text-3xl md:text-4xl font-semibold text-white text-center mb-12">
       What We Offer:
     </h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- Blurry Glass Container -->
+    <div class="bg-gray-900 bg-opacity-80 backdrop-blur-lg rounded-2xl shadow-2xl p-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- Service Card -->
       <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
         <img src="{% static 'images/Networking.png' %}" alt="Network Security" class="rounded-md mb-4 w-full h-48 object-cover">
@@ -145,17 +148,16 @@
   </section>
 
   <!-- Why Partner With Us Section -->
-  <section class="text-center mb-10">
-    <h3 class="text-3xl font-semibold mb-6 text-gray-600">
-      Why Partner With Us?
-    </h3>
-    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-      Our clinic leverages academic expertise and industry best practices to provide innovative cybersecurity solutions tailored to your needs. We foster collaborations between students, faculty, and professionals to deliver practical and effective results.
+  <section class="mt-20 bg-gray-900 bg-opacity-80 backdrop-blur-lg rounded-2xl p-10 shadow-xl text-white text-center">
+    <h3 class="text-3xl font-semibold mb-6">Why Partner With Us?</h3>
+    <p class="text-lg leading-relaxed mb-6">
+      Our clinic leverages academic expertise and industry best practices to provide innovative cybersecurity solutions tailored to your needs.
+      We foster collaborations between students, faculty, and professionals to deliver practical and effective results.
     </p>
-    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+    <p class="text-lg leading-relaxed mb-6">
       Together, we can build a more secure and resilient digital future for our community.
     </p>
-    <a href="appointment" class="bg-yellow-400 text-black font-bold rounded-full px-6 py-3 hover:bg-yellow-500 transition">
+    <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
       Secure Your Future Today - Schedule a Consultation
     </a>
   </section>

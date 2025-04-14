@@ -13,3 +13,14 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.appointment_date} at {self.appointment_time}"
+
+
+# ✅ User Profile linked to Django's built-in User model
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20, blank=True)
+    business = models.CharField(max_length=100, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} Profile"

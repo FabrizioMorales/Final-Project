@@ -9,11 +9,12 @@ from xhtml2pdf import pisa
 from io import BytesIO
 import qrcode
 import base64
-from .models import Appointment
+from .models import Appointment, UserProfile
 from .forms import AppointmentForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from datetime import datetime
+from .forms import ProfileForm
 
 
 # Home Page
@@ -76,14 +77,17 @@ def register_view(request):
             user.last_name = form.cleaned_data["last_name"]
             user.save()
 
-            # ✅ Optional fields
-            phone = form.cleaned_data.get("phone")
-            business = form.cleaned_data.get("business")
-            print(f"User Phone: {phone}, Business: {business}")
+            # ✅ Create or update UserProfile
+            phone = form.cleaned_data.get("phone", "")
+            business = form.cleaned_data.get("business", "")
+            UserProfile.objects.update_or_create(
+                user=user,
+                defaults={"phone": phone, "business": business}
+            )
 
             login(request, user)
             messages.success(request, "Registration successful!")
-            return redirect("user_dashboard")  # 🔁 Redirect to dashboard instead of home
+            return redirect("user_dashboard")
         else:
             messages.error(request, "Registration failed. Please correct the errors below.")
     else:
@@ -105,7 +109,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Welcome back, {user.first_name or user.username}!")
-                return redirect("user_dashboard")  # 🔁 Redirect to dashboard instead of home
+                return redirect("user_dashboard")
             else:
                 messages.error(request, "Invalid credentials. Please try again.")
         else:
@@ -190,3 +194,22 @@ def cancel_appointment(request, appointment_id):
     appointment.delete()
     messages.success(request, "Appointment cancelled successfully.")
     return HttpResponseRedirect(reverse('user_dashboard'))
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    profile = user.userprofile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile, user=user)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.email = form.cleaned_data['email']
+            user.save()
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('user_dashboard')
+    else:
+        form = ProfileForm(instance=profile, user=user)
+
+    return render(request, 'profile.html', {'form': form})
