@@ -136,10 +136,10 @@
         {% if user.is_staff %}
           <div class="bg-gray-800 p-6 rounded-lg shadow">
             <h3 class="text-xl font-semibold mb-3">Admin Access</h3>
-            <p>Hey, {{ request.user.first_name|default:request.user.username }}, click below to log in as a staff member:</p><br>
+            <p>Hey, {{ request.user.first_name|default:request.user.username }}, click below to excess admin features:</p><br>
 
             <a href="{% url 'login_as_staff' user.id %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-              Login as Staff (Admin Dashboard)
+              Admin Dashboard
             </a>
           </div>
         {% endif %}
