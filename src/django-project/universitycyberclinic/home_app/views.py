@@ -15,7 +15,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from datetime import datetime
 from .forms import ProfileForm
-
+import csv
+from django.views.decorators.http import require_POST
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Home Page
 def home(request):
@@ -213,3 +215,159 @@ def edit_profile(request):
         form = ProfileForm(instance=profile, user=user)
 
     return render(request, 'profile.html', {'form': form})
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+
+@staff_member_required
+def admin_dashboard(request):
+    from home_app.models import Appointment
+
+    total_users = User.objects.count()
+    total_appointments = Appointment.objects.count()
+    recent_appointments = Appointment.objects.order_by('-appointment_date', '-appointment_time')[:10]
+
+    context = {
+        'total_users': total_users,
+        'total_appointments': total_appointments,
+        'recent_appointments': recent_appointments,
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+
+@staff_member_required
+def mark_appointment_completed(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    appointment.status = "completed"
+    appointment.assigned_staff = request.user.get_full_name() or request.user.username
+    appointment.save()
+
+    messages.success(request, f"Marked appointment #{appointment.id} as completed.")
+    return redirect('admin_dashboard')
+
+@staff_member_required
+def export_appointments_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="appointments.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow([
+        'ID', 'User', 'Email', 'Date', 'Time',
+        'Details', 'Status', 'Assigned Staff'
+    ])
+
+    appointments = Appointment.objects.all().order_by('-appointment_date')
+
+    for appt in appointments:
+        writer.writerow([
+            appt.id,
+            appt.name,
+            appt.email,
+            appt.appointment_date,
+            appt.appointment_time,
+            appt.details,
+            appt.status,
+            appt.assigned_staff or ''
+        ])
+
+    return response
+
+@staff_member_required
+@require_POST
+def assign_appointment_staff(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    assigned_to = request.POST.get('assigned_staff')
+
+    if assigned_to:
+        appointment.assigned_staff = assigned_to
+        appointment.save()
+        messages.success(request, f"Assigned appointment #{appointment.id} to {assigned_to}")
+    else:
+        messages.error(request, "Please provide a staff name.")
+
+    return redirect('admin_dashboard')
+
+@staff_member_required
+def admin_dashboard(request):
+    total_users = User.objects.count()
+    total_appointments = Appointment.objects.count()
+    recent_appointments = Appointment.objects.order_by('-appointment_date', '-appointment_time')[:20]
+    staff_users = User.objects.filter(is_staff=True)
+
+    context = {
+        'total_users': total_users,
+        'total_appointments': total_appointments,
+        'recent_appointments': recent_appointments,
+        'staff_users': staff_users,
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+@staff_member_required
+def admin_appointments_view(request):
+    from .models import Appointment
+    from django.contrib.auth.models import User
+
+    recent_appointments = Appointment.objects.order_by('-appointment_date', '-appointment_time')
+    staff_users = User.objects.filter(is_staff=True)
+
+    context = {
+        'recent_appointments': recent_appointments,
+        'staff_users': staff_users,
+    }
+    return render(request, 'admin_appointments.html', context)
+
+# Admin Users View
+@staff_member_required
+def admin_users_view(request):
+    users = User.objects.all().order_by('-is_staff', 'last_name')
+    return render(request, 'admin_users.html', {'users': users})
+
+@staff_member_required
+def edit_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        user.first_name = request.POST.get('first_name', '')
+        user.last_name = request.POST.get('last_name', '')
+        user.email = request.POST.get('email', '')
+        user.is_staff = bool(request.POST.get('is_staff'))
+        user.save()
+        messages.success(request, 'User updated successfully.')
+        return redirect('admin_users')
+
+    return render(request, 'edit_user.html', {'user': user})
+
+@staff_member_required
+def delete_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if user == request.user:
+        messages.error(request, "You cannot delete your own account.")
+    else:
+        user.delete()
+        messages.success(request, "User deleted successfully.")
+
+    return redirect('admin_users')
+
+def login_as_staff(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if user.is_staff:
+        # If the user is already authenticated as staff, just log them in
+        if request.user == user:
+            login(request, user)
+            return redirect('admin_dashboard')  # Redirect to the admin dashboard
+        else:
+            # Authenticate and log the user in as staff
+            user = authenticate(request, username=user.username, password=user.password)
+            if user is not None:
+                login(request, user)
+                return redirect('admin_dashboard')  # Redirect to the admin dashboard after login
+            else:
+                messages.error(request, "Authentication failed.")
+                return redirect('admin_dashboard')  # Redirect to admin dashboard on authentication failure
+    else:
+        # If the user is not staff, do not allow login as staff
+        messages.error(request, "You must be a staff member to access the admin dashboard.")
+        return redirect('user_dashboard')  # Redirect back to user dashboard if not staff

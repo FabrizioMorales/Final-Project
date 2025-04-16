@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Admin Dashboard</title>{% endblock %}
+
+{% block content %}
+<!-- Background Video -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+  <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
+
+<div class="relative z-10 container mx-auto py-12">
+  <div class="bg-gray-900 bg-opacity-90 backdrop-blur rounded-xl text-white p-8 shadow-lg">
+    <h1 class="text-4xl font-bold mb-10 text-center">Admin Dashboard</h1>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div class="bg-gray-800 p-6 rounded-lg shadow text-center">
+        <h2 class="text-xl font-semibold mb-2">Total Users</h2>
+        <p class="text-3xl font-bold text-yellow-400">{{ total_users }}</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-lg shadow text-center">
+        <h2 class="text-xl font-semibold mb-2">Total Appointments</h2>
+        <p class="text-3xl font-bold text-yellow-400">{{ total_appointments }}</p>
+      </div>
+    </div>
+
+    <!-- View All Appointments Button -->
+<!-- View Buttons -->
+<div class="mt-8 flex justify-center gap-6">
+    <a href="{% url 'admin_users' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
+      View Users
+    </a>
+    <a href="{% url 'admin_appointments' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
+      View All Appointments
+    </a>
+  </div>
+  
+  </div>
+</div>
+{% endblock %}

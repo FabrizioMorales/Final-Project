@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>All Users</title>{% endblock %}
+{% block content %}
+<!-- Background -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+  <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
+
+<div class="relative z-10 container mx-auto py-12">
+  <div class="bg-gray-900 bg-opacity-90 rounded-xl text-white p-8 shadow-lg">
+    <h1 class="text-3xl font-bold mb-8 text-center">All Users</h1>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border-collapse">
+        <thead class="bg-gray-700 text-gray-300">
+          <tr>
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">Email</th>
+            <th class="px-4 py-2">Username</th>
+            <th class="px-4 py-2">Role</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr class="border-b border-gray-700 hover:bg-gray-700">
+            <td class="px-4 py-2">{{ user.get_full_name|default:"-" }}</td>
+            <td class="px-4 py-2">{{ user.email }}</td>
+            <td class="px-4 py-2">{{ user.username }}</td>
+            <td class="px-4 py-2">
+              {% if user.is_superuser %}
+                <span class="text-red-400 font-semibold">Admin</span>
+              {% elif user.is_staff %}
+                <span class="text-yellow-400 font-semibold">Staff</span>
+              {% else %}
+                <span class="text-gray-400">User</span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-2">
+              <a href="{% url 'edit_user' user.id %}" class="text-blue-400 hover:underline">Edit</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center py-4 text-gray-400">No users found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
