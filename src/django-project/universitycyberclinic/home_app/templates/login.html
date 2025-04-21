@@ -44,12 +44,20 @@
             </form>
 
             <div class="text-center mt-4">
-                <a href="#" class="text-yellow-400 hover:underline">Forgot Password?</a>
+                <a href="{% url 'password_reset' %}" class="text-yellow-400 hover:underline">
+                    Forgot Password?
+                </a>
                 <br>
                 <a href="{% url 'register' %}" class="text-yellow-400 hover:underline">New user? Register here</a>
             </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'resend_verification' %}" class="text-yellow-400 hover:underline">
+                    Didn't get the verification email? Resend it
+                </a>
+            </div>
         </div>
     </div>
+
 </section>
 
 <!-- FontAwesome for icons -->

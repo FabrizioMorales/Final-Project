@@ -13,11 +13,25 @@ from .models import Appointment, UserProfile
 from .forms import AppointmentForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from datetime import datetime
+from datetime import datetime, timedelta
 from .forms import ProfileForm
 import csv
 from django.views.decorators.http import require_POST
 from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django import forms
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
+from .forms import CustomPasswordResetForm
 
 # Home Page
 def home(request):
@@ -71,12 +85,13 @@ def register_view(request):
                 messages.error(request, "Email already registered. Please log in instead.")
                 return render(request, "register.html", {"form": form})
 
-            # ✅ Save user data
+            # ✅ Save user as inactive
             user = form.save(commit=False)
             user.username = email
             user.email = email
             user.first_name = form.cleaned_data["first_name"]
             user.last_name = form.cleaned_data["last_name"]
+            user.is_active = False  # 🔒 Important for verification
             user.save()
 
             # ✅ Create or update UserProfile
@@ -87,9 +102,29 @@ def register_view(request):
                 defaults={"phone": phone, "business": business}
             )
 
-            login(request, user)
-            messages.success(request, "Registration successful!")
-            return redirect("user_dashboard")
+            # ✅ Send verification email
+            current_site = get_current_site(request)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            verify_url = f"http://{current_site.domain}/verify-email/{uid}/{token}/"
+
+            subject = "Verify your email - University Cyber Clinic"
+            message = render_to_string("email_verification.html", {
+                "first_name": user.first_name,
+                "verify_url": verify_url
+            })
+
+            send_mail(
+                subject,
+                message,
+                "noreply@universitycyber.uk",
+                [user.email],
+                fail_silently=False
+            )
+
+            messages.success(request, "Registration successful. Please check your email to verify your account.")
+            return redirect("login")
+
         else:
             messages.error(request, "Registration failed. Please correct the errors below.")
     else:
@@ -97,6 +132,84 @@ def register_view(request):
 
     return render(request, "register.html", {"form": form})
 
+def verify_email(request, uidb64, token):
+    try:
+        # Decode the UID from the URL and retrieve the user
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = get_user_model().objects.get(pk=uid)
+
+        # Check if the token is valid for the user
+        if default_token_generator.check_token(user, token):
+            user.is_active = True  # Mark user as active (email verified)
+            user.save()
+
+            # Log the user in after verification
+            login(request, user)
+            
+            messages.success(request, 'Email verified! You are now logged in.')
+            return redirect('user_dashboard')  # Redirect to user dashboard after login
+
+        else:
+            messages.error(request, 'Invalid or expired verification link.')
+            return redirect('register')
+
+    except Exception as e:
+        messages.error(request, 'Something went wrong during email verification.')
+        return redirect('register')
+
+#resend verification email
+def resend_verification_email(request):
+    class ResendVerificationForm(forms.Form):
+        email = forms.EmailField(label="Enter your email")
+
+    if request.method == "POST":
+        form = ResendVerificationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            try:
+                user = User.objects.get(email=email)
+                profile, _ = UserProfile.objects.get_or_create(user=user)
+
+                if user.is_active:
+                    messages.info(request, "This account is already verified. Please log in.")
+                    return redirect("login")
+
+                # ✅ Rate limit check
+                now = timezone.now()
+                if profile.last_verification_email_sent and now - profile.last_verification_email_sent < timedelta(seconds=60):
+                    remaining_time = 60 - (now - profile.last_verification_email_sent).seconds
+                    messages.warning(request, f"You can only resend the email after {remaining_time} seconds.")
+                    return redirect("resend_verification")
+
+                # ✅ Send email
+                current_site = get_current_site(request)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                token = default_token_generator.make_token(user)
+                verify_url = f"http://{current_site.domain}/verify-email/{uid}/{token}/"
+
+                subject = "Resend Verification Email - University Cyber Clinic"
+                message = render_to_string("email_verification.html", {
+                    "first_name": user.first_name,
+                    "verify_url": verify_url
+                })
+
+                send_mail(subject, message, "noreply@universitycyber.uk", [user.email])
+
+                # ✅ Update timestamp
+                profile.last_verification_email_sent = now
+                profile.save()
+
+                messages.success(request, "A new verification email has been sent!")
+                return redirect("login")  # ✅ Auto-redirect after success
+
+            except User.DoesNotExist:
+                messages.error(request, "No account found with that email.")
+                return redirect("resend_verification")
+
+    else:
+        form = ResendVerificationForm()
+
+    return render(request, "resend_verification.html", {"form": form})
 
 # User Login (Using Email Instead of Username)
 def login_view(request):
@@ -120,6 +233,23 @@ def login_view(request):
     form = AuthenticationForm()
     return render(request, "login.html", {"form": form})
 
+
+# Custom Password Reset View to use the custom form
+class CustomPasswordResetView(auth_views.PasswordResetView):
+    form_class = CustomPasswordResetForm  # Use our custom form
+    template_name = 'registration/password_reset_form.html'  # The template to display the password reset form
+    email_template_name = 'registration/password_reset_email.html'  # Custom email template
+    success_url = reverse_lazy('password_reset_done')  # Redirect here after successfully submitting the form
+
+# Other reset views to handle confirmation and success
+class CustomPasswordResetDoneView(auth_views.PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'
+
+class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+
+class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
 
 # User Logout
 def logout_view(request):

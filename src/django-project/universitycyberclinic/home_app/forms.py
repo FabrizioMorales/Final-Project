@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Appointment
 from .models import UserProfile
+from django.contrib.auth.forms import PasswordResetForm
 
 # Appointment Booking Form
 class AppointmentForm(forms.ModelForm):
@@ -70,6 +71,13 @@ class RegisterForm(UserCreationForm):
         print(f"Registered user phone: {phone}, business: {business}")
 
         return user
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(label="Enter your email", widget=forms.EmailInput(attrs={
+        'class': 'w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400',
+        'placeholder': 'Enter your registered email address'
+    }))
 
 # User Login Form (Uses Email Instead of Username)
 class LoginForm(AuthenticationForm):

@@ -1,13 +1,17 @@
 from django.urls import path
-from django.contrib.auth.views import PasswordResetView
 from .views import (
+    CustomPasswordResetView,
+    CustomPasswordResetDoneView,
+    CustomPasswordResetConfirmView,
+    CustomPasswordResetCompleteView,
     home, register_view, login_view, logout_view,
     appointment_view, receipt_view, download_receipt_pdf,
     resources, contact, about, services,
     user_dashboard, cancel_appointment,
     edit_profile, admin_dashboard, mark_appointment_completed,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
-    admin_users_view, edit_user_view, delete_user_view, login_as_staff,
+    admin_users_view, edit_user_view, delete_user_view, login_as_staff, verify_email,
+    resend_verification_email,
 )
 
 urlpatterns = [
@@ -41,7 +45,17 @@ urlpatterns = [
     path("dashboard/export/appointments/", export_appointments_csv, name="export_appointments_csv"),
     path('admin-dashboard/users/', admin_users_view, name='admin_users'),
     path('admin-dashboard/users/<int:user_id>/edit/', edit_user_view, name='edit_user'),
-    path('admin-dashboard/users/<int:user_id>/reset-password/', PasswordResetView.as_view(), name='reset_user_password'),
+    path('admin-dashboard/users/<int:user_id>/reset-password/', CustomPasswordResetView.as_view(), name='reset_user_password'),
     path('admin-dashboard/users/<int:user_id>/delete/', delete_user_view, name='delete_user'),
     path('login-as-staff/<int:user_id>/', login_as_staff, name='login_as_staff'),
+
+    # --- Email Verification ---
+    path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),
+    path('resend-verification/', resend_verification_email, name='resend_verification'),
+
+    # Password reset URLs
+    path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

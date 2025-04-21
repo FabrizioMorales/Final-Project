@@ -19,6 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Secret key and Debug settings
 SECRET_KEY = 'django-insecure-d=r#)raz81)boq+n()g(9!22&70+#z)f^2*(s24b-rxt9uft&^'
 DEBUG = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://universitycyber.uk",
+    "https://www.universitycyber.uk",
+]
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -104,14 +108,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Email backend for sending verification emails
+# For development/testing (email printed in the console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ✅ Email Configuration for noreply@universitycyber.uk
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Change this to your email provider's SMTP host
+EMAIL_HOST = 'smtp.stackmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'rajababuofficial108@gmail.com'  # Replace with your email
-EMAIL_HOST_PASSWORD = 'your_password'  # Replace with your email password or app-specific password
-DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'  # Replace with your default email
+EMAIL_HOST_USER = 'noreply@universitycyber.uk'
+EMAIL_HOST_PASSWORD = 'helloraja1'  # 🔒 Consider storing this in an environment variable later
+DEFAULT_FROM_EMAIL = 'noreply@universitycyber.uk'
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'

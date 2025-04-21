@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Resend Verification Email</title>
+{% endblock title %}
+
+{% block content %}
+<!-- Video Background -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section id="resend-verification" class="relative z-10 py-16">
+    <div class="max-w-md mx-auto bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
+        <div class="p-8 text-white">
+            <h2 class="text-3xl font-bold text-center mb-6">Resend Verification Email</h2>
+
+            <!-- Display Django Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="bg-blue-600 text-white text-center py-2 px-4 rounded mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'resend_verification' %}" class="space-y-6" id="resend-form">
+                {% csrf_token %}
+
+                <div>
+                    <label for="id_email" class="block text-sm font-medium mb-1">Email Address</label>
+                    {{ form.email|add_class:"w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400" }}
+                </div>
+
+                <button type="submit"
+                        class="w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded-lg transition duration-300"
+                        id="resend-button" 
+                        onclick="startCountdown(event)">
+                    Resend Verification Email
+                </button>
+                <div id="timer-message" class="mt-2 text-center text-yellow-400 hidden">
+                    Please wait <span id="countdown">60</span> seconds before requesting again.
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'login' %}" class="text-yellow-400 hover:underline">Back to Login</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    // Function to start the countdown and disable the button
+    function startCountdown(event) {
+        event.preventDefault();  // Prevent the form from submitting immediately
+
+        const countdownElem = document.getElementById("countdown");
+        const button = document.getElementById("resend-button");
+        const timerMessage = document.getElementById("timer-message");
+
+        // Disable the button and show the timer message
+        button.disabled = true;
+        timerMessage.classList.remove("hidden");
+
+        let timeLeft = 60;  // Set the timer to 60 seconds
+
+        const interval = setInterval(function() {
+            countdownElem.textContent = timeLeft;
+            timeLeft--;
+
+            // If the timer reaches 0, enable the button and hide the message
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                button.disabled = false;
+                timerMessage.classList.add("hidden");
+            }
+        }, 1000);
+
+        // Submit the form after the countdown starts
+        document.getElementById("resend-form").submit();
+    }
+</script>
+
+{% endblock content %}

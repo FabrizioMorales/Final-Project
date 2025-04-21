@@ -2,12 +2,23 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    {% block title %}
-    {% endblock title %}
+    {% block title %}{% endblock title %}
+
+    <style>
+      /* Hide logo text on small screens */
+      @media screen and (max-width: 640px) {
+        .logo-text {
+          display: none;
+        }
+        .logout-link {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body class="bg-gray-950 text-white">
     <!-- Navbar -->
@@ -15,8 +26,8 @@
       <div class="container mx-auto flex items-center justify-between py-5 px-6">
         <!-- Logo -->
         <a href="/" class="flex items-center">
-          <img src="{% static 'images/logo1.png' %}" alt="University Cyber Clinic Logo" class="h-12 w-12 mr-3">
-          <span class="text-xl font-bold hover:text-yellow-400">University Cyber Clinic</span>
+          <img src="{% static 'images/logo1.png' %}" alt="University Cyber Clinic Logo" class="h-12 w-12 mr-3" />
+          <span class="logo-text text-xl font-bold hover:text-yellow-400">University Cyber Clinic</span>
         </a>
 
         <!-- Navbar Links -->
@@ -34,7 +45,7 @@
             <a href="{% url 'user_dashboard' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
               Dashboard
             </a>
-            <a href="{% url 'logout' %}" class="text-sm hover:text-yellow-400">Logout</a>
+            <a href="{% url 'logout' %}" class="logout-link text-sm hover:text-yellow-400">Logout</a>
           {% else %}
             <a href="{% url 'login' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
               Login/Register
@@ -59,6 +70,7 @@
         <a href="/about" class="block py-2 px-4 hover:bg-gray-700">About Us</a>
         {% if user.is_authenticated %}
           <a href="{% url 'user_dashboard' %}" class="block text-yellow-400 py-2 px-4">Dashboard</a>
+          <!-- This logout will only be visible on mobile -->
           <a href="{% url 'logout' %}" class="block py-2 px-4 hover:bg-red-600">Logout</a>
         {% else %}
           <a href="{% url 'login' %}" class="block text-yellow-400 py-2 px-4">Login/Register</a>
@@ -68,8 +80,7 @@
 
     <!-- Content -->
     <main class="container mx-auto py-0">
-      {% block content %}
-      {% endblock content %}
+      {% block content %}{% endblock content %}
     </main>
 
     <!-- Footer -->
