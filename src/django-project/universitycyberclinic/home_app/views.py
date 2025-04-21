@@ -237,19 +237,21 @@ def login_view(request):
 # Custom Password Reset View to use the custom form
 class CustomPasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm  # Use our custom form
-    template_name = 'registration/password_reset_form.html'  # The template to display the password reset form
-    email_template_name = 'registration/password_reset_email.html'  # Custom email template
+    template_name = 'reg/password_reset_form.html'  # The template to display the password reset form
+    email_template_name = 'reg/password_reset_email.html'  # Custom email template
     success_url = reverse_lazy('password_reset_done')  # Redirect here after successfully submitting the form
-
+    
 # Other reset views to handle confirmation and success
 class CustomPasswordResetDoneView(auth_views.PasswordResetDoneView):
-    template_name = 'registration/password_reset_done.html'
+    template_name = 'reg/password_reset_done.html'
 
 class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-    template_name = 'registration/password_reset_confirm.html'
+    template_name = 'reg/password_reset_confirm.html'
 
 class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
-    template_name = 'registration/password_reset_complete.html'
+    template_name = 'reg/password_reset_complete.html'
+    
+
 
 # User Logout
 def logout_view(request):

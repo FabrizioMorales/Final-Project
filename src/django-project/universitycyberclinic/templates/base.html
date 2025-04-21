@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     {% block title %}{% endblock title %}
 
@@ -20,7 +21,7 @@
       }
     </style>
   </head>
-  <body class="bg-gray-950 text-white">
+  <body class="bg-gray-950 text-white flex flex-col min-h-screen">
     <!-- Navbar -->
     <nav class="bg-gray-900 bg-opacity-90 backdrop-blur shadow">
       <div class="container mx-auto flex items-center justify-between py-5 px-6">
@@ -79,7 +80,7 @@
     </nav>
 
     <!-- Content -->
-    <main class="container mx-auto py-0">
+    <main class="container mx-auto py-0 flex-grow">
       {% block content %}{% endblock content %}
     </main>
 
