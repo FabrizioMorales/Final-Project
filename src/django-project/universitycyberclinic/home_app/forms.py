@@ -104,3 +104,9 @@ class ProfileForm(forms.ModelForm):
             self.fields['first_name'].initial = user.first_name
             self.fields['last_name'].initial = user.last_name
             self.fields['email'].initial = user.email
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=150)
+    message = forms.CharField(widget=forms.Textarea)

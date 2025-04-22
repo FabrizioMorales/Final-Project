@@ -34,18 +34,56 @@
             <!-- Right Side (Contact Form) -->
             <div class="p-8 bg-gray-500 text-white bg-opacity-5 backdrop-filter backdrop-blur-sm rounded-lg">
                 <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
-                <form class="space-y-4">
-                    <input type="text" name="name" placeholder="Name" required
-                        class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    <input type="email" name="email" placeholder="Email" required
-                        class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    <input type="text" name="subject" placeholder="Subject" required
-                        class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    <textarea name="message" placeholder="Message" required rows="4"
-                        class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
+
+                <!-- Messages -->
+                {% if messages %}
+                    <div class="mb-4 space-y-2">
+                        {% for message in messages %}
+                            <div class="p-3 rounded text-sm font-semibold bg-yellow-400 text-black shadow">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Contact Form -->
+                <form method="POST" class="space-y-4" id="contact-form">
+                    {% csrf_token %}
+
+                    <div>
+                        <label for="id_name" class="block text-sm font-semibold mb-1">Your Name</label>
+                        <input type="text" name="name" id="id_name" placeholder="Name" required
+                            class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    </div>
+
+                    <div>
+                        <label for="id_email" class="block text-sm font-semibold mb-1">Your Email</label>
+                        <input type="email" name="email" id="id_email" placeholder="Email" required
+                            class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        <p id="email-error" class="text-red-400 text-sm mt-1 hidden">Please enter a valid email address.</p>
+                    </div>
+
+                    <div>
+                        <label for="id_subject" class="block text-sm font-semibold mb-1">Subject</label>
+                        <input type="text" name="subject" id="id_subject" placeholder="Subject" required
+                            class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    </div>
+
+                    <div>
+                        <label for="id_message" class="block text-sm font-semibold mb-1">Message</label>
+                        <textarea name="message" id="id_message" rows="4" placeholder="Write your message here..." required
+                            class="w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
+                    </div>
+
+                    <!-- Submit Button with Spinner -->
                     <button type="submit"
-                        class="w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded-lg transition duration-300">
-                        Send Message
+                            id="submit-btn"
+                            class="w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                        <svg id="spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                        <span id="btn-text">Send Message</span>
                     </button>
                 </form>
             </div>
@@ -53,7 +91,39 @@
     </div>
 </section>
 
-<!-- FontAwesome for icons -->
+<!-- FontAwesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
+<!-- Scripts -->
+<script>
+    const form = document.getElementById('contact-form');
+    const button = document.getElementById('submit-btn');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btn-text');
+    const emailInput = document.getElementById('id_email');
+    const emailError = document.getElementById('email-error');
+
+    // Spinner on submit
+    form.addEventListener('submit', () => {
+        button.disabled = true;
+        spinner.classList.remove('hidden');
+        btnText.textContent = 'Sending...';
+    });
+
+    // Live email validation
+    emailInput.addEventListener('input', () => {
+        const value = emailInput.value;
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+        if (!isValid && value.length > 0) {
+            emailInput.classList.remove('focus:ring-yellow-400');
+            emailInput.classList.add('focus:ring-red-500');
+            emailError.classList.remove('hidden');
+        } else {
+            emailInput.classList.remove('focus:ring-red-500');
+            emailInput.classList.add('focus:ring-yellow-400');
+            emailError.classList.add('hidden');
+        }
+    });
+</script>
 {% endblock content %}

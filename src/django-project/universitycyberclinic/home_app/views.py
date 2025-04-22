@@ -32,6 +32,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from .forms import CustomPasswordResetForm
+from .forms import ContactForm
+from .models import ContactMessage
+
 
 # Home Page
 def home(request):
@@ -266,6 +269,54 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Logged out successfully.")
     return redirect("login")
+
+#contanct form
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # 1. Save to DB
+            ContactMessage.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message
+            )
+
+            # 2. Compose email content
+            full_message = f"From: {name} <{email}>\n\nMessage:\n{message}"
+
+            # 3. Send email to admin
+            send_mail(
+                subject=f"[Contact Form] {subject}",
+                message=full_message,
+                from_email="noreply@universitycyber.uk",
+                recipient_list=["info@universitycyber.uk"],
+                fail_silently=False,
+            )
+
+            # 4. Send copy to user
+            send_mail(
+                subject="Copy of your message to University Cyber Clinic",
+                message=f"Hi {name},\n\nHere's a copy of your message:\n\n{full_message}\n\nWe'll get back to you shortly!",
+                from_email="noreply@universitycyber.uk",
+                recipient_list=[email],
+                fail_silently=False,
+            )
+
+            messages.success(request, "Your message has been sent! A copy was sent to your email.")
+            return redirect('contact')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
 
 
 # QR Code Generator
