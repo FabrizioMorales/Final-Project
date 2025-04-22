@@ -234,24 +234,32 @@ def login_view(request):
     return render(request, "login.html", {"form": form})
 
 
-# Custom Password Reset View to use the custom form
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
+from .forms import CustomPasswordResetForm
+# 🌟 Class-Based Password Reset Views (Enhanced)
 class CustomPasswordResetView(auth_views.PasswordResetView):
-    form_class = CustomPasswordResetForm  # Use our custom form
-    template_name = 'reg/password_reset_form.html'  # The template to display the password reset form
-    email_template_name = 'reg/password_reset_email.html'  # Custom email template
-    success_url = reverse_lazy('password_reset_done')  # Redirect here after successfully submitting the form
-    
-# Other reset views to handle confirmation and success
+    form_class = CustomPasswordResetForm
+    template_name = 'reg/password_reset_form.html'
+    email_template_name = 'reg/password_reset_email.html'
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get('email', '')
+        domain = email.split('@')[-1].lower()
+        return redirect(f"{reverse('password_reset_done')}?provider={domain}")
+
+
 class CustomPasswordResetDoneView(auth_views.PasswordResetDoneView):
     template_name = 'reg/password_reset_done.html'
 
+
 class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = 'reg/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
 
 class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'reg/password_reset_complete.html'
-    
-
 
 # User Logout
 def logout_view(request):
