@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 {% load static %}
 
 {% block title %}<title>Admin Dashboard</title>{% endblock %}
@@ -25,17 +25,19 @@
       </div>
     </div>
 
-    <!-- View All Appointments Button -->
-<!-- View Buttons -->
-<div class="mt-8 flex justify-center gap-6">
-    <a href="{% url 'admin_users' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-      View Users
-    </a>
-    <a href="{% url 'admin_appointments' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-      View All Appointments
-    </a>
-  </div>
-  
+    <!-- Action Buttons -->
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-6">
+      <a href="{% url 'admin_users' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
+        View Users
+      </a>
+      <a href="{% url 'admin_appointments' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
+        View All Appointments
+      </a>
+      <a href="{% url 'admin_contact_messages' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
+        View Contact Messages
+      </a>
+    </div>
+    
   </div>
 </div>
 {% endblock %}

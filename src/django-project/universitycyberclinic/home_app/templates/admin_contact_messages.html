@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Contact Messages - Admin</title>
+{% endblock %}
+
+{% block messages %}{% endblock %}  {# Disable base.html message rendering #}
+
+{% block content %}
+<!-- Background Video -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+  <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
+
+<div class="relative z-10 container mx-auto py-12">
+  <div class="bg-gray-900 bg-opacity-90 backdrop-blur rounded-xl text-white p-8 shadow-lg">
+    <h1 class="text-4xl font-bold mb-10 text-center">Contact Messages</h1>
+
+    {% if messages %}
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm rounded-lg overflow-hidden">
+          <thead class="bg-gray-800 text-white">
+            <tr>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">Email</th>
+              <th class="px-4 py-3">Subject</th>
+              <th class="px-4 py-3">Message</th>
+              <th class="px-4 py-3">Date</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-700 bg-gray-950 bg-opacity-80">
+            {% for msg in messages %}
+              <tr class="hover:bg-gray-800 transition duration-150">
+                <td class="px-4 py-3 font-semibold text-yellow-400">{{ msg.name }}</td>
+                <td class="px-4 py-3 text-white">{{ msg.email }}</td>
+                <td class="px-4 py-3 text-white">{{ msg.subject }}</td>
+                <td class="px-4 py-3 text-white max-w-xs truncate" title="{{ msg.message }}">{{ msg.message }}</td>
+                <td class="px-4 py-3 text-gray-400 text-sm">{{ msg.created_at|date:"M d, Y H:i" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-center text-gray-300">No messages submitted yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

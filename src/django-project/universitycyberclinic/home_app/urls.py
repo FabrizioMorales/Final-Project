@@ -49,6 +49,7 @@ urlpatterns = [
     path('admin-dashboard/users/<int:user_id>/reset-password/', CustomPasswordResetView.as_view(), name='reset_user_password'),
     path('admin-dashboard/users/<int:user_id>/delete/', delete_user_view, name='delete_user'),
     path('login-as-staff/<int:user_id>/', login_as_staff, name='login_as_staff'),
+    path('admin-dashboard/messages/', views.admin_contact_messages, name='admin_contact_messages'),
 
     # --- Email Verification ---
     path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),

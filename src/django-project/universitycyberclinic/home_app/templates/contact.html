@@ -3,7 +3,9 @@
 {% block title %}
 <title>Contact Us</title>
 {% endblock title %}
-
+{% block messages %}{% endblock %}
+{# Disable base.html message rendering #}
+{% block styles %}
 {% block content %}
 <!-- Video Background -->
 <video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">

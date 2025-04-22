@@ -562,3 +562,9 @@ def login_as_staff(request, user_id):
         # If the user is not staff, do not allow login as staff
         messages.error(request, "You must be a staff member to access the admin dashboard.")
         return redirect('user_dashboard')  # Redirect back to user dashboard if not staff
+    
+
+@staff_member_required
+def admin_contact_messages(request):
+    messages = ContactMessage.objects.order_by('-created_at')
+    return render(request, 'admin_contact_messages.html', {'messages': messages})
