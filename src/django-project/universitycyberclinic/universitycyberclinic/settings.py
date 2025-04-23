@@ -85,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydb',
-        'USER': 'root',
-        'PASSWORD': '1234',
+        'USER': 'raja',
+        'PASSWORD': 'Helloraja',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -107,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # For development/testing (email printed in the console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

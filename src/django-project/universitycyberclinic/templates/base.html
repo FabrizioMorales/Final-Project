@@ -1,154 +1,189 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-    {% block title %}{% endblock title %}
+  {% block title %}{% endblock title %}
+  <style>
+    @media screen and (max-width: 640px) {
+      .logo-text, .logout-link { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white flex flex-col min-h-screen">
 
-    <style>
-      /* Hide logo text on small screens */
-      @media screen and (max-width: 640px) {
-        .logo-text {
-          display: none;
-        }
-        .logout-link {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body class="bg-gray-950 text-white flex flex-col min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-gray-900 bg-opacity-80 backdrop-blur shadow">
-      <div class="container mx-auto flex items-center justify-between py-5 px-6">
-        <!-- Logo -->
-        <a href="/" class="flex items-center">
-          <img src="{% static 'images/logo1.png' %}" alt="University Cyber Clinic Logo" class="h-12 w-12 mr-3" />
-          <span class="logo-text text-xl font-bold hover:text-yellow-400">University Cyber Clinic</span>
+<!-- Navbar -->
+<nav class="bg-gray-900 bg-opacity-90 backdrop-blur shadow">
+  <div class="container mx-auto flex items-center justify-between py-5 px-6">
+    <!-- Logo -->
+    <a href="/" class="flex items-center">
+      <img src="{% static 'images/logo1.png' %}" alt="Logo" class="h-12 w-12 mr-3" />
+      <span class="logo-text text-xl font-bold hover:text-yellow-400">University Cyber Clinic</span>
+    </a>
+
+    <!-- Navbar Links -->
+    <div class="hidden md:flex space-x-6 mx-auto">
+      <a href="/" class="hover:text-yellow-400 font-semibold uppercase">Home</a>
+      <a href="/services" class="hover:text-yellow-400 font-semibold uppercase">Services</a>
+      <a href="/resources" class="hover:text-yellow-400 font-semibold uppercase">Resources</a>
+      <a href="/contact" class="hover:text-yellow-400 font-semibold uppercase">Contact Us</a>
+      <a href="/about" class="hover:text-yellow-400 font-semibold uppercase">About Us</a>
+    </div>
+
+    <!-- Dashboard & Notifications -->
+    <div class="flex items-center space-x-4">
+      {% if user.is_authenticated %}
+        <!-- Notifications -->
+        <a href="{% url 'admin_contact_messages' %}" class="relative">
+          <i class="fas fa-bell text-yellow-400 text-xl"></i>
+          <span id="notification-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-0.5 hidden">0</span>
         </a>
 
-        <!-- Navbar Links -->
-        <div class="hidden md:flex space-x-6 mx-auto">
-          <a href="/" class="hover:text-yellow-400 font-semibold uppercase">Home</a>
-          <a href="/services" class="hover:text-yellow-400 font-semibold uppercase">Services</a>
-          <a href="/resources" class="hover:text-yellow-400 font-semibold uppercase">Resources</a>
-          <a href="/contact" class="hover:text-yellow-400 font-semibold uppercase">Contact Us</a>
-          <a href="/about" class="hover:text-yellow-400 font-semibold uppercase">About Us</a>
-        </div>
-
-        <!-- Dashboard or Login/Register Button -->
-        <div class="flex items-center space-x-4">
-          {% if user.is_authenticated %}
-            <a href="{% url 'user_dashboard' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
-              Dashboard
-            </a>
-            <a href="{% url 'logout' %}" class="logout-link text-sm hover:text-yellow-400">Logout</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
-              Login/Register
-            </a>
-          {% endif %}
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none ml-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden bg-gray-800 bg-opacity-90 backdrop-blur">
-        <a href="/" class="block py-2 px-4 hover:bg-gray-700">Home</a>
-        <a href="/services" class="block py-2 px-4 hover:bg-gray-700">Services</a>
-        <a href="/resources" class="block py-2 px-4 hover:bg-gray-700">Resources</a>
-        <a href="/contact" class="block py-2 px-4 hover:bg-gray-700">Contact Us</a>
-        <a href="/about" class="block py-2 px-4 hover:bg-gray-700">About Us</a>
-        {% if user.is_authenticated %}
-          <a href="{% url 'user_dashboard' %}" class="block text-yellow-400 py-2 px-4">Dashboard</a>
-          <!-- This logout will only be visible on mobile -->
-          <a href="{% url 'logout' %}" class="block py-2 px-4 hover:bg-red-600">Logout</a>
-        {% else %}
-          <a href="{% url 'login' %}" class="block text-yellow-400 py-2 px-4">Login/Register</a>
-        {% endif %}
-      </div>
-    </nav>
-
-    <!-- Content -->
-    <main class="container mx-auto py-0 flex-grow">
-      <!-- Global Django Messages -->
-      {% block messages %}
-      {% if messages %}
-        <div class="container mx-auto mt-6">
-          {% for message in messages %}
-            <div class="mb-4 p-4 rounded-lg text-sm text-white 
-                        {% if message.tags == 'success' %}bg-green-500
-                        {% elif message.tags == 'error' %}bg-red-500
-                        {% elif message.tags == 'warning' %}bg-yellow-500
-                        {% else %}bg-blue-500{% endif %}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        </div>
+        <a href="{% url 'user_dashboard' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
+          Dashboard
+        </a>
+        <a href="{% url 'logout' %}" class="logout-link text-sm hover:text-yellow-400">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="bg-yellow-400 text-gray-900 font-semibold rounded-full px-4 py-2 hover:bg-yellow-500">
+          Login/Register
+        </a>
       {% endif %}
-      {% endblock %}
+    </div>
 
-      {% block content %}{% endblock content %}
-    </main>
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none ml-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-10 mt-20">
-      <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
-        <!-- Contact Information -->
-        <div>
-          <h3 class="text-lg font-bold mb-4 text-white">University Cyber Clinic</h3>
-          <p>Email: <a href="mailto:info@universitycyber.uk" class="hover:text-yellow-400">info@universitycyber.uk</a></p>
-          <p>Phone: <a href="tel:+44234567890" class="hover:text-yellow-400">0234 5678 90</a></p>
-          <p>Address: Roehampton Lane, London, SW15 5PU</p>
-        </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-gray-800 bg-opacity-90 backdrop-blur">
+    <a href="/" class="block py-2 px-4 hover:bg-gray-700">Home</a>
+    <a href="/services" class="block py-2 px-4 hover:bg-gray-700">Services</a>
+    <a href="/resources" class="block py-2 px-4 hover:bg-gray-700">Resources</a>
+    <a href="/contact" class="block py-2 px-4 hover:bg-gray-700">Contact Us</a>
+    <a href="/about" class="block py-2 px-4 hover:bg-gray-700">About Us</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'user_dashboard' %}" class="block text-yellow-400 py-2 px-4">Dashboard</a>
+      <a href="{% url 'logout' %}" class="block py-2 px-4 hover:bg-red-600">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}" class="block text-yellow-400 py-2 px-4">Login/Register</a>
+    {% endif %}
+  </div>
+</nav>
 
-        <!-- Opening Hours -->
-        <div>
-          <h3 class="text-lg font-bold mb-4 text-white">Opening Hours</h3>
-          <p>Monday: 9am - 5pm</p>
-          <p>Tuesday: 9am - 5pm</p>
-          <p>Wednesday: 9am - 5pm</p>
-          <p>Thursday: 9am - 5pm</p>
-          <p>Friday: 9am - 5pm</p>
-        </div>
-
-        <!-- Links -->
-        <div>
-          <h3 class="text-lg font-bold mb-4 text-white">Useful Links</h3>
-          <p><a href="{% static 'pdfs/termsNcondition.pdf' %}" target="_blank" class="hover:text-yellow-400">Terms and Conditions</a></p>
-          <p><a href="{% static 'pdfs/PrivecyPolicy.pdf' %}" target="_blank" class="hover:text-yellow-400">Privacy Policy</a></p>
-          <br>
-          <p class="flex justify-center">
-            <a href="https://www.immuniweb.com/websec/universitycyber.uk/wujmj3nw/">
-              <img src="{% static 'images/securitytest.png' %}" alt="ImmuniWeb Website Security Tested" class="h-12 w-40 rounded-[4px]">
-            </a>
+<!-- Content -->
+<main class="container mx-auto py-0 flex-grow">
+  {% block messages %}
+  {% if messages %}
+    <div id="toast-container" class="fixed top-20 right-6 z-50 space-y-4">
+      {% for message in messages %}
+        <div class="toast animate-fade-in bg-gray-800 bg-opacity-70 backdrop-blur-md border border-gray-600 text-white px-6 py-4 rounded-xl shadow-md transition-opacity duration-500"
+             data-duration="5000">
+          <p class="text-sm font-medium">
+            {% if message.tags == 'success' %}
+              ✅ {{ message }}
+            {% elif message.tags == 'error' %}
+              ❌ {{ message }}
+            {% elif message.tags == 'warning' %}
+              ⚠️ {{ message }}
+            {% else %}
+              ℹ️ {{ message }}
+            {% endif %}
           </p>
         </div>
-      </div>
-
-      <div class="mt-8 text-center text-sm">
-        <p>© 2025 University Cyber Clinic. All rights reserved.</p>
-      </div>
-    </footer>
-
-    <!-- Mobile Menu Toggle Script -->
-    <script>
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% endblock %}
+  
+  <style>
+    .animate-fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+  
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  
+  <script>
+    // Auto-hide toasts after duration
+    document.addEventListener("DOMContentLoaded", () => {
+      const toasts = document.querySelectorAll('.toast');
+      toasts.forEach(toast => {
+        const duration = toast.dataset.duration || 5000;
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+          setTimeout(() => toast.remove(), 500);
+        }, duration);
       });
-    </script>
-  </body>
+    });
+  </script>
+
+  {% block content %}{% endblock content %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-gray-400 py-10 mt-20">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
+    <div>
+      <h3 class="text-lg font-bold mb-4 text-white">University Cyber Clinic</h3>
+      <p>Email: <a href="mailto:info@universitycyber.uk" class="hover:text-yellow-400">info@universitycyber.uk</a></p>
+      <p>Phone: <a href="tel:+44234567890" class="hover:text-yellow-400">0234 5678 90</a></p>
+      <p>Address: Roehampton Lane, London, SW15 5PU</p>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mb-4 text-white">Opening Hours</h3>
+      <p>Mon - Fri: 9am - 5pm</p>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mb-4 text-white">Useful Links</h3>
+      <p><a href="{% static 'pdfs/termsNcondition.pdf' %}" target="_blank" class="hover:text-yellow-400">Terms and Conditions</a></p>
+      <p><a href="{% static 'pdfs/PrivecyPolicy.pdf' %}" target="_blank" class="hover:text-yellow-400">Privacy Policy</a></p>
+    </div>
+  </div>
+  <div class="mt-8 text-center text-sm">
+    <p>© 2025 University Cyber Clinic. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+  function updateNavbarNotification() {
+    fetch("{% url 'unread_message_count' %}")
+      .then(res => res.json())
+      .then(data => {
+        const count = data.unread_count ?? 0;
+        const badge = document.getElementById("notification-count");
+        if (badge) {
+          badge.textContent = count;
+          badge.classList.toggle("hidden", count === 0);
+        }
+      });
+  }
+
+  updateNavbarNotification();
+  setInterval(updateNavbarNotification, 10000); // every 10s
+</script>
+
+</body>
 </html>

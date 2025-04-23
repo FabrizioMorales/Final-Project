@@ -60,4 +60,11 @@ urlpatterns = [
     path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('admin-dashboard/messages/', views.admin_contact_messages, name='admin_contact_messages'),
+    path('admin-dashboard/messages/<int:pk>/', views.admin_contact_message_detail, name='admin_contact_message_detail'),
+    path('admin-dashboard/messages/<int:pk>/delete/', views.delete_contact_message, name='delete_contact_message'),
+    path('admin-dashboard/messages/<int:pk>/', views.admin_contact_message_detail, name='admin_contact_message_detail'),
+    path('admin-dashboard/messages/unread/', views.unread_message_count, name='unread_message_count'),
+    path('admin-dashboard/messages/<int:pk>/mark-read/', views.mark_message_as_read, name='mark_message_as_read'),
+
 ]

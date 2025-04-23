@@ -34,6 +34,10 @@ from django.urls import reverse_lazy
 from .forms import CustomPasswordResetForm
 from .forms import ContactForm
 from .models import ContactMessage
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
+from django.http import JsonResponse
+
 
 
 # Home Page
@@ -410,18 +414,19 @@ def edit_profile(request):
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 
-@staff_member_required
 def admin_dashboard(request):
-    from home_app.models import Appointment
-
     total_users = User.objects.count()
     total_appointments = Appointment.objects.count()
-    recent_appointments = Appointment.objects.order_by('-appointment_date', '-appointment_time')[:10]
+    total_messages = ContactMessage.objects.count()
+    unread_messages = ContactMessage.objects.filter(read=False).count()
+    read_messages = ContactMessage.objects.filter(read=True).count()
 
     context = {
         'total_users': total_users,
         'total_appointments': total_appointments,
-        'recent_appointments': recent_appointments,
+        'total_messages': total_messages,
+        'unread_messages': unread_messages,
+        'read_messages': read_messages,
     }
     return render(request, 'admin_dashboard.html', context)
 
@@ -568,3 +573,84 @@ def login_as_staff(request, user_id):
 def admin_contact_messages(request):
     messages = ContactMessage.objects.order_by('-created_at')
     return render(request, 'admin_contact_messages.html', {'messages': messages})
+
+
+@staff_member_required
+def admin_contact_messages(request):
+    messages = ContactMessage.objects.all().order_by('-created_at')
+    return render(request, 'admin_contact_messages.html', {'messages': messages})
+
+@staff_member_required
+def admin_contact_message_detail(request, pk):
+    message = get_object_or_404(ContactMessage, pk=pk)
+    return render(request, 'admin_contact_message_detail.html', {'message': message})
+
+@staff_member_required
+def delete_contact_message(request, pk):
+    message = get_object_or_404(ContactMessage, pk=pk)
+    message.delete()
+    messages.success(request, "Message deleted successfully.")
+    return redirect('admin_contact_messages')
+
+from django.core.paginator import Paginator
+
+@staff_member_required
+def admin_contact_messages(request):
+    query = request.GET.get('q', '')
+    subject_filter = request.GET.get('subject', '')
+    date_from = request.GET.get('date_from', '')
+    date_to = request.GET.get('date_to', '')
+
+    messages = ContactMessage.objects.all()
+
+    if query:
+        messages = messages.filter(
+            Q(name__icontains=query) |
+            Q(email__icontains=query) |
+            Q(subject__icontains=query) |
+            Q(message__icontains=query)
+        )
+
+    if subject_filter:
+        messages = messages.filter(subject=subject_filter)
+
+    if date_from:
+        messages = messages.filter(created_at__date__gte=date_from)
+    if date_to:
+        messages = messages.filter(created_at__date__lte=date_to)
+
+    subjects = ContactMessage.objects.values_list('subject', flat=True).distinct()
+
+    # ✅ Apply pagination
+    paginator = Paginator(messages.order_by('-created_at'), 10)  # 10 per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'admin_contact_messages.html', {
+        'page_obj': page_obj,
+        'subjects': subjects,
+        'query': query,
+        'subject_filter': subject_filter,
+        'date_from': date_from,
+        'date_to': date_to,
+    })
+
+def unread_message_count(request):
+    unread_count = ContactMessage.objects.filter(read=False).count()
+    return JsonResponse({'unread_count': unread_count})
+
+@staff_member_required
+def unread_message_count(request):
+    count = ContactMessage.objects.filter(read=False).count()
+    return JsonResponse({'unread_count': count})
+
+@staff_member_required
+def mark_message_as_read(request, pk):
+    try:
+        msg = ContactMessage.objects.get(pk=pk)
+        msg.read = True
+        msg.save()
+        return JsonResponse({'success': True})
+    except ContactMessage.DoesNotExist:
+        return JsonResponse({'success': False}, status=404)
+    

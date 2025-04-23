@@ -1,43 +1,92 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}<title>Admin Dashboard</title>{% endblock %}
+{% block title %}
+<title>Admin Dashboard</title>
+{% endblock %}
 
 {% block content %}
-<!-- Background Video -->
-<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+<!-- Background -->
+<video autoplay muted loop class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-80">
   <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
 </video>
 
-<div class="relative z-10 container mx-auto py-12">
-  <div class="bg-gray-900 bg-opacity-90 backdrop-blur rounded-xl text-white p-8 shadow-lg">
-    <h1 class="text-4xl font-bold mb-10 text-center">Admin Dashboard</h1>
+<div class="relative z-10 container mx-auto py-12 px-4">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-center">
+      <span class="inline-block px-8 py-4 text-4xl font-extrabold text-white rounded-full border-2 border-yellow-400 backdrop-blur-md bg-gray-800 bg-opacity-40 shadow-lg">
+        Admin Dashboard
+      </span>
+    </h1>
+  </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-      <div class="bg-gray-800 p-6 rounded-lg shadow text-center">
-        <h2 class="text-xl font-semibold mb-2">Total Users</h2>
-        <p class="text-3xl font-bold text-yellow-400">{{ total_users }}</p>
-      </div>
-      <div class="bg-gray-800 p-6 rounded-lg shadow text-center">
-        <h2 class="text-xl font-semibold mb-2">Total Appointments</h2>
-        <p class="text-3xl font-bold text-yellow-400">{{ total_appointments }}</p>
+  <!-- Grid Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+    <!-- Users -->
+    <div class="glass-card border-l-4 border-yellow-400 shadow-yellow-500/50">
+      <div class="text-white flex flex-col items-center">
+        <i class="fas fa-users text-4xl mb-2 text-yellow-400"></i>
+        <h2 class="text-lg font-semibold">Total Users</h2>
+        <p class="text-4xl font-bold text-yellow-400 mt-2">{{ total_users }}</p>
+        <a href="{% url 'admin_users' %}" class="mt-4 inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold py-2 px-6 rounded-full">
+          Manage Users
+        </a>
       </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-6">
-      <a href="{% url 'admin_users' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-        View Users
-      </a>
-      <a href="{% url 'admin_appointments' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-        View All Appointments
-      </a>
-      <a href="{% url 'admin_contact_messages' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded shadow-lg transition">
-        View Contact Messages
-      </a>
+    <!-- Appointments -->
+    <div class="glass-card border-l-4 border-cyan-400 shadow-cyan-500/50">
+      <div class="text-white flex flex-col items-center">
+        <i class="fas fa-calendar-check text-4xl mb-2 text-cyan-400"></i>
+        <h2 class="text-lg font-semibold">Appointments</h2>
+        <p class="text-4xl font-bold text-cyan-300 mt-2">{{ total_appointments }}</p>
+        <a href="{% url 'admin_appointments' %}" class="mt-4 inline-block bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-semibold py-2 px-6 rounded-full">
+          View Appointments
+        </a>
+      </div>
     </div>
-    
+
+    <!-- Messages -->
+    <div class="glass-card border-l-4 border-pink-500 shadow-pink-500/50">
+      <div class="text-white flex flex-col items-center">
+        <i class="fas fa-envelope-open-text text-4xl mb-2 text-pink-400"></i>
+        <h2 class="text-lg font-semibold">Unread Messages</h2>
+        <p class="text-4xl font-bold text-pink-300 mt-2" id="unread-badge">{{ unread_messages }}</p>
+        <a href="{% url 'admin_contact_messages' %}" class="mt-6 inline-block bg-pink-500 hover:bg-pink-400 text-gray-900 font-semibold py-2 px-6 rounded-full">
+          View Messages
+        </a>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- Live Update -->
+<script>
+  function updateUnreadBadge() {
+    fetch("{% url 'unread_message_count' %}")
+      .then(response => response.json())
+      .then(data => {
+        const badge = document.getElementById("unread-badge");
+        if (badge) badge.textContent = data.unread_count ?? 0;
+      });
+  }
+  updateUnreadBadge();
+  setInterval(updateUnreadBadge, 10000); // every 10s
+</script>
+
+<!-- Styles -->
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  }
+</style>
 {% endblock %}

@@ -40,9 +40,12 @@ class UserProfile(models.Model):
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    subject = models.CharField(max_length=150)
+    subject = models.CharField(max_length=255)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    send_copy = models.BooleanField(default=False)
+    
+    read = models.BooleanField(default=False)  # 🆕 NEW FIELD
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
