@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
 <title>University Cyber Clinic - Home</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -7,69 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <!-- AOS CSS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-<style>
-  .slide-text-outline {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    color: white;
-    -webkit-text-stroke: 0.5px black;
-    text-shadow:
-      0 0 5px rgba(0, 0, 0, 0.6),
-      1px 1px 3px rgba(0, 0, 0, 0.6);
-  }
-  
-  .matrix-text {
-    font-family: 'Share Tech Mono', monospace;
-    color: #4fc3f7;
-    font-size: clamp(1.5rem, 7vw, 4rem);
-    font-weight: 800;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-    max-width: 100%;
-    text-shadow: 0 0 10px #4fc3f7, 0 0 20px #4fc3f7, 0 0 30px #4fc3f7;
-    z-index: 2;
-    position: relative;
-    
-     /* new text shadow */
-  text-shadow: 0 0 10px #4fc3f7, 0 0 20px #4fc3f7, 0 2px 8px rgba(0, 0, 0, 0.75);
-  }
-
-  .matrix-text::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    animation: glitch 2s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-2px, -2px);
-    color: #4fc3f7;
-    text-shadow: 0 0 5px #4fc3f7, 0 0 15px #4fc3f7;
-  }
-
-  @keyframes glitch {
-    0%, 100% {
-      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-      transform: translate(0);
-    }
-    33% {
-      clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
-      transform: translate(-5px, -5px);
-    }
-    66% {
-      clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
-      transform: translate(5px, 5px);
-    }
-  }
-</style>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock title %}
+
+
+
 
 {% block content %}
 
+<main>
 <!-- Hero Section -->
 <section class="relative w-full h-screen overflow-hidden">
   
@@ -133,80 +81,81 @@
 <section class="mb-16">
   <!-- What We Offer Title -->
   <div class="flex justify-center mb-12" data-aos="fade-down">
-    <div class="px-6 py-3 border-2 border-yellow-400 rounded-full text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-90 backdrop-blur">
+    <div class="px-6 py-3 border-2 border-yellow-400 rounded-full text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
       What We Offer
     </div>
   </div>
 
   <!-- Service Cards Box -->
-  <div class="bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl shadow-2xl p-10">
+  <div class="bg-gray-900 bg-opacity-20 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl shadow-2xl p-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="bg-white p-6 rounded-xl shadow-md hover:shadow-2xl transform hover:scale-105 transition duration-300" data-aos="fade-up">
-  <img src="{% static 'images/Networking.png' %}" alt="Network Security" class="rounded-md mb-4 w-full h-48 object-cover">
-  <h4 class="text-xl font-bold text-gray-600 mb-3">Network Security Assessment</h4>
-  <p class="text-gray-700">
-    Ensure your network is secure with comprehensive vulnerability assessments, penetration testing, and advanced monitoring solutions.
-  </p>
-</div>
-
+      <!-- Card 1 -->
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
+        <img src="{% static 'images/Networking.png' %}" alt="Network Security" class="rounded-md mb-4 w-full h-48 object-cover">
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Network Security Assessment</h4>
+        <p class="text-gray-400">
+          Ensure your network is secure with comprehensive vulnerability assessments, penetration testing, and advanced monitoring solutions.
+        </p>
+      </div>
 
       <!-- Card 2 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="100">
         <img src="{% static 'images/cloudesecurity.png' %}" alt="Cloud Security" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Cloud Security</h4>
-        <p class="text-gray-700">Protect your cloud infrastructure with robust security protocols, identity management, and secure configurations.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Cloud Security</h4>
+        <p class="text-gray-500">Protect your cloud infrastructure with robust security protocols, identity management, and secure configurations.</p>
       </div>
 
       <!-- Card 3 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="200">
         <img src="{% static 'images/storage.png' %}" alt="Data Protection" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Data Protection and Recovery</h4>
-        <p class="text-gray-700">Safeguard sensitive data with encryption, backup solutions, and recovery strategies to ensure minimal downtime and maximum resilience.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Data Protection and Recovery</h4>
+        <p class="text-gray-500">Safeguard sensitive data with encryption, backup solutions, and recovery strategies to ensure minimal downtime and maximum resilience.</p>
       </div>
 
       <!-- Card 4 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
         <img src="{% static 'images/Incidentrespons.png' %}" alt="Incident Response" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Incident Response & Forensics</h4>
-        <p class="text-gray-700">24/7 incident response services, digital forensics, and post-incident recovery planning to minimize business impact.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Incident Response & Forensics</h4>
+        <p class="text-gray-500">24/7 incident response services, digital forensics, and post-incident recovery planning to minimize business impact.</p>
       </div>
 
       <!-- Card 5 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="100">
         <img src="{% static 'images/complience.png' %}" alt="Compliance" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Compliance and Risk Management</h4>
-        <p class="text-gray-700">Stay compliant with regulations like GDPR and HIPAA while effectively managing cybersecurity risks.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Compliance and Risk Management</h4>
+        <p class="text-gray-500">Stay compliant with regulations like GDPR and HIPAA while effectively managing cybersecurity risks.</p>
       </div>
 
       <!-- Card 6 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="200">
         <img src="{% static 'images/trainning.png' %}" alt="Training" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Cybersecurity Training & Awareness</h4>
-        <p class="text-gray-700">Equip your team with the knowledge to identify and mitigate risks through interactive workshops and hands-on training sessions.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Cybersecurity Training & Awareness</h4>
+        <p class="text-gray-500">Equip your team with the knowledge to identify and mitigate risks through interactive workshops and hands-on training sessions.</p>
       </div>
 
       <!-- Card 7 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
         <img src="{% static 'images/ransomware.png' %}" alt="Ransomware" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Ransomware Protection and Response</h4>
-        <p class="text-gray-700">Proactive strategies to prevent ransomware attacks and quick response measures to recover from incidents effectively.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Ransomware Protection and Response</h4>
+        <p class="text-gray-500">Proactive strategies to prevent ransomware attacks and quick response measures to recover from incidents effectively.</p>
       </div>
 
       <!-- Card 8 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="100">
         <img src="{% static 'images/physicalsecurity.png' %}" alt="Physical Security" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Physical Security Integration</h4>
-        <p class="text-gray-700">Secure physical access to critical systems with advanced surveillance, biometric authentication, and access controls.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Physical Security Integration</h4>
+        <p class="text-gray-500">Secure physical access to critical systems with advanced surveillance, biometric authentication, and access controls.</p>
       </div>
 
       <!-- Card 9 -->
-      <div class="bg-white p-6 border-2 border-white-400 rounded-xl shadow-md hover:shadow-xl transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up" data-aos-delay="200">
         <img src="{% static 'images/consulting.png' %}" alt="Consulting" class="rounded-md mb-4 w-full h-48 object-cover">
-        <h4 class="text-xl font-bold text-gray-600 mb-3">Cyber Security Consulting</h4>
-        <p class="text-gray-700">Develop tailored cybersecurity strategies with expert advice to align with your business goals and regulatory requirements.</p>
+        <h4 class="text-xl font-bold text-gray-300 mb-3">Cyber Security Consulting</h4>
+        <p class="text-gray-500">Develop tailored cybersecurity strategies with expert advice to align with your business goals and regulatory requirements.</p>
       </div>
 
     </div>
+  </div>
   </div>
 </section>
 
