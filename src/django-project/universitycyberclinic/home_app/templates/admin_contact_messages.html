@@ -85,28 +85,22 @@
 
     <!-- Pagination -->
     {% if page_obj.has_other_pages %}
-    <div class="mt-6 flex justify-center space-x-2">
-      {% if page_obj.has_previous %}
-      <a href="?{% if query %}q={{ query }}&{% endif %}
-                {% if subject_filter %}subject={{ subject_filter }}&{% endif %}
-                {% if date_from %}date_from={{ date_from }}&{% endif %}
-                {% if date_to %}date_to={{ date_to }}&{% endif %}
-                page={{ page_obj.previous_page_number }}"
-        class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white">Previous</a>
-      {% endif %}
-
-      <span class="px-4 py-2 text-yellow-400 font-semibold">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-
-      {% if page_obj.has_next %}
-      <a href="?{% if query %}q={{ query }}&{% endif %}
-                {% if subject_filter %}subject={{ subject_filter }}&{% endif %}
-                {% if date_from %}date_from={{ date_from }}&{% endif %}
-                {% if date_to %}date_to={{ date_to }}&{% endif %}
-                page={{ page_obj.next_page_number }}"
-        class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white">Next</a>
-      {% endif %}
-    </div>
+  <div class="mt-6 flex justify-center space-x-2">
+    {% if page_obj.has_previous %}
+      <a href="?q={{ query }}&subject={{ subject_filter }}&date_from={{ date_from }}&date_to={{ date_to }}&page={{ page_obj.previous_page_number }}"
+         class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white">Previous</a>
     {% endif %}
+
+    <span class="px-4 py-2 text-yellow-400 font-semibold">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?q={{ query }}&subject={{ subject_filter }}&date_from={{ date_from }}&date_to={{ date_to }}&page={{ page_obj.next_page_number }}"
+         class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white">Next</a>
+    {% endif %}
+  </div>
+{% endif %}
 
     {% else %}
     <p class="text-center text-gray-300">No messages submitted yet.</p>

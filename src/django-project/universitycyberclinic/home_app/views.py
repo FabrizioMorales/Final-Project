@@ -592,6 +592,7 @@ def delete_contact_message(request, pk):
     messages.success(request, "Message deleted successfully.")
     return redirect('admin_contact_messages')
 
+
 from django.core.paginator import Paginator
 
 @staff_member_required
