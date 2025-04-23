@@ -1,96 +1,107 @@
 {% extends "base.html" %}
 {% load static %}
+
+
 {% block title %}
 <title>About Us</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Futuristic Font -->
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<!-- AOS CSS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock title %}
 
+
 {% block content %}
-<!-- Video Background Section -->
+
+
+
+<!-- Hero Section -->
 <section class="relative w-full h-screen overflow-hidden">
-  <video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+  
+  <!-- Fixed Background Video -->
+  <video id="video-background" autoplay loop muted playsinline class="fixed top-0 left-0 w-full h-full object-cover z-[-1] pointer-events-none">
     <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <!-- Content on Top of Video -->
-  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-    <header class="text-white text-center px-4">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-6xl font-bold hover:text-yellow-400">
-          About Us
-        </h1>
-        <p class="mt-4 text-lg md:text-xl">
-          Meet the team behind the University Cyber Clinic, dedicated to supporting SMEs and the local community with cybersecurity solutions.
-        </p>
-      </div>
-    </header>
+  <!-- Top-Aligned Heading -->
+  <div class="absolute top-16 left-1/2 transform -translate-x-1/2 z-20 px-4 text-center w-full max-w-4xl">
+    <h1 class="matrix-text text-outline mb-6" data-text="University Cyber Clinic">
+      Welcome to About Us Page.
+    </h1>
+  </div>
+
+<!-- Bottom-Aligned Sliding Paragraph -->
+<div class="absolute bottom-72 left-1/2 transform -translate-x-1/2 z-20 px-4 text-center w-full max-w-4xl">
+  <div id="auto-slider" class="text-lg md:text-xl px-4 leading-relaxed text-center transition-opacity duration-1000 ease-in-out">
+    <p id="slide-text" class="slide-text-outline"> Meet the team behind the University Cyber Clinic, dedicated to supporting SMEs and the local community with cybersecurity solutions. </p>
+  </div>
+</div>
+
+  <!-- Scroll Down Cue -->
+  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-4xl animate-bounce z-20">
+    &#x21E3;
   </div>
 </section>
 
-<!-- Main Content -->
-<section id="about" class="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-12">Meet Our Team</h2>
-    <p class="text-center text-gray-700 mb-12">
-      We are students of the University of Roehampton London, B.Sc. Computer Science and Software Engineering. Our team is working on this project "University Cyber Clinic" to support SMEs and the local community with Cyber Security solutions.
-    </p>
+<!-- main section -->
 
+<section class="mb-16">
+  <!-- Meet the team -->
+  <div class="flex justify-center mb-12 text-center" data-aos="fade-down">
+    <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+      <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Meet Our Team</h2>
+      <p class="text-gray-400 text-lg md:text-xl leading-relaxed">
+        We are students of the University of Roehampton London, B.Sc. Computer Science and Software Engineering. Our team is working on this project "University Cyber Clinic" to support SMEs and the local community with Cyber Security solutions.
+      </p>
+    </div>
+  </div>
+  </div>
+  <div class="bg-gray-900 bg-opacity-20 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl shadow-2xl p-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      <!-- Team Member -->
-      <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow text-center">
-        <img src="{% static 'images/MohebulHasanEmon.png' %}" alt="Mohebul Hasan Emon" class="w-full h-48 object-cover rounded-lg mb-4">
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Mohebul Hasan Emon</h3>
+      <!-- Team Cards Box -->
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
+        <img src="{% static 'images/Mohebul.jpg' %}" alt="Mohebul Hasan Emon" class="w-full h-60 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Mohebul Hasan Emon</h3>
         <p class="text-yellow-500 font-medium mb-2">Network Security Specialist</p>
-        <p class="text-gray-700">Designing and implementing secure network architectures and conducting vulnerability assessments.</p>
+        <p class="text-gray-400">Designing and implementing secure network architectures and conducting vulnerability assessments.</p>
       </div>
 
       <!-- Team Member -->
-      <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow text-center">
-        <img src="{% static 'images/fabrizo.png' %}" alt="Fabrizio Morales" class="w-full h-48 object-cover rounded-lg mb-4">
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Fabrizio Morales</h3>
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
+        <img src="{% static 'images/fabrizo.png' %}" alt="Fabrizio Morales" class="w-full h-60 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Fabrizio Morales</h3>
         <p class="text-yellow-500 font-medium mb-2">Cloud Security Specialist</p>
-        <p class="text-gray-700">Securing cloud environments and ensuring compliance with industry standards and best practices.</p>
+        <p class="text-gray-400">Securing cloud environments and ensuring compliance with industry standards and best practices.</p>
       </div>
 
       <!-- Team Member -->
-      <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow text-center">
-        <img src="{% static 'images/raja.png' %}" alt="Rajababu Kushwaha" class="w-full h-48 object-cover rounded-lg mb-4">
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Rajababu Kushwaha</h3>
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
+        <img src="{% static 'images/raja.png' %}" alt="Rajababu Kushwaha" class="w-full h-60 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Rajababu Kushwaha</h3>
         <p class="text-yellow-500 font-medium mb-2">Data Protection and Recovery Expert</p>
-        <p class="text-gray-700">Implementing robust data backup, encryption, and recovery strategies to safeguard sensitive information.</p>
+        <p class="text-gray-400">Implementing robust data backup, encryption, and recovery strategies to safeguard sensitive information.</p>
       </div>
 
       <!-- Team Member -->
-      <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow text-center">
-        <img src="{% static 'images/paul.png' %}" alt="Paul Hayward" class="w-full h-48 object-cover rounded-lg mb-4">
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Paul Hayward</h3>
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400" data-aos="fade-up">
+        <img src="{% static 'images/paul.png' %}" alt="Paul Hayward" class="w-full h-60 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Paul Hayward</h3>
         <p class="text-yellow-500 font-medium mb-2">Incident Response & Forensics Specialist</p>
-        <p class="text-gray-700">Leading incident response efforts and conducting forensic investigations to mitigate and resolve breaches.</p>
+        <p class="text-gray-400">Leading incident response efforts and conducting forensic investigations to mitigate and resolve breaches.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GSAP ScrollTrigger Animation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/ScrollTrigger.min.js"></script>
+<!-- AOS & GSAP Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Wait until the page is fully loaded
-  window.addEventListener('load', () => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // GSAP ScrollTrigger for fading out the video
-    gsap.to("#video-background", {
-      opacity: 0, // Fade out the video when scrolling down
-      scrollTrigger: {
-        trigger: "#video-background",
-        start: "top top", // When the top of the video hits the top of the viewport
-        end: "bottom top", // When the bottom of the video reaches the top of the viewport
-        scrub: true, // Smooth scroll animation
-        markers: false // Set to true if you want to see the scroll triggers for debugging
-      }
-    });
-  });
+  AOS.init({ once: true, duration: 1000 });
 </script>
 
 {% endblock content %}
