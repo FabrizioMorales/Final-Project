@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Incident Response and Forensics Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Incident Response and Forensics Service</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Incident Response and Forensics Services</h1>
+            <p>
+                Organisations today face increasing cyber threats, ranging from ransomware attacks to data breaches. A swift and effective response can make all the difference in minimising business disruption and financial loss.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Key Components of Incident Response and Forensics</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">1. 24/7 Incident Response Services</h3>
+                    <p>
+                        A cyber incident can strike at any moment. That’s why having access to round-the-clock incident response services is critical. Our team of security experts is ready to identify, contain, and mitigate threats as they emerge, ensuring minimal downtime and reduced impact on business operations. Whether it's a malware outbreak or unauthorised access to sensitive data, our rapid response protocols help organisations regain control fast.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">2. Digital Forensics & Investigation</h3>
+                    <p>
+                        After an incident occurs, understanding the root cause and gathering evidence is crucial. Our digital forensics specialists conduct thorough investigations, analysing system logs, network traffic, and compromised assets to trace the attacker's footsteps. This helps organisations recover and strengthen their defences against future threats.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">3. Post-Incident Recovery & Planning</h3>
+                    <p>
+                        Beyond resolving immediate threats, we help businesses recover strategically—from restoring affected systems to implementing new security measures that prevent recurrence. Our post-incident recovery planning includes detailed reports, lessons learned, and recommendations for improving cybersecurity posture, ensuring long-term resilience.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Benefits of Incident Response and Forensics</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Rapid Threat Mitigation:</strong> Minimise downtime and disruption with swift response protocols.</li>
+                <li><strong>Comprehensive Investigations:</strong> Gain insights into the root cause of incidents and prevent future attacks.</li>
+                <li><strong>Enhanced Security Posture:</strong> Implement lessons learned to strengthen defences and resilience.</li>
+                <li><strong>Regulatory Compliance:</strong> Ensure adherence to industry regulations with detailed incident reports.</li>
+            </ul>
+
+            <p>
+                By leveraging our Incident Response and Forensics services, organisations can effectively manage cyber threats, recover from incidents, and build a robust cybersecurity framework for the future.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}

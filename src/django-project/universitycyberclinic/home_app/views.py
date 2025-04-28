@@ -70,6 +70,9 @@ def cloudsecurity(request):
 def dataprotection(request):
     return render(request, 'dataprotection.html', {'welcome_msg': "Welcome to our Data Protection and Recovery Page"})
 
+def incidentresponseforensics(request):
+    return render(request, 'incidentresponseforensics.html', {'welcome_msg': "Welcome to our Incident Response and Forensics Page"})
+
 
 
 
