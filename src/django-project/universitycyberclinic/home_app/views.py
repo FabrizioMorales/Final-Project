@@ -65,7 +65,12 @@ def networking(request):
     return render(request, 'NetworkingSecurityAssessment.html', {'welcome_msg': "Welcome to our Networking Security Assessment Page"})
 
 def cloudsecurity(request):
-    return render(request, 'CloudSecurity.html', {'welcome_msg': "Welcome to our Cloude Security Page"})
+    return render(request, 'CloudSecurity.html', {'welcome_msg': "Welcome to our Cloud Security Page"})
+
+def dataprotection(request):
+    return render(request, 'dataprotection.html', {'welcome_msg': "Welcome to our Data Protection and Recovery Page"})
+
+
 
 
 # Appointment Booking (Requires Login)

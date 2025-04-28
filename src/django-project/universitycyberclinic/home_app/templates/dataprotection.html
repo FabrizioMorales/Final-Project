@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Data Protection and Recovery Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Data Protection and Recovery Service</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Data Protection and Recovery Services</h1>
+            <p>
+                In an era where data is critical, ensuring its protection and availability is essential for business continuity and resilience. Data Protection and Recovery services provide comprehensive solutions to safeguard sensitive information, minimise downtime, and ensure rapid recovery during data loss or disaster.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Key Components of Data Protection and Recovery</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">1. Encryption</h3>
+                    <p>
+                        Encryption is a fundamental aspect of data protection. It involves converting data into a secure format that can only be accessed by authorised users with the correct decryption key. This ensures that sensitive information remains confidential and protected from unauthorised access, both in transit and at rest.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">2. Backup Solutions</h3>
+                    <p>
+                        Regular data backups are crucial for protecting against data loss. Backup solutions involve creating copies of data at scheduled intervals and storing them in secure locations. These backups can be used to restore data in case of accidental deletion, hardware failure, or cyberattacks.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">3. Recovery Strategies</h3>
+                    <p>
+                        Effective recovery strategies are essential for minimising downtime and ensuring business continuity. These strategies include disaster recovery plans, which outline the steps to be taken during a data loss incident.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Benefits of Data Protection and Recovery</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Minimised Downtime:</strong> Robust data protection measures ensure critical business operations can continue with minimal disruption.</li>
+                <li><strong>Enhanced Data Security:</strong> Advanced security measures, such as encryption and secure backup storage, protect sensitive information from breaches.</li>
+                <li><strong>Regulatory Compliance:</strong> Helps organisations comply with industry regulations, avoiding legal penalties and maintaining customer trust.</li>
+                <li><strong>Business Continuity:</strong> Ensures data can be quickly recovered during a disaster, maintaining operational integrity.</li>
+            </ul>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Best Practices for Data Protection and Recovery</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Regular Backups:</strong> Schedule regular backups to ensure the most recent data is always protected.</li>
+                <li><strong>Offsite Storage:</strong> Store backup copies in off-site locations to protect against physical disasters.</li>
+                <li><strong>Encryption:</strong> Encrypt data both in transit and at rest to protect it from unauthorised access.</li>
+                <li><strong>Disaster Recovery Planning:</strong> Develop and maintain a comprehensive disaster recovery plan.</li>
+                <li><strong>Continuous Monitoring:</strong> Implement continuous monitoring to detect and address potential issues proactively.</li>
+            </ul>
+
+            <p>
+                By leveraging these Data Protection and Recovery services, organisations can ensure the security and availability of their critical data, maintain compliance with industry regulations, and achieve maximum resilience in the face of potential data loss incidents.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}
