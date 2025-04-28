@@ -82,6 +82,9 @@ def trainingandwareness(request):
 def ransomwareprotectionandresponse(request):
     return render(request, 'ransomwareprotectionandresponse.html', {'welcome_msg': "Welcome to our Ransomware Protection and Response Page"})
 
+def physicalsecurityintegration(request):
+    return render(request, 'physicalsecurityintegration.html', {'welcome_msg': "Welcome to our Physical Security Integration Page"})
+
 
 
 # Appointment Booking (Requires Login)

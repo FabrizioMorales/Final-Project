@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Physical Security Integration</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Physical Security Integration</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Securing Critical Systems</h1>
+            <p>
+                Securing critical systems requires more than digital defences—integrating physical security ensures robust protection against unauthorised access, insider threats, and potential breaches. Our Physical Security Integration services provide advanced surveillance, biometric authentication, and access control solutions to safeguard sensitive infrastructure.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Advanced Surveillance Systems</h2>
+            <p>
+                Real-time monitoring is key to preventing unauthorised access and detecting suspicious activities. We deploy high-definition security cameras, motion sensors, and intelligent video analytics to ensure comprehensive surveillance around critical areas. With remote access and AI-driven threat detection, security teams can quickly identify and respond to incidents.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Biometric Authentication & Access Control</h2>
+            <p>
+                Traditional security measures like keycards can be compromised, but biometric authentication offers a more reliable solution. Our access control systems integrate fingerprint scanners, facial recognition, and iris detection to ensure that only authorised personnel gain entry to secure locations. Multi-factor authentication adds extra protection, minimising risks associated with credential theft or unauthorised access attempts.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Integrated Security Management</h2>
+            <p>
+                A well-coordinated security strategy requires seamless integration between physical and digital security systems. Our centralised security platforms allow organisations to manage access controls, surveillance feeds, and security alerts from a unified dashboard. This enables rapid response to security incidents while enhancing situational awareness.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Threat Detection & Incident Response</h2>
+            <p>
+                Beyond access controls, proactive security measures are essential. Our services include intrusion detection, security breach alarms, and real-time analytics to identify potential threats before they escalate. In case of an incident, our response protocols ensure rapid containment, investigation, and corrective action to minimise disruptions.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Scalable Solutions for Any Environment</h2>
+            <p>
+                Whether securing data centres, corporate offices, or high-security facilities, our scalable security solutions are tailored to meet the needs of diverse industries. From financial institutions to healthcare providers, we ensure compliance with regulatory standards while reinforcing physical security.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}
