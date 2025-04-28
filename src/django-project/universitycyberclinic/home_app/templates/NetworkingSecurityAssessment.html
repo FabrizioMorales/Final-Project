@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Network Security Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+  <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+  <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+    <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+      <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Network Security Assessment</h2>
+    </div>
+  </div>
+      <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+
+        <div class="text-gray-400 space-y-6">
+        <h1 class="text-2xl font-bold text-yellow-400">Comprehensive Network Security Solutions</h1>
+        <p>
+            In today’s interconnected digital landscape, cyber threats are more sophisticated and persistent than ever. At 
+            <strong>University Cyber Clinic</strong>, we specialize in providing cutting-edge network security solutions designed to safeguard your business from potential vulnerabilities and attacks. Our goal is to ensure your systems remain secure, resilient, and compliant with the latest industry standards.
+        </p>
+
+        <h2 class="text-xl font-semibold text-yellow-400">Our Core Services</h2>
+        <div class="space-y-4">
+            <div>
+            <h3 class="text-lg font-semibold text-gray-300">Vulnerability Assessments</h3>
+            <p>
+            We conduct in-depth scans and analyses of your network infrastructure to identify potential weaknesses. Our team provides actionable insights to help you address vulnerabilities before they can be exploited.
+            </p>
+            </div>
+            <div>
+            <h3 class="text-lg font-semibold text-gray-300">Penetration Testing</h3>
+            <p>
+            By simulating real-world cyberattacks, we evaluate the robustness of your network defenses. This proactive approach helps you understand your security posture and implement necessary improvements.
+            </p>
+            </div>
+            <div>
+            <h3 class="text-lg font-semibold text-gray-300">Continuous Monitoring & Threat Detection</h3>
+            <p>
+            Our advanced monitoring tools provide real-time threat detection and response, ensuring your network remains protected 24/7. Stay ahead of emerging threats with our proactive security measures.
+            </p>
+            </div>
+            <div>
+            <h3 class="text-lg font-semibold text-gray-300">Incident Response & Recovery</h3>
+            <p>
+            In the event of a security breach, our experts are ready to assist with rapid incident response and recovery. We minimize downtime and help restore your systems to full functionality.
+            </p>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-semibold text-yellow-400">Why Partner with Us?</h2>
+        <ul class="list-disc list-inside space-y-2">
+            <li>
+            <strong>Certified Experts:</strong> Our team comprises professionals with industry-recognized certifications, including CISSP, CEH, and OSCP.
+            </li>
+            <li>
+            <strong>Customized Security Strategies:</strong> We design tailored solutions that align with your business objectives and operational requirements.
+            </li>
+            <li>
+            <strong>Regulatory Compliance:</strong> We help you meet compliance standards such as GDPR, ISO 27001, PCI-DSS, HIPAA, and more, ensuring your business adheres to legal and regulatory requirements.
+            </li>
+            <li>
+            <strong>Comprehensive Reporting:</strong> Receive detailed reports with clear, actionable recommendations to enhance your security posture.
+            </li>
+            <li>
+            <strong>Proactive Approach:</strong> Our focus is on preventing incidents before they occur, saving you time, money, and potential reputational damage.
+            </li>
+        </ul>
+
+        <h2 class="text-xl font-semibold text-yellow-400">Get Started Today</h2>
+        <p>
+            Don’t leave your network security to chance. Partner with <strong>University Cyber Clinic</strong> to protect your business from evolving cyber threats. Contact us today to schedule a consultation and take the first step toward a more secure future.
+        </p>
+        </div>
+      </div>
+      <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+   
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+          Schedule a Consultation
+        </a>
+      </section>
+  </div>
+  
+</section>
+{% endblock content %}

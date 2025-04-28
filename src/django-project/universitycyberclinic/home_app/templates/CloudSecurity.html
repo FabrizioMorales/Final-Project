@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Cloud Security Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Cloud Security Service</h2>
+        </div>
+    </div>
+            <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+                <div class="text-gray-400 space-y-6">
+                    <h1 class="text-2xl font-bold text-yellow-400">Cloud Security Services</h1>
+                    <p>
+                        In today's digital age, protecting your cloud infrastructure is paramount. Cloud Security services encompass a wide range of strategies and technologies designed to safeguard data, applications, and infrastructure hosted in the cloud. These services ensure that your cloud environment remains secure, resilient, and compliant with industry standards.
+                    </p>
+
+                    <h2 class="text-xl font-semibold text-yellow-400">Key Components of Cloud Security</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-300">1. Robust Security Protocols</h3>
+                            <p>
+                                Implementing strong security protocols is essential to protect cloud-based assets. This includes data encryption in transit and at rest, ensuring that sensitive information remains secure from unauthorised access and breaches.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-300">2. Identity and Access Management (IAM)</h3>
+                            <p>
+                                Effective IAM solutions help manage user identities and control access to cloud resources. By defining user permissions and roles, IAM ensures that only authorised individuals can access specific data and applications, reducing the risk of insider threats and unauthorised access.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-300">3. Secure Configurations</h3>
+                            <p>
+                                Properly configuring cloud environments is crucial for security. This involves setting up firewalls, network security groups, and other security measures to protect against vulnerabilities and attacks. Regular audits and compliance checks help maintain secure configurations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-xl font-semibold text-yellow-400">Benefits of Cloud Security</h2>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Enhanced Data Protection:</strong> Cloud security services provide advanced tools to protect data from breaches and leaks. This includes encryption, tokenisation, and secure key management practices.</li>
+                        <li><strong>Compliance and Regulatory Adherence:</strong> With cloud security services, organisations can ensure compliance with various industry regulations and standards, such as GDPR, HIPAA, and PCI-DSS. This helps avoid legal penalties and builds trust with customers.</li>
+                        <li><strong>Scalability and Flexibility:</strong> Cloud security solutions are designed to scale with your business needs. Whether expanding your cloud infrastructure or integrating new applications, security measures can be adjusted to accommodate growth without compromising protection.</li>
+                        <li><strong>Automated Security Management:</strong> Automation plays a significant role in cloud security. Automated tools and processes help detect and respond to threats in real-time, reducing the burden on IT teams and ensuring swift remediation of security incidents.</li>
+                    </ul>
+
+                    <h2 class="text-xl font-semibold text-yellow-400">Best Practices for Cloud Security</h2>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Regular Security Audits:</strong> Conducting regular security audits helps identify and address vulnerabilities in your cloud environment. This proactive approach ensures that security measures are up-to-date and effective.</li>
+                        <li><strong>Multi-Factor Authentication (MFA):</strong> Implementing MFA adds an extra layer of security by requiring multiple verification forms before granting access to cloud resources. This significantly reduces the risk of unauthorised access.</li>
+                        <li><strong>Continuous Monitoring:</strong> Continuous monitoring of cloud environments helps detect suspicious activities and potential threats early. Utilising advanced monitoring tools and analytics ensures a robust security posture.</li>
+                    </ul>
+
+                    <p>
+                        By leveraging these Cloud Security services, organisations can confidently navigate the complexities of cloud computing while safeguarding their digital assets and maintaining operational integrity.
+                    </p>
+                </div>
+            </div>
+
+            <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+   
+                <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+                  Schedule a Consultation
+                </a>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -61,6 +61,12 @@ def about(request):
 def services(request):
     return render(request, 'services.html', {'welcome_msg': "Welcome to our Services"})
 
+def networking(request):
+    return render(request, 'NetworkingSecurityAssessment.html', {'welcome_msg': "Welcome to our Networking Security Assessment Page"})
+
+def cloudsecurity(request):
+    return render(request, 'CloudSecurity.html', {'welcome_msg': "Welcome to our Cloude Security Page"})
+
 
 # Appointment Booking (Requires Login)
 @login_required

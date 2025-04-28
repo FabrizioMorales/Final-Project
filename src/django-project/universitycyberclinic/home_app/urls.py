@@ -7,7 +7,7 @@ from .views import (
     CustomPasswordResetCompleteView,
     home, register_view, login_view, logout_view,
     appointment_view, receipt_view, download_receipt_pdf,
-    resources, contact, about, services,
+    resources, contact, about, services, networking, cloudsecurity,
     user_dashboard, cancel_appointment,
     edit_profile, admin_dashboard, mark_appointment_completed,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
@@ -27,6 +27,8 @@ urlpatterns = [
     path("contact/", contact, name="contact"),
     path("about/", about, name="about"),
     path("services/", services, name="services"),
+    path("networking/", networking, name="networking"),
+    path("cloudsecurity/",cloudsecurity, name="cloudsecurity"),
 
     # --- Appointments (User) ---
     path("appointment/", appointment_view, name="appointment"),
