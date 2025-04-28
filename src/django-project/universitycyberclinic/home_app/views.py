@@ -76,6 +76,9 @@ def incidentresponseforensics(request):
 def complianceandriskmanagement(request):
     return render(request, 'complianceandriskmanagement.html', {'welcome_msg': "Welcome to our Compliance and Risk Management Page"})
 
+def trainingandwareness(request):
+    return render(request, 'trainingandwareness.html', {'welcome_msg': "Welcome to our Training and Awareness Page"})
+
 
 
 # Appointment Booking (Requires Login)

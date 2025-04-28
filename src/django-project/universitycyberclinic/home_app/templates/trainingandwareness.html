@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Cybersecurity Training & Awareness</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Cybersecurity Training & Awareness</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Cybersecurity Training & Awareness</h1>
+            <p>
+                In today’s digital age, human error often becomes the weakest link in an organisation’s security. Empowering your team with the skills and knowledge to recognise and respond to threats is essential for strengthening your defence.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Key Components of Cybersecurity Training & Awareness</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">1. Interactive Workshops</h3>
+                    <p>
+                        Our interactive workshops are designed to engage employees at all levels, from entry-level staff to senior executives. These sessions cover various topics, such as identifying phishing scams, understanding malware, and practising safe online behaviour. Participants gain hands-on experience through real-world simulations that build confidence in spotting and mitigating risks.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">2. Hands-On Training Sessions</h3>
+                    <p>
+                        Practical knowledge is key to cybersecurity awareness. Our hands-on training sessions allow employees to apply their learning in controlled environments. From analysing suspicious emails to practising response protocols during simulated cyber incidents, these training sessions ensure teams are prepared to act decisively in the face of threats.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">3. Tailored Learning Programs</h3>
+                    <p>
+                        Every organisation is unique, so our programs are customised to meet specific needs. Whether focusing on compliance requirements, industry-specific threats, or general cybersecurity best practices, our team develops tailored content to align with your business goals and security challenges.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">4. Ongoing Awareness Initiatives</h3>
+                    <p>
+                        Cybersecurity education is an ongoing process. We support organisations with regular updates, awareness campaigns, and refresher training sessions to keep employees informed as threats evolve. This ensures a culture of security is ingrained across the organisation.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Benefits of Cybersecurity Training & Awareness</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Improved Security Posture:</strong> Equip employees with the knowledge to identify and respond to threats effectively.</li>
+                <li><strong>Reduced Human Error:</strong> Minimise risks by addressing the most common cause of security breaches.</li>
+                <li><strong>Customised Learning:</strong> Tailored programs ensure relevance to your organisation’s specific needs.</li>
+                <li><strong>Continuous Improvement:</strong> Stay ahead of evolving threats with ongoing education and awareness initiatives.</li>
+            </ul>
+
+            <p>
+                By investing in Cybersecurity Training & Awareness, organisations can foster a culture of security, empowering employees to become the first line of defence against cyber threats.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}

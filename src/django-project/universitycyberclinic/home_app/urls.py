@@ -7,7 +7,8 @@ from .views import (
     CustomPasswordResetCompleteView,
     home, register_view, login_view, logout_view,
     appointment_view, receipt_view, download_receipt_pdf,
-    resources, contact, about, services, networking, cloudsecurity,dataprotection,incidentresponseforensics, complianceandriskmanagement,
+    resources, contact, about, services, networking, cloudsecurity,dataprotection,
+    incidentresponseforensics, complianceandriskmanagement, trainingandwareness,
     user_dashboard, cancel_appointment,
     edit_profile, admin_dashboard, mark_appointment_completed,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
@@ -32,6 +33,7 @@ urlpatterns = [
     path("dataprotection/",dataprotection, name="dataprotection"),
     path("incidentresponseforensics/",incidentresponseforensics, name="incidentresponseforensics"),
     path("complianceandriskmanagement/",complianceandriskmanagement, name="complianceandriskmanagement"),
+    path("trainingandwareness/",trainingandwareness, name="trainingandwareness"),
 
     # --- Appointments (User) ---
     path("appointment/", appointment_view, name="appointment"),
