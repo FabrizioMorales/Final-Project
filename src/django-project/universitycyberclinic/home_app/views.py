@@ -85,6 +85,8 @@ def ransomwareprotectionandresponse(request):
 def physicalsecurityintegration(request):
     return render(request, 'physicalsecurityintegration.html', {'welcome_msg': "Welcome to our Physical Security Integration Page"})
 
+def cybersecurityconsulting(request):
+    return render(request, 'cybersecurityconsulting.html', {'welcome_msg': "Welcome to our Cybersecurity Consulting Page"})
 
 
 # Appointment Booking (Requires Login)

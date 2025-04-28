@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Cyber Security Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Cyber Security Consulting</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">With the growing complexity of cyber threats</h1>
+            <p>
+                With the growing complexity of cyber threats and regulatory requirements, businesses need expert guidance to navigate security challenges effectively. Our Cyber Security Consulting services help organisations develop tailored strategies to strengthen their defences while ensuring compliance with industry regulations.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Strategic Cybersecurity Planning</h2>
+            <p>
+                Every organisation has unique security needs. Our cybersecurity consultants work closely with businesses to assess risks, identify vulnerabilities, and formulate customised security strategies that align with their objectives. Whether securing cloud environments, protecting sensitive data, or fortifying network infrastructure, we design practical solutions to mitigate risks.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Regulatory Compliance & Governance</h2>
+            <p>
+                Compliance with frameworks like GDPR, HIPAA, ISO 27001, and other regulations is essential for legal and reputational protection. Our consulting services provide expert advice on policy development, security audits, and compliance assessments, ensuring organisations meet the necessary standards while streamlining security governance.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Threat Analysis & Risk Management</h2>
+            <p>
+                Understanding the evolving threat landscape is crucial to maintaining resilience. We conduct comprehensive risk assessments and threat modelling to help organisations anticipate and counter cyber risks. Our experts provide actionable insights into emerging threats and recommend proactive security measures tailored to specific business environments.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Incident Response & Crisis Management</h2>
+            <p>
+                A well-structured incident response plan can minimise the damage from cyberattacks. We assist organisations in developing effective response protocols, ensuring they are prepared to handle security breaches efficiently. Our consulting services cover everything from breach detection and containment to recovery planning and post-incident analysis.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Security Awareness & Training</h2>
+            <p>
+                People are a critical component of cybersecurity. Our consultants provide training programs to educate employees and leadership on best practices, ensuring a security-conscious workforce. From phishing awareness to secure coding techniques, we help organisations build a culture of cybersecurity.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}

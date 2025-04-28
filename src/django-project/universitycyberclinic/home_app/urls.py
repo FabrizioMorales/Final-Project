@@ -9,7 +9,7 @@ from .views import (
     appointment_view, receipt_view, download_receipt_pdf,
     resources, contact, about, services, networking, cloudsecurity,dataprotection,
     incidentresponseforensics, complianceandriskmanagement, trainingandwareness,
-    ransomwareprotectionandresponse,physicalsecurityintegration,
+    ransomwareprotectionandresponse,physicalsecurityintegration, cybersecurityconsulting,
     user_dashboard, cancel_appointment,
     edit_profile, admin_dashboard, mark_appointment_completed,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
@@ -37,7 +37,7 @@ urlpatterns = [
     path("trainingandwareness/",trainingandwareness, name="trainingandwareness"),
     path ("ransomwareprotectionandresponse/",ransomwareprotectionandresponse, name="ransomwareprotectionandresponse"),
     path("physicalsecurityintegration/",physicalsecurityintegration, name="physicalsecurityintegration"),
-
+    path("cybersecurityconsulting/",cybersecurityconsulting, name="cybersecurityconsulting"),
     # --- Appointments (User) ---
     path("appointment/", appointment_view, name="appointment"),
     path("receipt/<int:appointment_id>/", receipt_view, name="receipt"),
