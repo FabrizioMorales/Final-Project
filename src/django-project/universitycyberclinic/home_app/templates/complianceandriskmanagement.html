@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Compliance and Risk Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Compliance and Risk Management</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Compliance and Risk Management</h1>
+            <p>
+                Navigating the ever-evolving landscape of cybersecurity regulations and standards can be challenging for organisations. Our Compliance and Risk Management services ensure businesses stay ahead of legal requirements while proactively managing cybersecurity threats.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Key Components of Compliance and Risk Management</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">1. Regulatory Compliance</h3>
+                    <p>
+                        Compliance with GDPR, HIPAA, and other industry-specific regulations is essential to avoid penalties and safeguard sensitive data. We offer tailored solutions to help organisations efficiently audit, monitor, and meet these standards. From data protection assessments to privacy frameworks, we easily guide businesses through the complexities of regulatory compliance.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">2. Risk Assessment & Mitigation</h3>
+                    <p>
+                        Cybersecurity risks are constantly evolving, but a proactive approach can minimise vulnerabilities. Our experts conduct comprehensive risk assessments to identify threats, assess their impact, and prioritise mitigation strategies. We help organisations implement robust security controls and processes that address immediate risks and enhance overall resilience.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">3. Continuous Monitoring & Reporting</h3>
+                    <p>
+                        Effective risk management doesn’t stop at implementation. Our services include continuous monitoring, ensuring your organisation remains compliant and secure as new threats emerge or regulations change. Regular reporting provides transparency and actionable insights, helping decision-makers stay informed and prepared.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Benefits of Compliance and Risk Management</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Regulatory Adherence:</strong> Avoid penalties and safeguard sensitive data with tailored compliance solutions.</li>
+                <li><strong>Proactive Risk Mitigation:</strong> Identify and address vulnerabilities before they become critical issues.</li>
+                <li><strong>Enhanced Security Posture:</strong> Strengthen defences with robust security controls and processes.</li>
+                <li><strong>Continuous Improvement:</strong> Stay ahead of emerging threats and regulatory changes with ongoing monitoring and reporting.</li>
+            </ul>
+
+            <p>
+                By leveraging our Compliance and Risk Management services, organisations can confidently navigate the complexities of cybersecurity regulations while building a resilient and secure operational framework.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}

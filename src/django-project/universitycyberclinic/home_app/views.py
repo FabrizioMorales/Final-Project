@@ -73,6 +73,8 @@ def dataprotection(request):
 def incidentresponseforensics(request):
     return render(request, 'incidentresponseforensics.html', {'welcome_msg': "Welcome to our Incident Response and Forensics Page"})
 
+def complianceandriskmanagement(request):
+    return render(request, 'complianceandriskmanagement.html', {'welcome_msg': "Welcome to our Compliance and Risk Management Page"})
 
 
 
