@@ -79,6 +79,9 @@ def complianceandriskmanagement(request):
 def trainingandwareness(request):
     return render(request, 'trainingandwareness.html', {'welcome_msg': "Welcome to our Training and Awareness Page"})
 
+def ransomwareprotectionandresponse(request):
+    return render(request, 'ransomwareprotectionandresponse.html', {'welcome_msg': "Welcome to our Ransomware Protection and Response Page"})
+
 
 
 # Appointment Booking (Requires Login)

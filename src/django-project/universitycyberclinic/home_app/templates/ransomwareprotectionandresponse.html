@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Ransomware Protection & Response</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock title %}
+
+{% block content %}
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<section class="mb-16">
+    <div class="flex justify-center mb-12 text-center pt-40" data-aos="fade-down">
+        <div class="px-6 py-3 border-2 border-yellow-400 rounded-2xl text-white text-2xl md:text-3xl font-bold bg-gray-900 bg-opacity-70 backdrop-blur">
+            <h2 class="text-gray-300 text-3xl md:text-4xl mb-4">Ransomware Protection & Response</h2>
+        </div>
+    </div>
+    <div class="bg-black bg-opacity-70 p-6 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 hover:border-4 hover:border-yellow-400 px-12 mx-6 lg:mx-20 backdrop-blur" data-aos="fade-up">
+        <div class="text-gray-400 space-y-6">
+            <h1 class="text-2xl font-bold text-yellow-400">Ransomware Protection & Response</h1>
+            <p>
+                Ransomware attacks are among the most disruptive cyber threats today, capable of crippling business operations and compromising sensitive data. Our Ransomware Protection and Response services focus on proactive measures to prevent such attacks and swift recovery strategies to minimise impact.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Proactive Prevention Strategies</h2>
+            <p>
+                Prevention is the first line of defence. We help organisations implement comprehensive safeguards to reduce exposure to ransomware threats. From deploying advanced threat detection tools and endpoint security solutions to ensuring robust access controls and regular software updates, our strategies are designed to fortify your defences against ransomware.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Employee Training and Awareness</h2>
+            <p>
+                Many ransomware attacks exploit human vulnerabilities. Our cybersecurity training programs equip employees to recognise phishing attempts, suspicious links, and other tactics commonly used by attackers. This proactive approach significantly lowers the likelihood of ransomware gaining a foothold in your organisation.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Backup and Recovery Solutions</h2>
+            <p>
+                A strong backup strategy is crucial for mitigating the effects of ransomware. We help organisations implement secure, frequent backups of critical data, ensuring systems can be restored quickly and effectively during an attack. By integrating these solutions into your disaster recovery plan, we minimise downtime and financial loss.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Rapid Incident Response</h2>
+            <p>
+                In the unfortunate event of a ransomware attack, time is of the essence. Our rapid response team is available 24/7 to contain the threat, investigate the incident, and guide organisations through a structured recovery process. This includes identifying the attack vector, isolating affected systems, and restoring operations with minimal disruption.
+            </p>
+
+            <h2 class="text-xl font-semibold text-yellow-400">Post-Incident Analysis and Strengthening</h2>
+            <p>
+                Learning from an incident is key to future prevention. After recovery, we conduct a thorough post-incident analysis to understand how the attack occurred and provide actionable recommendations for strengthening your cybersecurity posture. This ensures your organisation is better prepared to prevent and respond to future threats.
+            </p>
+        </div>
+    </div>
+
+    <section class="mt-20 bg-gray-900 bg-opacity-70 backdrop-blur-lg border-2 border-yellow-400 rounded-2xl p-10 shadow-xl text-white text-center px-12 mx-6 lg:mx-20" data-aos="fade-up">
+        <a href="{% url 'appointment' %}" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-full px-6 py-3 transition duration-300">
+            Schedule a Consultation
+        </a>
+    </section>
+</section>
+{% endblock content %}
