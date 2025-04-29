@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Edit Resource</title>
+{% endblock %}
+
+{% block content %}
+<video autoplay muted loop class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-80">
+  <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
+
+<div class="relative z-10 container mx-auto py-12 px-4">
+  <div class="max-w-3xl mx-auto bg-gray-900 bg-opacity-90 backdrop-blur-md rounded-xl text-white p-10 shadow-lg">
+    <h1 class="text-4xl font-bold mb-10 text-center">✏️ Edit Resource</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label>Title</label>
+        {{ form.title|add_class:"w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white" }}
+      </div>
+
+      <div>
+        <label>Description</label>
+        {{ form.description|add_class:"w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white" }}
+      </div>
+
+      <div>
+        <label>Upload New File (optional)</label>
+        {{ form.file|add_class:"w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white" }}
+      </div>
+
+      <div>
+        <label>External Link (optional)</label>
+        {{ form.external_link|add_class:"w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white" }}
+      </div>
+
+      <button type="submit"
+              class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-lg transition">
+        💾 Save Changes
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

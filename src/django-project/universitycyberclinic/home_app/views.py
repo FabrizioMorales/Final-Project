@@ -547,22 +547,20 @@ def download_receipt_pdf(request, appointment_id):
 
 
 # 🌟 User Dashboard
+
 @login_required
 def user_dashboard(request):
     user = request.user
-    today = datetime.now().date()
-
-    # Appointments
-    upcoming_appointments = Appointment.objects.filter(user=user, appointment_date__gte=today).order_by('appointment_date')
-    past_appointments = Appointment.objects.filter(user=user, appointment_date__lt=today).order_by('-appointment_date')[:5]
-
-    # Announcements (Fetch latest 5)
-    announcements = Announcement.objects.order_by('-created_at')[:5]
+    upcoming_appointments = Appointment.objects.filter(user=user, appointment_date__gte=datetime.now().date()).order_by('appointment_date')
+    past_appointments = Appointment.objects.filter(user=user, appointment_date__lt=datetime.now().date()).order_by('-appointment_date')[:5]
+    announcements = Announcement.objects.order_by('-event_date')[:5]
+    resources = Resource.objects.order_by('-created_at')
 
     context = {
         'upcoming_appointments': upcoming_appointments,
         'past_appointments': past_appointments,
-        'announcements': announcements,  # <-- add to context
+        'announcements': announcements,
+        'resources': resources,
     }
     return render(request, 'dashboard.html', context)
 
@@ -1000,10 +998,69 @@ def edit_announcement(request, announcement_id):
         form = AnnouncementForm(instance=announcement)
 
     return render(request, 'edit_announcement.html', {'form': form})
-
+from .models import Resource
+from .forms import ResourceForm
 @staff_member_required
 def delete_announcement(request, announcement_id):
     announcement = get_object_or_404(Announcement, id=announcement_id)
     announcement.delete()
     messages.success(request, "Announcement deleted successfully!")
     return redirect('admin_announcements')
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import Resource
+from .forms import ResourceForm  # (make sure you have this)
+
+@staff_member_required
+def admin_resources(request):
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "✅ Resource added successfully!")
+            return redirect('admin_resources')
+    else:
+        form = ResourceForm()
+
+    resources = Resource.objects.all().order_by('-created_at')
+    return render(request, 'admin_resources.html', {
+        'form': form,
+        'resources': resources
+    })
+
+@staff_member_required
+def admin_resources(request):
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "✅ Resource added successfully!")
+            return redirect('admin_resources')
+    else:
+        form = ResourceForm()
+
+    resources = Resource.objects.all().order_by('-created_at')
+    return render(request, 'admin_resources.html', {'form': form, 'resources': resources})
+
+@staff_member_required
+def edit_resource(request, resource_id):
+    resource = get_object_or_404(Resource, id=resource_id)
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, request.FILES, instance=resource)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "✅ Resource updated successfully!")
+            return redirect('admin_resources')
+    else:
+        form = ResourceForm(instance=resource)
+
+    return render(request, 'edit_resource.html', {'form': form, 'resource': resource})
+
+@staff_member_required
+def delete_resource(request, resource_id):
+    resource = get_object_or_404(Resource, id=resource_id)
+    resource.delete()
+    messages.success(request, "❌ Resource deleted successfully.")
+    return redirect('admin_resources')

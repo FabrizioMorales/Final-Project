@@ -15,7 +15,7 @@ from .views import (
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
     admin_users_view, edit_user_view, delete_user_view, login_as_staff, verify_email,
     resend_verification_email, reschedule_appointment, download_ics, toggle_appointment_completion,
-    admin_announcements, edit_announcement, delete_announcement,
+    admin_announcements, edit_announcement, delete_announcement, admin_resources, edit_resource, delete_resource,
 )
 
 urlpatterns = [
@@ -51,7 +51,9 @@ urlpatterns = [
     path('admin-dashboard/announcements/', admin_announcements, name='admin_announcements'),
     path('admin-dashboard/announcements/<int:announcement_id>/edit/', edit_announcement, name='edit_announcement'),
     path('admin-dashboard/announcements/<int:announcement_id>/delete/', delete_announcement, name='delete_announcement'),
-
+    path('admin-dashboard/resources/', admin_resources, name='admin_resources'),
+    path('admin-dashboard/resources/<int:resource_id>/edit/', edit_resource, name='edit_resource'),
+    path('admin-dashboard/resources/<int:resource_id>/delete/', delete_resource, name='delete_resource'),
 
     # --- User Profile & Dashboard ---
     path("dashboard/", user_dashboard, name="user_dashboard"),
