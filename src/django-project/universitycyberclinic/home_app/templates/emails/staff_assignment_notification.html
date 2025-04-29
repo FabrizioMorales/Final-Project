@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Assignment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+      padding: 20px;
+      color: #1f2937;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0f172a;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    {% if assignment_type == "assigned" %}
+      <h2>📌 New Appointment Assigned</h2>
+      <p>Hi {{ staff.first_name }},</p>
+      <p>You have been assigned a new appointment:</p>
+    {% else %}
+      <h2>❌ Appointment Unassigned</h2>
+      <p>Hi {{ staff.first_name }},</p>
+      <p>You are no longer assigned to the following appointment:</p>
+    {% endif %}
+
+    <ul>
+      <li><strong>Client Name:</strong> {{ appointment.name }}</li>
+      <li><strong>Client Email:</strong> {{ appointment.email }}</li>
+      <li><strong>Date:</strong> {{ appointment.appointment_date }}</li>
+      <li><strong>Time:</strong> {{ appointment.appointment_time }}</li>
+      <li><strong>Details:</strong> {{ appointment.details|default:"No additional info." }}</li>
+    </ul>
+
+    <p>Please log in to the <a href="http://{{ domain }}/admin-dashboard" target="_blank">Admin Dashboard</a> for further action.</p>
+
+    <div class="footer">
+      <p>Thanks,<br>University Cyber Clinic Team</p>
+    </div>
+  </div>
+</body>
+</html>

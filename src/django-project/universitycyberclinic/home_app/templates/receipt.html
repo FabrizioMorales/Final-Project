@@ -1,69 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Receipt</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .receipt-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .qr-code {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .qr-code img {
-            width: 150px;  /* Fixed width */
-            height: 150px; /* Fixed height */
-            max-width: 100%;
-            object-fit: contain;
-        }
-        .qr-code p {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        
-        .download-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="receipt-container">
-        <h2>Appointment Receipt</h2>
-        <p>Thank you for scheduling your appointment!</p>
-        
-        <h3>Appointment Details:</h3>
-        <p><strong>Name:</strong> {{ appointment.name }}</p>
-        <p><strong>Email:</strong> {{ appointment.email }}</p>
-        <p><strong>Date:</strong> {{ appointment.appointment_date }}</p>
-        <p><strong>Time:</strong> {{ appointment.appointment_time }}</p>
-        <p><strong>Details:</strong> {{ appointment.details }}</p>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Appointment Receipt</title>
+{% endblock title %}
 
-        <div class="qr-code">
-            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
-            <p>Scan this QR code to save appointment details</p>
-        </div>
+{% block content %}
+<!-- Background Video -->
+<video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
+    <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
+</video>
 
-        <p>We look forward to seeing you!</p>
-        
-        <a href="{% url 'download_receipt_pdf' appointment.id %}" class="download-btn">
-            Download PDF Receipt
-        </a>
+<section class="relative z-10 py-16">
+  <div class="max-w-3xl mx-auto bg-gray-900 bg-opacity-90 backdrop-blur rounded-xl text-white p-10 shadow-lg">
+    <h2 class="text-4xl font-bold text-yellow-400 text-center mb-2">Appointment Receipt</h2>
+    <p class="text-center text-gray-300 mb-8">Thank you for scheduling your appointment with us!</p>
+
+    <div class="space-y-4 text-base">
+      <div>
+        <span class="font-semibold text-yellow-300">Appointment ID:</span>
+        {{ appointment.id }}
+      </div>
+      <div>
+        <span class="font-semibold text-yellow-300">Name:</span>
+        {{ appointment.name }}
+      </div>
+      <div>
+        <span class="font-semibold text-yellow-300">Email:</span>
+        {{ appointment.email }}
+      </div>
+      <div>
+        <span class="font-semibold text-yellow-300">Date:</span>
+        {{ appointment.appointment_date }}
+      </div>
+      <div>
+        <span class="font-semibold text-yellow-300">Time:</span>
+        {{ appointment.appointment_time }}
+      </div>
+      <div>
+        <span class="font-semibold text-yellow-300">Details:</span>
+        {{ appointment.details }}
+      </div>
     </div>
-</body>
-</html>
+
+    <div class="qr-code text-center mt-10 mb-6">
+      <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" class="w-36 h-36 mx-auto border border-gray-700 rounded-lg p-2">
+      <p class="text-sm text-gray-400 mt-2">Scan this QR code to save appointment details</p>
+    </div>
+    <div class="text-center mt-8">
+        <a href="{% url 'download_ics' appointment.id %}" class="download-btn bg-yellow-400 hover:bg-blue-900 text-gray-900 px-4 py-2 rounded mt-4 inline-block">
+        📅 Add to Calendar
+    </a>
+    </div>
+    <div class="text-center mt-8">
+      <a href="{% url 'download_receipt_pdf' appointment.id %}"
+         class="inline-block bg-yellow-400 text-gray-900 font-bold py-3 px-6 rounded-lg shadow hover:bg-yellow-300 transition">
+        Download PDF Receipt
+      </a>
+    </div>
+
+    <div class="mt-10 text-center text-sm text-gray-500">
+      University Cyber & Technology Clinic — Empowering our community through technology & security.
+    </div>
+  </div>
+</section>
+{% endblock content %}

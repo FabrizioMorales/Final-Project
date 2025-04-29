@@ -78,25 +78,28 @@
     </div>
   </div>
 
-        <!-- Upcoming Appointments -->
-        <div class="bg-gray-800 p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-3">Upcoming Appointments</h3>
-          {% if upcoming_appointments %}
-            {% for appt in upcoming_appointments %}
-              <div class="mb-4 p-3 bg-gray-700 rounded relative">
-                <strong>{{ appt.appointment_date|date:"F j, Y" }} at {{ appt.appointment_time }}</strong><br>
-                {{ appt.details|default:"No details provided." }}
-                <a href="{% url 'cancel_appointment' appt.id %}"
-                   onclick="return confirm('Are you sure you want to cancel this appointment?');"
-                   class="absolute top-2 right-3 text-red-400 hover:underline">
-                   Cancel
-                </a>
-              </div>
-            {% endfor %}
-          {% else %}
-            <p>No upcoming appointments.</p>
-          {% endif %}
-        </div>
+<!-- Upcoming Appointments -->
+<div class="bg-gray-800 p-6 rounded-lg shadow">
+  <h3 class="text-xl font-semibold mb-3">Upcoming Appointments</h3>
+
+  {% if upcoming_appointments %}
+    {% for appt in upcoming_appointments %}
+      <div class="mb-4 p-3 bg-gray-700 rounded relative">
+        <strong>{{ appt.appointment_date|date:"F j, Y" }} at {{ appt.appointment_time }}</strong><br>
+        {{ appt.details|default:"No details provided." }}
+        <a href="{% url 'cancel_appointment' appt.id %}"
+           onclick="return confirm('Are you sure you want to cancel this appointment?');"
+           class="absolute top-2 right-3 text-red-400 hover:underline">
+           Cancel
+        </a>
+        <a href="{% url 'reschedule_appointment' appt.id %}" class="text-yellow-400 hover:underline ml-4">Reschedule</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No upcoming appointments.</p>
+  {% endif %}
+</div>
+
 
         <!-- Announcements -->
         <div class="bg-gray-800 p-6 rounded-lg shadow">

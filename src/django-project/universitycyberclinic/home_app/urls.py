@@ -14,7 +14,7 @@ from .views import (
     edit_profile, admin_dashboard, mark_appointment_completed,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
     admin_users_view, edit_user_view, delete_user_view, login_as_staff, verify_email,
-    resend_verification_email,
+    resend_verification_email, reschedule_appointment, download_ics,
 )
 
 urlpatterns = [
@@ -40,13 +40,18 @@ urlpatterns = [
     path("cybersecurityconsulting/",cybersecurityconsulting, name="cybersecurityconsulting"),
     # --- Appointments (User) ---
     path("appointment/", appointment_view, name="appointment"),
+    path('api/available-slots/', views.available_slots_api, name='available_slots_api'),
     path("receipt/<int:appointment_id>/", receipt_view, name="receipt"),
     path("download-receipt/<int:appointment_id>/", download_receipt_pdf, name="download_receipt_pdf"),
     path("cancel-appointment/<int:appointment_id>/", cancel_appointment, name="cancel_appointment"),
+    path('appointment/<int:appointment_id>/reschedule/', reschedule_appointment, name='reschedule_appointment'),
+    path('appointment/<int:appointment_id>/calendar/', download_ics, name='download_ics'),
+
 
     # --- User Profile & Dashboard ---
     path("dashboard/", user_dashboard, name="user_dashboard"),
     path("profile/", edit_profile, name="edit_profile"),
+    
 
     # --- Admin Dashboard & Views ---
     path("admin-dashboard/", admin_dashboard, name="admin_dashboard"),

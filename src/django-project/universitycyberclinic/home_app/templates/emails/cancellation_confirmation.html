@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment Cancelled</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+  <h2>🚫 Appointment Cancelled</h2>
+  <p>Hi {{ name }},</p>
+  <p>Your appointment scheduled for:</p>
+
+  <ul>
+    <li><strong>Date:</strong> {{ appointment_date }}</li>
+    <li><strong>Time:</strong> {{ appointment_time }}</li>
+  </ul>
+
+  <p>has been successfully cancelled.</p>
+
+  <p>If you wish to book a new appointment, please visit our website:</p>
+  <p><a href="http://{{ domain }}/appointment/" style="color: #facc15;">Book a New Appointment</a></p>
+
+  <p>Thank you for choosing University Cyber Clinic.</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% if rescheduled %}
+<h2>📅 Your Appointment Has Been Rescheduled</h2>
+<p>Hi {{ appointment.name }},</p>
+<p>This is a confirmation of your updated appointment:</p>
+{% else %}
+<h2>🎉 Appointment Booked Successfully</h2>
+<p>Hi {{ appointment.name }},</p>
+<p>Thanks for booking with us. Here are your appointment details:</p>
+{% endif %}
+
+<ul>
+  <li><strong>Date:</strong> {{ appointment.appointment_date }}</li>
+  <li><strong>Time:</strong> {{ appointment.appointment_time }}</li>
+  <li><strong>Details:</strong> {{ appointment.details }}</li>
+</ul>
+
+<hr style="margin: 20px 0;">
+
+<p>
+  👉 <a href="https://{{ domain }}{% url 'reschedule_appointment' appointment.id %}">Reschedule</a> |
+  ❌ <a href="https://{{ domain }}{% url 'cancel_appointment' appointment.id %}">Cancel Appointment</a> |
+  📥 <a href="https://{{ domain }}{% url 'download_ics' appointment.id %}">Add to Calendar (.ics)</a>
+</p>
+
+<p style="margin-top: 20px;">We look forward to seeing you!</p>

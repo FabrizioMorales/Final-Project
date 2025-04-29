@@ -4,24 +4,75 @@ from django.contrib.auth.models import User
 from .models import Appointment
 from .models import UserProfile
 from django.contrib.auth.forms import PasswordResetForm
+from datetime import datetime, date, time, timedelta
 
 # Appointment Booking Form
+from django import forms
+from .models import Appointment
+from datetime import date, time, datetime
+
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['name', 'email', 'appointment_date', 'appointment_time', 'details']
+
         widgets = {
             'appointment_date': forms.DateInput(attrs={
-                'type': 'date',
-                'class': 'form-control'
+                'type': 'date', 
+                'class': 'w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400'
             }),
-            'appointment_time': forms.TimeInput(attrs={
-                'type': 'time',
-                'class': 'form-control'
+            'details': forms.Textarea(attrs={
+                'rows': 4,
+                'class': 'w-full p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400',
+                'placeholder': 'Appointment Details'
             }),
-            'details': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+        appointment_date = cleaned_data.get('appointment_date')
+        appointment_time = cleaned_data.get('appointment_time')
+
+        # 🚨 Validate date
+        if not appointment_date:
+            raise forms.ValidationError("Please select a date.")
+
+        today = date.today()
+        if appointment_date < today:
+            raise forms.ValidationError("You cannot book an appointment for a past date.")
+
+        # 🚨 Validate time slot
+        valid_slots = [
+            time(hour, minute)
+            for hour in range(10, 17)  # 10AM to 4PM
+            for minute in (0, 30)
+        ]
+        valid_slots.append(time(16, 30))  # 4:30 PM slot
+
+        if appointment_time not in valid_slots:
+            raise forms.ValidationError("Invalid appointment time. Please select a valid 30-minute slot between 10:00 AM and 4:30 PM.")
+
+        # 🚨 Validate no booking past time today
+        now = datetime.now()
+        if appointment_date == today:
+            current_time = now.time()
+            if appointment_time <= (current_time.replace(second=0, microsecond=0)):
+                raise forms.ValidationError("You cannot book a slot earlier than the current time.")
+
+        # 🚨 Validate no overlap
+        if Appointment.objects.filter(
+            appointment_date=appointment_date,
+            appointment_time=appointment_time
+        ).exists():
+            raise forms.ValidationError("This slot is already booked. Please select a different time.")
+
+        return cleaned_data
+
+class RescheduleAppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['appointment_date', 'appointment_time']
+        
 # User Registration Form (Username == Email)
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(

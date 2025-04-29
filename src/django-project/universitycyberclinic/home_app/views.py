@@ -37,7 +37,11 @@ from .models import ContactMessage
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from django.http import JsonResponse
-
+from django.core.mail import EmailMessage
+from datetime import date, time, datetime, timedelta
+from django.http import HttpResponse
+from icalendar import Calendar, Event
+from pytz import timezone as pytz_timezone
 
 
 # Home Page
@@ -88,12 +92,47 @@ def physicalsecurityintegration(request):
 def cybersecurityconsulting(request):
     return render(request, 'cybersecurityconsulting.html', {'welcome_msg': "Welcome to our Cybersecurity Consulting Page"})
 
-
 # Appointment Booking (Requires Login)
-@login_required
-def appointment(request):
-    return render(request, 'appointment.html', {'welcome_msg': "Welcome to our appointment page"})
+# ✅ API: Return available slots
+def available_slots_api(request):
+    selected_date = request.GET.get('date')
 
+    if not selected_date:
+        return JsonResponse({'error': 'Date is required.'}, status=400)
+
+    try:
+        selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+    except ValueError:
+        return JsonResponse({'error': 'Invalid date format.'}, status=400)
+
+    # Block weekends
+    if selected_date.weekday() in [5, 6]:
+        return JsonResponse({'available_slots': []})
+
+    slots = [time(h, m) for h in range(10, 17) for m in (0, 30)]
+    slots.append(time(16, 30))
+
+    booked = Appointment.objects.filter(
+        appointment_date=selected_date
+    ).values_list('appointment_time', flat=True)
+
+    available = [t.strftime('%H:%M') for t in slots if t not in booked]
+
+    if selected_date == date.today():
+        now = datetime.now().time()
+        available = [t for t in available if datetime.strptime(t, "%H:%M").time() > now]
+
+    return JsonResponse({'available_slots': available})
+
+# ✅ PDF Receipt Generator
+def generate_receipt_pdf(appointment):
+    template = get_template('receipt_pdf.html')
+    html = template.render({'appointment': appointment})
+    buffer = BytesIO()
+    pisa.CreatePDF(html, dest=buffer)
+    return buffer.getvalue()
+
+# ✅ Appointment Booking
 @login_required
 def appointment_view(request):
     if request.method == 'POST':
@@ -101,12 +140,122 @@ def appointment_view(request):
         if form.is_valid():
             appointment = form.save(commit=False)
             appointment.user = request.user
-            appointment.save()
-            return redirect('receipt', appointment_id=appointment.id)
+
+            today = timezone.now().date()
+            now = timezone.now().time()
+
+            # Validate
+            if appointment.appointment_date < today:
+                form.add_error('appointment_date', "Cannot book past dates.")
+            elif appointment.appointment_date.weekday() in [5, 6]:
+                form.add_error('appointment_date', "We are closed on weekends.")
+            elif appointment.appointment_date == today and appointment.appointment_time <= now:
+                form.add_error('appointment_time', "Time must be in the future.")
+            elif Appointment.objects.filter(
+                appointment_date=appointment.appointment_date,
+                appointment_time=appointment.appointment_time
+            ).exists():
+                form.add_error('appointment_time', "Slot already booked.")
+            else:
+                appointment.save()
+
+                # ✅ Email with PDF
+                pdf = generate_receipt_pdf(appointment)
+                email = EmailMessage(
+                    subject='Your Appointment Receipt - University Cyber Clinic',
+                    body=render_to_string('emails/appointment_confirmation.html', {
+                        'appointment': appointment,
+                        'rescheduled': False,
+                        'domain': request.get_host()
+                    }),
+                    to=[appointment.email]
+                )
+                email.attach('appointment_receipt.pdf', pdf, 'application/pdf')
+                email.content_subtype = 'html'
+                email.send()
+
+                messages.success(request, "Appointment booked! Receipt sent.")
+                return redirect('receipt', appointment_id=appointment.id)
+        else:
+            messages.error(request, "Please fix errors below.")
     else:
         form = AppointmentForm()
-    return render(request, 'appointment_form.html', {'form': form})
 
+    slots = [time(h, m).strftime('%H:%M') for h in range(10, 17) for m in (0, 30)]
+    slots.append("16:30")
+
+    return render(request, 'appointment_form.html', {
+        'form': form,
+        'available_times': slots
+    })
+
+@login_required
+def reschedule_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
+
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            appointment = form.save()
+
+            # ✅ Generate updated PDF receipt
+            pdf = generate_receipt_pdf(appointment)
+
+            # ✅ Email confirmation with receipt
+            email = EmailMessage(
+                subject="📅 Appointment Rescheduled – University Cyber Clinic",
+                body=render_to_string("emails/appointment_confirmation.html", {
+                    "appointment": appointment,
+                    "rescheduled": True,
+                    'domain': request.get_host()
+                }),
+                to=[appointment.email]
+            )
+            email.attach('updated_appointment_receipt.pdf', pdf, 'application/pdf')
+            email.content_subtype = 'html'
+            email.send()
+
+            messages.success(request, "Appointment rescheduled successfully. A confirmation has been sent.")
+            return redirect("receipt", appointment_id=appointment.id)
+        else:
+            messages.error(request, "Please fix the errors.")
+    else:
+        form = AppointmentForm(instance=appointment)
+
+    # Reuse time slots (10:00 - 4:30)
+    slots = [time(h, m).strftime('%H:%M') for h in range(10, 17) for m in (0, 30)]
+    slots.append("16:30")
+
+    return render(request, 'reschedule_appointment.html', {
+        'form': form,
+        'available_times': slots,
+        'rescheduling': True
+    })
+
+
+@login_required
+def download_ics(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
+
+    cal = Calendar()
+    event = Event()
+
+    dt_start = datetime.combine(appointment.appointment_date, appointment.appointment_time)
+    dt_end = dt_start + timedelta(minutes=30)
+    tz = pytz_timezone("Europe/London")
+
+    event.add('summary', 'Cyber Clinic Appointment')
+    event.add('dtstart', tz.localize(dt_start))
+    event.add('dtend', tz.localize(dt_end))
+    event.add('dtstamp', datetime.now())
+    event.add('location', 'University Cyber Clinic')
+    event.add('description', appointment.details or 'Consultation appointment')
+
+    cal.add_component(event)
+
+    response = HttpResponse(cal.to_ical(), content_type='text/calendar')
+    response['Content-Disposition'] = f'attachment; filename=appointment_{appointment.id}.ics'
+    return response
 
 # User Registration
 def register_view(request):
@@ -415,8 +564,33 @@ def user_dashboard(request):
 @login_required
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
+
+    # Save the user's email BEFORE deleting the appointment
+    user_email = appointment.email
+    user_name = appointment.name
+    appointment_date = appointment.appointment_date
+    appointment_time = appointment.appointment_time
+
     appointment.delete()
-    messages.success(request, "Appointment cancelled successfully.")
+
+    # Send cancellation email
+    subject = "🚫 Appointment Cancelled - University Cyber Clinic"
+    message = render_to_string('emails/cancellation_confirmation.html', {
+        'name': user_name,
+        'appointment_date': appointment_date,
+        'appointment_time': appointment_time,
+        'domain': request.get_host(),
+    })
+
+    email = EmailMessage(
+        subject,
+        message,
+        to=[user_email]
+    )
+    email.content_subtype = 'html'
+    email.send()
+
+    messages.success(request, "Appointment cancelled and confirmation sent.")
     return HttpResponseRedirect(reverse('user_dashboard'))
 
 @login_required
@@ -500,16 +674,56 @@ def export_appointments_csv(request):
 @require_POST
 def assign_appointment_staff(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
-    assigned_to = request.POST.get('assigned_staff')
+    new_assigned_to = request.POST.get('assigned_staff')
 
-    if assigned_to:
-        appointment.assigned_staff = assigned_to
+    if new_assigned_to:
+        previous_assigned = appointment.assigned_staff
+        appointment.assigned_staff = new_assigned_to
         appointment.save()
-        messages.success(request, f"Assigned appointment #{appointment.id} to {assigned_to}")
+
+        # Try resolving both staff User objects
+        def resolve_user_by_name(name):
+            try:
+                first, last = name.split(' ', 1)
+                return User.objects.filter(first_name=first, last_name=last).first()
+            except ValueError:
+                return User.objects.filter(username=name).first()
+
+        new_staff_user = resolve_user_by_name(new_assigned_to)
+        previous_staff_user = resolve_user_by_name(previous_assigned) if previous_assigned != new_assigned_to else None
+
+        # ✅ Email to newly assigned staff
+        if new_staff_user:
+            subject = f"New Appointment Assigned - #{appointment.id}"
+            message = render_to_string('emails/staff_assignment_notification.html', {
+                'appointment': appointment,
+                'staff': new_staff_user,
+                'assignment_type': 'assigned',
+                'domain': request.get_host()
+            })
+            email = EmailMessage(subject, message, "noreply@universitycyber.uk", [new_staff_user.email])
+            email.content_subtype = "html"
+            email.send()
+
+        # ✅ Email to unassigned previous staff
+        if previous_staff_user:
+            subject = f"Appointment Unassigned - #{appointment.id}"
+            message = render_to_string('emails/staff_assignment_notification.html', {
+                'appointment': appointment,
+                'staff': previous_staff_user,
+                'assignment_type': 'unassigned',
+                'domain': request.get_host()
+            })
+            email = EmailMessage(subject, message, "noreply@universitycyber.uk", [previous_staff_user.email])
+            email.content_subtype = "html"
+            email.send()
+
+        messages.success(request, f"Appointment #{appointment.id} assigned to {new_assigned_to}")
     else:
-        messages.error(request, "Please provide a staff name.")
+        messages.error(request, "No staff selected for assignment.")
 
     return redirect('admin_dashboard')
+
 
 @staff_member_required
 def admin_dashboard(request):
