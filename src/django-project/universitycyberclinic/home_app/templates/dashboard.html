@@ -101,11 +101,26 @@
 </div>
 
 
-        <!-- Announcements -->
-        <div class="bg-gray-800 p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-3">Announcements</h3>
-          <p>New webinar on website maintenance scheduled for May 12</p>
-        </div>
+<!-- Announcements -->
+<div class="bg-gray-800 p-6 rounded-lg shadow">
+  <h3 class="text-xl font-semibold mb-3">Announcements</h3>
+
+  {% if announcements %}
+    {% for announcement in announcements %}
+      <div class="mb-4">
+        <h4 class="font-bold text-yellow-400">{{ announcement.title }}</h4>
+        <p class="text-gray-300">{{ announcement.message }}</p>
+        <p class="text-gray-500 text-xs">
+          📅 <strong>Event Date:</strong> {{ announcement.event_date|date:"M d, Y" }}<br>
+          🕒 <strong>Postedd On:</strong> {{ announcement.created_at|date:"M d, Y" }}
+        </p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No announcements at the moment.</p>
+  {% endif %}
+</div>
+
 
         <!-- Booking History -->
         <div id="booking-history" class="bg-gray-800 p-6 rounded-lg shadow">

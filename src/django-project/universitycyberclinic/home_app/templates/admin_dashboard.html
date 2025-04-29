@@ -42,9 +42,16 @@
         <h2 class="text-lg font-semibold">Appointments</h2>
         <p class="text-4xl font-bold text-cyan-300 mt-2">{{ total_appointments }}</p>
         <a href="{% url 'admin_appointments' %}" class="mt-4 inline-block bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-semibold py-2 px-6 rounded-full">
-          View Appointments
+          All Appointments
         </a>
       </div>
+      <div class="text-center mt-6">
+        <a href="{% url 'my_appointments' %}" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded transition">
+          My Appointments
+        </a>
+      </div>
+      
+    </a>
     </div>
 
     <!-- Messages -->
@@ -59,6 +66,17 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Manage Announcements -->
+<div class="mt-4">
+  <a href="{% url 'admin_announcements' %}" class="block w-full max-w-sm mx-auto">
+    <div class="glass-card border-l-4 border-yellow-500 shadow-yellow-500/40 text-white text-center hover:shadow-lg transition">
+      <i class="fas fa-bullhorn text-3xl mb-2 text-yellow-400"></i>
+      <h2 class="text-lg font-semibold">Manage Announcements</h2>
+      <p class="mt-1 text-sm text-yellow-200">Create, edit, or remove announcements.</p>
+    </div>
+  </a>
 </div>
 
 <!-- Live Update -->

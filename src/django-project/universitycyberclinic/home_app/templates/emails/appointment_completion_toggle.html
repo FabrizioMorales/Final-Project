@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment {% if is_completed %}Completed{% else %}Reverted{% endif %} - University Cyber Clinic</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4fb;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+    .email-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .status-header {
+      color: {% if is_completed %}#4CAF50{% else %}#FFA500{% endif %}; /* Green or Orange */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .details {
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<div class="email-wrapper">
+  <h2 class="status-header">
+    Appointment {% if is_completed %}Completed ✅{% else %}Reverted to Pending 🔄{% endif %}
+  </h2>
+
+  <div class="details">
+    <p>Dear {{ appointment.name }},</p>
+
+    {% if is_completed %}
+      <p>We are pleased to confirm that your appointment scheduled for <strong>{{ appointment.appointment_date }}</strong> at <strong>{{ appointment.appointment_time }}</strong> has been <strong>marked as completed</strong>.</p>
+    {% else %}
+      <p>Your appointment scheduled for <strong>{{ appointment.appointment_date }}</strong> at <strong>{{ appointment.appointment_time }}</strong> has been <strong>reverted back to pending</strong>. You may now edit or reschedule it if necessary.</p>
+    {% endif %}
+
+    <p>If you have any questions, feel free to reply to this email or contact our support team.</p>
+  </div>
+
+  <div class="footer">
+    Thank you,<br>
+    University Cyber Clinic Team
+  </div>
+</div>
+
+</body>
+</html>

@@ -42,7 +42,7 @@ from datetime import date, time, datetime, timedelta
 from django.http import HttpResponse
 from icalendar import Calendar, Event
 from pytz import timezone as pytz_timezone
-
+from .models import Announcement
 
 # Home Page
 def home(request):
@@ -550,30 +550,47 @@ def download_receipt_pdf(request, appointment_id):
 @login_required
 def user_dashboard(request):
     user = request.user
-    upcoming_appointments = Appointment.objects.filter(user=user, appointment_date__gte=datetime.now().date()).order_by('appointment_date')
-    past_appointments = Appointment.objects.filter(user=user, appointment_date__lt=datetime.now().date()).order_by('-appointment_date')[:5]
+    today = datetime.now().date()
+
+    # Appointments
+    upcoming_appointments = Appointment.objects.filter(user=user, appointment_date__gte=today).order_by('appointment_date')
+    past_appointments = Appointment.objects.filter(user=user, appointment_date__lt=today).order_by('-appointment_date')[:5]
+
+    # Announcements (Fetch latest 5)
+    announcements = Announcement.objects.order_by('-created_at')[:5]
 
     context = {
         'upcoming_appointments': upcoming_appointments,
         'past_appointments': past_appointments,
+        'announcements': announcements,  # <-- add to context
     }
     return render(request, 'dashboard.html', context)
 
 
-# Cancel Appointment
 @login_required
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
 
-    # Save the user's email BEFORE deleting the appointment
+    # Preserve important info before deletion
     user_email = appointment.email
     user_name = appointment.name
     appointment_date = appointment.appointment_date
     appointment_time = appointment.appointment_time
+    assigned_staff_name = appointment.assigned_staff
 
+    # Get assigned staff user if applicable
+    staff_user = None
+    if assigned_staff_name:
+        try:
+            first_name, last_name = assigned_staff_name.split(" ", 1)
+            staff_user = User.objects.filter(first_name=first_name, last_name=last_name).first()
+        except ValueError:
+            staff_user = User.objects.filter(username=assigned_staff_name).first()
+
+    # Delete the appointment
     appointment.delete()
 
-    # Send cancellation email
+    # ✅ Send cancellation email to customer
     subject = "🚫 Appointment Cancelled - University Cyber Clinic"
     message = render_to_string('emails/cancellation_confirmation.html', {
         'name': user_name,
@@ -581,17 +598,27 @@ def cancel_appointment(request, appointment_id):
         'appointment_time': appointment_time,
         'domain': request.get_host(),
     })
+    customer_email = EmailMessage(subject, message, to=[user_email])
+    customer_email.content_subtype = 'html'
+    customer_email.send()
 
-    email = EmailMessage(
-        subject,
-        message,
-        to=[user_email]
-    )
-    email.content_subtype = 'html'
-    email.send()
+    # ✅ Send email to assigned staff if exists
+    if staff_user:
+        subject = f"⚠️ Appointment Cancelled (Assigned) - #{appointment_id}"
+        staff_msg = render_to_string('emails/staff_appointment_cancelled.html', {
+            'staff': staff_user,
+            'appointment_name': user_name,
+            'appointment_date': appointment_date,
+            'appointment_time': appointment_time,
+            'domain': request.get_host(),
+        })
+        staff_email = EmailMessage(subject, staff_msg, to=[staff_user.email])
+        staff_email.content_subtype = 'html'
+        staff_email.send()
 
     messages.success(request, "Appointment cancelled and confirmation sent.")
-    return HttpResponseRedirect(reverse('user_dashboard'))
+    return redirect('user_dashboard')
+
 
 @login_required
 def edit_profile(request):
@@ -633,15 +660,41 @@ def admin_dashboard(request):
 
 
 @staff_member_required
-def mark_appointment_completed(request, appointment_id):
+def toggle_appointment_completion(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
 
-    appointment.status = "completed"
-    appointment.assigned_staff = request.user.get_full_name() or request.user.username
+    was_completed = appointment.status == "completed"
+    # Toggle the status
+    appointment.status = "pending" if was_completed else "completed"
     appointment.save()
 
-    messages.success(request, f"Marked appointment #{appointment.id} as completed.")
-    return redirect('admin_dashboard')
+    # Email Subject
+    subject = f"{'✅' if not was_completed else '⚠️'} Appointment {'Completed' if not was_completed else 'Reverted'} - #{appointment.id}"
+
+    # Email Body
+    message = render_to_string("emails/appointment_completion_toggle.html", {
+        "appointment": appointment,
+        "is_completed": not was_completed,
+        "domain": request.get_host()
+    })
+
+    # Send Email
+    email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email="noreply@universitycyber.uk",
+        to=[appointment.email],
+    )
+    email.content_subtype = "html"
+    email.send(fail_silently=False)
+
+    # Show a success message
+    if was_completed:
+        messages.success(request, f"Appointment #{appointment.id} has been reverted back to Pending. Notification email sent.")
+    else:
+        messages.success(request, f"Appointment #{appointment.id} has been marked as Completed. Notification email sent.")
+
+    return redirect('admin_dashboard')  # 🔥 Make sure you redirect somewhere
 
 @staff_member_required
 def export_appointments_csv(request):
@@ -670,59 +723,63 @@ def export_appointments_csv(request):
 
     return response
 
+# 🔧 Helper to resolve user from full name or username
+def resolve_user_by_name(name):
+    if not name:
+        return None
+    try:
+        first, last = name.split(' ', 1)
+        return User.objects.filter(first_name=first, last_name=last).first()
+    except ValueError:
+        return User.objects.filter(username=name).first()
+
+
 @staff_member_required
 @require_POST
 def assign_appointment_staff(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
     new_assigned_to = request.POST.get('assigned_staff')
 
-    if new_assigned_to:
-        previous_assigned = appointment.assigned_staff
-        appointment.assigned_staff = new_assigned_to
-        appointment.save()
-
-        # Try resolving both staff User objects
-        def resolve_user_by_name(name):
-            try:
-                first, last = name.split(' ', 1)
-                return User.objects.filter(first_name=first, last_name=last).first()
-            except ValueError:
-                return User.objects.filter(username=name).first()
-
-        new_staff_user = resolve_user_by_name(new_assigned_to)
-        previous_staff_user = resolve_user_by_name(previous_assigned) if previous_assigned != new_assigned_to else None
-
-        # ✅ Email to newly assigned staff
-        if new_staff_user:
-            subject = f"New Appointment Assigned - #{appointment.id}"
-            message = render_to_string('emails/staff_assignment_notification.html', {
-                'appointment': appointment,
-                'staff': new_staff_user,
-                'assignment_type': 'assigned',
-                'domain': request.get_host()
-            })
-            email = EmailMessage(subject, message, "noreply@universitycyber.uk", [new_staff_user.email])
-            email.content_subtype = "html"
-            email.send()
-
-        # ✅ Email to unassigned previous staff
-        if previous_staff_user:
-            subject = f"Appointment Unassigned - #{appointment.id}"
-            message = render_to_string('emails/staff_assignment_notification.html', {
-                'appointment': appointment,
-                'staff': previous_staff_user,
-                'assignment_type': 'unassigned',
-                'domain': request.get_host()
-            })
-            email = EmailMessage(subject, message, "noreply@universitycyber.uk", [previous_staff_user.email])
-            email.content_subtype = "html"
-            email.send()
-
-        messages.success(request, f"Appointment #{appointment.id} assigned to {new_assigned_to}")
-    else:
+    if not new_assigned_to:
         messages.error(request, "No staff selected for assignment.")
+        return redirect('admin_dashboard')
 
-    return redirect('admin_dashboard')
+    previous_assigned = appointment.assigned_staff
+    appointment.assigned_staff = new_assigned_to
+    appointment.save()
+
+    # Try resolving users
+    new_staff_user = resolve_user_by_name(new_assigned_to)
+    previous_staff_user = resolve_user_by_name(previous_assigned) if previous_assigned and previous_assigned != new_assigned_to else None
+
+    # ✅ Email to newly assigned staff
+    if new_staff_user:
+        subject = f"📋 New Appointment Assigned - #{appointment.id}"
+        message = render_to_string('emails/staff_assignment_notification.html', {
+            'appointment': appointment,
+            'staff': new_staff_user,
+            'assignment_type': 'assigned',
+            'domain': request.get_host(),
+        })
+        email = EmailMessage(subject, message, "noreply@universitycyber.uk", [new_staff_user.email])
+        email.content_subtype = "html"
+        email.send()
+
+    # ✅ Email to previously assigned staff if changed
+    if previous_staff_user:
+        subject = f"🚫 Appointment Unassigned - #{appointment.id}"
+        message = render_to_string('emails/staff_assignment_notification.html', {
+            'appointment': appointment,
+            'staff': previous_staff_user,
+            'assignment_type': 'unassigned',
+            'domain': request.get_host(),
+        })
+        email = EmailMessage(subject, message, "noreply@universitycyber.uk", [previous_staff_user.email])
+        email.content_subtype = "html"
+        email.send()
+
+    messages.success(request, f"Appointment #{appointment.id} successfully reassigned to {new_assigned_to}.")
+    return redirect('admin_appointments')
 
 
 @staff_member_required
@@ -896,3 +953,57 @@ def mark_message_as_read(request, pk):
     except ContactMessage.DoesNotExist:
         return JsonResponse({'success': False}, status=404)
     
+@login_required
+def my_assigned_appointments(request):
+    user_full_name = f"{request.user.first_name} {request.user.last_name}".strip()
+    
+    appointments = Appointment.objects.filter(assigned_staff=user_full_name).order_by('-appointment_date', '-appointment_time')
+
+    return render(request, 'my_appointments.html', {
+        'my_appointments': appointments
+    })
+
+from .models import Announcement
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect
+from .forms import AnnouncementForm  # We'll create this form.
+
+@staff_member_required
+def admin_announcements(request):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Announcement posted successfully!")
+            return redirect('admin_announcements')
+    else:
+        form = AnnouncementForm()
+
+    announcements = Announcement.objects.all().order_by('-event_date')
+
+    return render(request, 'admin_announcements.html', {
+        'form': form,
+        'announcements': announcements
+    })
+    
+@staff_member_required
+def edit_announcement(request, announcement_id):
+    announcement = get_object_or_404(Announcement, id=announcement_id)
+
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST, instance=announcement)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Announcement updated successfully!")
+            return redirect('admin_announcements')
+    else:
+        form = AnnouncementForm(instance=announcement)
+
+    return render(request, 'edit_announcement.html', {'form': form})
+
+@staff_member_required
+def delete_announcement(request, announcement_id):
+    announcement = get_object_or_404(Announcement, id=announcement_id)
+    announcement.delete()
+    messages.success(request, "Announcement deleted successfully!")
+    return redirect('admin_announcements')

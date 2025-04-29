@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Cancelled</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9fafb; padding: 30px; color: #333; }
+        .email-wrapper { max-width: 600px; background: #ffffff; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        h2 { color: #ef4444; }
+        p { margin-top: 20px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <h2>Appointment Cancelled</h2>
+
+        <p>Hello {{ staff.get_full_name|default:staff.username }},</p>
+
+        <p>
+          We wanted to inform you that the following appointment assigned to you has been <strong>cancelled</strong>:
+        </p>
+
+        <ul>
+            <li><strong>Appointment:</strong> {{ appointment_name }}</li>
+            <li><strong>Date:</strong> {{ appointment_date }}</li>
+            <li><strong>Time:</strong> {{ appointment_time }}</li>
+        </ul>
+
+        <p>Thank you for your understanding.<br>University Cyber Clinic Team</p>
+    </div>
+</body>
+</html>

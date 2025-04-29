@@ -161,3 +161,13 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     subject = forms.CharField(max_length=150)
     message = forms.CharField(widget=forms.Textarea)
+    
+from django import forms
+from .models import Announcement
+
+class AnnouncementForm(forms.ModelForm):
+    event_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = Announcement
+        fields = ['title', 'message', 'event_date']

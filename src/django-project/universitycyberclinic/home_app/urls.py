@@ -11,10 +11,11 @@ from .views import (
     incidentresponseforensics, complianceandriskmanagement, trainingandwareness,
     ransomwareprotectionandresponse,physicalsecurityintegration, cybersecurityconsulting,
     user_dashboard, cancel_appointment,
-    edit_profile, admin_dashboard, mark_appointment_completed,
+    edit_profile, admin_dashboard,
     export_appointments_csv, assign_appointment_staff, admin_appointments_view,
     admin_users_view, edit_user_view, delete_user_view, login_as_staff, verify_email,
-    resend_verification_email, reschedule_appointment, download_ics,
+    resend_verification_email, reschedule_appointment, download_ics, toggle_appointment_completion,
+    admin_announcements, edit_announcement, delete_announcement,
 )
 
 urlpatterns = [
@@ -46,6 +47,10 @@ urlpatterns = [
     path("cancel-appointment/<int:appointment_id>/", cancel_appointment, name="cancel_appointment"),
     path('appointment/<int:appointment_id>/reschedule/', reschedule_appointment, name='reschedule_appointment'),
     path('appointment/<int:appointment_id>/calendar/', download_ics, name='download_ics'),
+    path('dashboard/my-appointments/', views.my_assigned_appointments, name='my_appointments'),
+    path('admin-dashboard/announcements/', admin_announcements, name='admin_announcements'),
+    path('admin-dashboard/announcements/<int:announcement_id>/edit/', edit_announcement, name='edit_announcement'),
+    path('admin-dashboard/announcements/<int:announcement_id>/delete/', delete_announcement, name='delete_announcement'),
 
 
     # --- User Profile & Dashboard ---
@@ -56,7 +61,6 @@ urlpatterns = [
     # --- Admin Dashboard & Views ---
     path("admin-dashboard/", admin_dashboard, name="admin_dashboard"),
     path("admin-dashboard/appointments/", admin_appointments_view, name="admin_appointments"),
-    path("dashboard/appointments/<int:appointment_id>/complete/", mark_appointment_completed, name="mark_appointment_completed"),
     path("dashboard/appointments/<int:appointment_id>/assign/", assign_appointment_staff, name="assign_appointment_staff"),
     path("dashboard/export/appointments/", export_appointments_csv, name="export_appointments_csv"),
     path('admin-dashboard/users/', admin_users_view, name='admin_users'),
@@ -65,6 +69,8 @@ urlpatterns = [
     path('admin-dashboard/users/<int:user_id>/delete/', delete_user_view, name='delete_user'),
     path('login-as-staff/<int:user_id>/', login_as_staff, name='login_as_staff'),
     path('admin-dashboard/messages/', views.admin_contact_messages, name='admin_contact_messages'),
+    path("dashboard/appointments/<int:appointment_id>/toggle-completion/", views.toggle_appointment_completion, name="toggle_completion"),
+
 
     # --- Email Verification ---
     path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),

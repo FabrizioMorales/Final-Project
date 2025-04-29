@@ -49,3 +49,12 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
+    
+class Announcement(models.Model):
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    event_date = models.DateField()  # New field instead of created_at
+    created_at = models.DateTimeField(auto_now_add=True)  # Keep for ordering internally
+
+    def __str__(self):
+        return self.title

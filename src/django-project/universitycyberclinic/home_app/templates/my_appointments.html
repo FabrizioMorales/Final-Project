@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}<title>Manage Appointments</title>{% endblock %}
+{% block title %}
+<title>My Assigned Appointments</title>
+{% endblock %}
 
 {% block content %}
-<!-- Background Video -->
 <video id="video-background" autoplay loop muted class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-100">
   <source src="{% static 'images/circuit-board.3840x2160.mp4' %}" type="video/mp4">
 </video>
 
 <div class="relative z-10 container mx-auto py-12">
   <div class="bg-gray-900 bg-opacity-90 backdrop-blur rounded-xl text-white p-8 shadow-lg">
-    <h1 class="text-3xl font-bold mb-8 text-center">Manage Appointments</h1>
+    <h1 class="text-3xl font-bold mb-8 text-center">My Assigned Appointments</h1>
 
-    <!-- Filters and Export -->
+    <!-- Filters -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       <div class="flex flex-wrap gap-3">
         <input type="text" id="searchInput" placeholder="Search by name or email"
@@ -30,14 +31,9 @@
         <input type="date" id="dateFilter" class="px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white"
                onchange="filterAppointments()">
       </div>
-
-      <a href="{% url 'export_appointments_csv' %}"
-         class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded transition">
-        Download CSV
-      </a>
     </div>
 
-    <!-- Appointment Table -->
+    <!-- Appointments Table -->
     <div class="overflow-x-auto">
       <table id="appointmentTable" class="min-w-full text-sm table-auto text-left">
         <thead class="bg-gray-700 text-gray-300">
@@ -51,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for appt in recent_appointments %}
+          {% for appt in my_appointments %}
           <tr class="border-b border-gray-700 hover:bg-gray-700 transition duration-200">
             <td class="px-4 py-2">{{ appt.name }}</td>
             <td class="px-4 py-2">{{ appt.email }}</td>
@@ -60,52 +56,21 @@
             <td class="px-4 py-2">
               {% if appt.status == "completed" %}
                 <span class="text-green-400 font-semibold">✔ Completed</span>
-                {% if appt.assigned_staff %}
-                  <div class="text-xs text-gray-400">by {{ appt.assigned_staff }}</div>
-                {% endif %}
               {% else %}
                 <span class="text-yellow-400 font-semibold">⏳ Pending</span>
               {% endif %}
             </td>
             <td class="px-4 py-2 flex flex-wrap gap-2">
-              {% if appt.status == "completed" %}
-                <a href="{% url 'toggle_completion' appt.id %}" class="text-red-400 hover:underline">
-                  Mark Uncompleted
-                </a>
-              {% else %}
-                <a href="{% url 'toggle_completion' appt.id %}" class="text-green-400 hover:underline">
-                  Mark Completed
-                </a>
-              {% endif %}
-
               <a href="{% url 'receipt' appt.id %}" target="_blank" class="text-yellow-400 hover:underline">View</a>
               <a href="{% url 'download_receipt_pdf' appt.id %}" class="text-blue-400 hover:underline">PDF</a>
-              <a href="{% url 'cancel_appointment' appt.id %}" class="text-red-400 hover:underline"
-                 onclick="return confirm('Are you sure you want to cancel this appointment?');">
-                Cancel
+              <a href="{% url 'toggle_completion' appt.id %}" class="text-green-400 hover:underline">
+                {% if appt.status == "completed" %}Mark Uncompleted{% else %}Mark Completed{% endif %}
               </a>
-
-              <form method="post" action="{% url 'assign_appointment_staff' appt.id %}" class="flex items-center gap-2 mt-2">
-                {% csrf_token %}
-                <select name="assigned_staff" class="bg-gray-700 border border-gray-600 text-white text-sm px-2 py-1 rounded w-40">
-                  <option value="">Assign Staff</option>
-                  {% for staff in staff_users %}
-                    {% with staff.get_full_name|default:staff.username as staff_display %}
-                      <option value="{{ staff_display }}" {% if appt.assigned_staff == staff_display %}selected{% endif %}>
-                        {{ staff_display }}
-                      </option>
-                    {% endwith %}
-                  {% endfor %}
-                </select>
-                <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded">
-                  Assign
-                </button>
-              </form>
             </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="6" class="px-4 py-3 text-center text-gray-400">No appointments found.</td>
+            <td colspan="6" class="px-4 py-3 text-center text-gray-400">No appointments assigned yet.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -114,7 +79,6 @@
   </div>
 </div>
 
-<!-- Search/Filter Logic -->
 <script>
   function filterAppointments() {
     const search = document.getElementById("searchInput").value.toLowerCase();
